@@ -1,0 +1,47 @@
+{
+  "name": "sisko",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Amar",
+  "type": "commonjs",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon src/index.ts",
+    "start": "nodemon src/index.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.14.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jest": "^30.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.5",
+    "prisma": "^6.14.0",
+    "streamifier": "^0.1.1",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.3.0",
+    "@types/nodemailer": "^7.0.0",
+    "@types/streamifier": "^0.1.2",
+    "@types/supertest": "^6.0.3",
+    "ts-node": "^10.9.2"
+  }
+}
