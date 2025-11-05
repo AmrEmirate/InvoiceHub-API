@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  // output   = "./generated/client"
   output   = "../src/generated/prisma"
 }
 
@@ -7,4 +8,141 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  password    String
+  name        String
+  company     String
+  
+  phone       String?
+  address     String?
+  city        String?
+  state       String?
+  zipCode     String?
+  country     String?
+  taxId       String?
+  bankAccount String?
+
+  clients     Client[]
+  categories  Category[]
+  products    Product[]
+  invoices    Invoice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id                 String   @id @default(cuid())
+  name               String
+  email              String
+  phone              String?
+  address            String?
+  paymentPreferences String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  invoices Invoice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, email])
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  deletedAt DateTime?
+
+  @@unique([userId, name])
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal @default(0)
+  sku         String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  invoiceItems InvoiceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  deletedAt DateTime?
+
+  @@unique([userId, sku])
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PENDING
+  PAID
+  OVERDUE
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String
+  status        InvoiceStatus @default(DRAFT)
+  
+  invoiceDate   DateTime      @default(now())
+  dueDate       DateTime
+  
+  currency      String        @default("USD")
+  notes         String?
+  totalAmount   Decimal       @default(0)
+
+  isRecurring        Boolean  @default(false)
+  recurrenceInterval String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+
+  items InvoiceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, invoiceNumber])
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  description String
+  quantity    Int
+  price       Decimal
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
