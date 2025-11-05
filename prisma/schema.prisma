@@ -10,7 +10,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model User {
+model Accounts {
   id          String   @id @default(cuid())
   email       String   @unique
   password    String
@@ -43,23 +43,23 @@ model Client {
   address            String?
   paymentPreferences String?
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountsId String
+  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   invoices Invoice[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, email])
+  @@unique([accountsId, email])
 }
 
 model Category {
   id   String @id @default(cuid())
   name String
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountsId String
+  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   products Product[]
 
@@ -68,7 +68,7 @@ model Category {
   
   deletedAt DateTime?
 
-  @@unique([userId, name])
+  @@unique([accountsId, name])
 }
 
 model Product {
@@ -78,8 +78,8 @@ model Product {
   price       Decimal @default(0)
   sku         String
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountsId String
+  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
@@ -91,7 +91,7 @@ model Product {
   
   deletedAt DateTime?
 
-  @@unique([userId, sku])
+  @@unique([accountsId, sku])
 }
 
 enum InvoiceStatus {
@@ -117,8 +117,8 @@ model Invoice {
   isRecurring        Boolean  @default(false)
   recurrenceInterval String?
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountsId String
+  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   clientId String
   client   Client @relation(fields: [clientId], references: [id])
@@ -128,7 +128,7 @@ model Invoice {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, invoiceNumber])
+  @@unique([accountsId, invoiceNumber])
 }
 
 model InvoiceItem {
