@@ -95,10 +95,10 @@ model Product {
 
 enum InvoiceStatus {
   DRAFT
-  SENT
   PENDING
   PAID
   OVERDUE
+  CANCELLED
 }
 
 model Invoice {
