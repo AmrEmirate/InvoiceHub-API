@@ -85,6 +85,21 @@ class InvoiceController {
       next(error);
     }
   }
+
+  public async sendEmail(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const { id } = req.params; // ID Invoice
+
+      await InvoiceService.sendInvoiceEmail(id, userId);
+
+      res.status(200).json({
+        message: "Invoice sent successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 // Pastikan baris ini ada di paling bawah

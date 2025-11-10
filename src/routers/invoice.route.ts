@@ -22,30 +22,24 @@ class InvoiceRouter {
     // Terapkan authMiddleware ke SEMUA rute di bawah ini
     this.router.use(authMiddleware);
 
-    this.router.post(
-      "/",
-      createInvoiceValidator,
-      this.controller.create.bind(this.controller)
-    );
+    // ... (Route POST /, GET /, GET /:id) ...
 
-    this.router.get(
-      "/",
-      this.controller.getAll.bind(this.controller)
-    );
-
-    this.router.get(
-      "/:id",
-      validateIdParam,
-      this.controller.getOne.bind(this.controller)
-    );
-
-    // Endpoint khusus untuk update status (lebih baik daripada PUT)
+    // Endpoint khusus untuk update status
     this.router.patch(
       "/:id/status",
       validateIdParam,
       updateInvoiceStatusValidator,
       this.controller.updateStatus.bind(this.controller)
     );
+
+    // --- TAMBAHKAN RUTE BARU DI SINI ---
+    // Endpoint untuk mengirim email
+    this.router.post(
+      "/:id/send",
+      validateIdParam,
+      this.controller.sendEmail.bind(this.controller)
+    );
+    // --- AKHIR RUTE BARU ---
 
     this.router.delete(
       "/:id",

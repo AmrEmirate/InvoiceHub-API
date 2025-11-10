@@ -1,5 +1,5 @@
 // File: src/repositories/invoice.repository.ts
-import { PrismaClient, Invoice } from "../generated/prisma";
+import { PrismaClient, Invoice, InvoiceStatus } from "../generated/prisma";
 import { TCreateInvoiceInput } from "../types/invoice.types";
 import { Decimal } from "@prisma/client/runtime/library";
 
@@ -33,7 +33,7 @@ class InvoiceRepository {
         ...item,
         price: new Decimal(item.price), // Pastikan harga adalah Decimal
         invoiceId: newInvoice.id, // Hubungkan ke Invoice baru
-        // productId di-pass langsung jika ada
+        productId: item.productId || null, // Pastikan null jika undefined
       }));
 
       // 3. Buat semua InvoiceItems
@@ -41,11 +41,17 @@ class InvoiceRepository {
         data: itemsData,
       });
 
-      // Kembalikan invoice yang baru dibuat
-      // Kita perlu mengambilnya lagi agar relasi `items` ter-load
+      // 4. Ambil lagi invoice-nya dengan SEMUA relasi
       const createdInvoiceWithItems = await tx.invoice.findUniqueOrThrow({
         where: { id: newInvoice.id },
-        include: { items: true, client: true }
+        // --- PERBAIKAN DI SINI ---
+        // Kita harus 'include' relasi agar service bisa mengaksesnya
+        include: { 
+          items: true, 
+          client: true, 
+          user: true // <-- Ini yang hilang di 'create'
+        },
+        // --- AKHIR PERBAIKAN ---
       });
 
       return createdInvoiceWithItems;
@@ -60,7 +66,7 @@ class InvoiceRepository {
     userId: string,
     filters: {
       search?: string; // Untuk invoiceNumber
-      status?: any; // Dibuat 'any' agar bisa menerima string dari query
+      status?: InvoiceStatus; // Terima Tipe ENUM
       clientId?: string;
     }
   ): Promise<Invoice[]> {
@@ -82,7 +88,7 @@ class InvoiceRepository {
     return await prisma.invoice.findMany({
       where: whereCondition,
       include: {
-        client: true, // Sertakan data client
+        client: true, // Sertakan data client (penting untuk FE)
       },
       orderBy: { invoiceDate: "desc" },
     });
@@ -94,10 +100,13 @@ class InvoiceRepository {
   public async findByIdAndUser(
     id: string,
     userId: string
-  ): Promise<Invoice | null> {
+  ): Promise<(Invoice & { user: any; client: any; items: any[] }) | null> { // Memberi tipe yang lebih spesifik
     return await prisma.invoice.findFirst({
       where: { id, userId },
+      // --- PERBAIKAN DI SINI ---
+      // Kita harus 'include' relasi 'user'
       include: {
+        user: true, // <-- Ini yang hilang di 'findByIdAndUser'
         client: true,
         items: {
           include: {
@@ -105,6 +114,7 @@ class InvoiceRepository {
           },
         },
       },
+      // --- AKHIR PERBAIKAN ---
     });
   }
 
@@ -113,7 +123,7 @@ class InvoiceRepository {
    */
   public async updateStatus(
     id: string,
-    data: { status?: any; } // Dibuat 'any' agar bisa menerima string
+    data: { status?: InvoiceStatus } // Terima Tipe ENUM
   ): Promise<Invoice> {
     return await prisma.invoice.update({
       where: { id },
