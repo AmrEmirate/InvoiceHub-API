@@ -1,7 +1,11 @@
-// File: src/controllers/auth.controller.ts
 import { Request, Response, NextFunction } from "express";
 import AuthService from "../service/auth.service";
-import AppError from "../utils/AppError";
+import AppError from "../utils/AppError"; // Pastikan AppError diimpor
+import { SafeUser } from "../types/express"; // Import SafeUser dari types/express
+
+interface AuthRequest extends Request {
+  user?: SafeUser; // Menggunakan SafeUser yang sudah didefinisikan
+}
 
 class AuthController {
   /**
@@ -34,6 +38,10 @@ class AuthController {
     }
   }
 
+  /**
+   * @route POST /api/auth/login
+   * @desc Login a user
+   */
   public async login(req: Request, res: Response, next: NextFunction) {
     try {
       // Data sudah divalidasi oleh middleware
@@ -58,14 +66,19 @@ class AuthController {
     }
   }
 
-  public async getMe(req: Request, res: Response, next: NextFunction) {
+  /**
+   * @route GET /api/auth/me
+   * @desc Get current user profile
+   */
+  public async getMe(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       // req.user diisi oleh authMiddleware
       if (!req.user) {
         throw new AppError(401, "User not authenticated");
       }
-      
+
       // Kirim data user yang sudah aman (tanpa password)
+      // data req.user diambil dari auth.middleware.ts
       res.status(200).json({
         message: "Profile fetched successfully",
         data: req.user,
@@ -74,7 +87,26 @@ class AuthController {
       next(error);
     }
   }
-}
 
+  // --- METHOD BARU YANG DITAMBAHKAN ---
+  /**
+   * @route PUT /api/auth/me
+   * @desc Update current user profile
+   */
+  public async updateMe(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id; // Ambil ID dari token (via authMiddleware)
+      const updatedUser = await AuthService.updateProfile(userId, req.body);
+
+      res.status(200).json({
+        message: "Profile updated successfully",
+        data: updatedUser,
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+  // --- AKHIR DARI METHOD BARU ---
+}
 
 export default new AuthController();

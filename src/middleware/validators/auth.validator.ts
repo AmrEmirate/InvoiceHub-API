@@ -33,3 +33,25 @@ export const loginValidator = [
     next();
   },
 ];
+
+export const updateProfileValidator = [
+  // Semua opsional, tapi jika ada, harus string
+  body("name").optional().isString().notEmpty().withMessage("Name cannot be empty"),
+  body("company").optional().isString().notEmpty().withMessage("Company cannot be empty"),
+  body("phone").optional().isString(),
+  body("address").optional().isString(),
+  body("city").optional().isString(),
+  body("state").optional().isString(),
+  body("zipCode").optional().isString(),
+  body("country").optional().isString(),
+  body("taxId").optional().isString(),
+  body("bankAccount").optional().isString(),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new AppError(400, "Validation failed", errors.array()));
+    }
+    next();
+  },
+];
