@@ -20,3 +20,16 @@ export const registerValidator = [
     next();
   },
 ];
+
+export const loginValidator = [
+  body("email").isEmail().withMessage("Must be a valid email"),
+  body("password").notEmpty().withMessage("Password is required"),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new AppError(400, "Validation failed", errors.array()));
+    }
+    next();
+  },
+];

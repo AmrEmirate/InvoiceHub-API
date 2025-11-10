@@ -5,7 +5,7 @@ import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import logger from "./utils/logger"; // <-- IMPORT LOGGER // <-- IMPORT ROUTER UTAMA
 import AppError from "./utils/AppError"; // <-- IMPORT AppError
-import mainRouter from ".";
+import mainRouter from "./routers";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -34,7 +34,7 @@ class App {
     });
 
     // DAFTARKAN SEMUA API ROUTES DI BAWAH /api
-    this.app.use("/api", mainRouter); // <-- GUNAKAN ROUTER UTAMA
+    this.app.use("/api", mainRouter);// <-- GUNAKAN ROUTER UTAMA
   }
 
   private errorHandler(): void {

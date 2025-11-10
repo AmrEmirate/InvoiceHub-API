@@ -1,11 +1,9 @@
-// File: src/routes/index.ts
-import { Router } from "express";
-import AuthRouter from "./routers/auth.route";
+import App from "./app";
 
-const mainRouter = Router();
+const main = () => {
+  const server = new App(); // instance of class App
 
-mainRouter.use("/auth", AuthRouter);
-// mainRouter.use("/clients", ClientRouter); // Nanti
-// mainRouter.use("/products", ProductRouter); // Nanti
+  server.start();
+};
 
-export default mainRouter;
+main();
