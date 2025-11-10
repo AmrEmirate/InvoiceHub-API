@@ -7,7 +7,7 @@ import logger from "./utils/logger"; // <-- IMPORT LOGGER // <-- IMPORT ROUTER U
 import AppError from "./utils/AppError"; // <-- IMPORT AppError
 import mainRouter from "./routers";
 
-const PORT: string = process.env.PORT || "8181";
+const PORT: string = process.env.PORT || "2020";
 
 class App {
   public app: Application;
