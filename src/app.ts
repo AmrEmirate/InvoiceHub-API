@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
-import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
 
 const PORT: string = process.env.PORT || "8181";
@@ -32,9 +31,6 @@ class App {
       res.status(200).send("<h1>Classbase API</h1>");
     });
 
-    // Mendaftarkan AuthRouter
-    const authRouter: AuthRouter = new AuthRouter();
-    this.app.use("/auth", authRouter.getRouter());
   }
 
   private errorHandler(): void {

@@ -10,7 +10,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Accounts {
+model User {
   id          String   @id @default(cuid())
   email       String   @unique
   password    String
@@ -44,7 +44,7 @@ model Client {
   paymentPreferences String?
 
   accountsId String
-  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   invoices Invoice[]
 
@@ -59,7 +59,7 @@ model Category {
   name String
 
   accountsId String
-  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   products Product[]
 
@@ -79,7 +79,7 @@ model Product {
   sku         String
 
   accountsId String
-  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
@@ -118,7 +118,7 @@ model Invoice {
   recurrenceInterval String?
 
   accountsId String
-  accounts   Accounts @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
 
   clientId String
   client   Client @relation(fields: [clientId], references: [id])
