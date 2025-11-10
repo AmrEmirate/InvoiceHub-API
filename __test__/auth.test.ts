@@ -1,29 +1,60 @@
-import App from "../src/app";
+// File: __test__/auth.test.ts
 import request from "supertest";
+import App from "../src/app"; // Asumsi app.ts mengekspor instance App
+import { PrismaClient } from "../src/generated/prisma";
 
-const appTest = new App().app;
+const appInstance = new App();
+const app = appInstance.app;
+const prisma = new PrismaClient();
 
-describe("Authentication", () => {
-  // GOOD CASE
-  it("Should login successfully with correct data", async () => {
-    const response = await request(appTest).post("/auth/signin").send({
-      email: "jelito1573@gardsiir.com",
-      password: "jelito1573@gardsiir.coM",
-    });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("account");
-    expect(response.body.success).toBeTruthy();
+describe("POST /api/auth/register", () => {
+  // Bersihkan database setelah semua tes
+  afterAll(async () => {
+    await prisma.user.deleteMany();
+    await prisma.$disconnect();
   });
 
-  // BAD CASE
-  it("Should fail login with incorrect password", async () => {
-    const response = await request(appTest).post("/auth/signin").send({
-      email: "jelito1573@gardsiir.com",
-      password: "jelito1573@gardsiir.cM",
-    });
+  it("should register a new user successfully", async () => {
+    const res = await request(app)
+      .post("/api/auth/register")
+      .send({
+        name: "Test User",
+        email: "test@example.com",
+        password: "password123",
+        company: "Test Inc.",
+      });
 
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Password is wrong");
+    expect(res.statusCode).toEqual(201);
+    expect(res.body.message).toBe("User registered successfully");
+    expect(res.body.data.user.email).toBe("test@example.com");
+    expect(res.body.data.token).toBeDefined();
+  });
+
+  it("should fail registration if email already exists", async () => {
+    const res = await request(app)
+      .post("/api/auth/register")
+      .send({
+        name: "Test User 2",
+        email: "test@example.com", // Email yang sama
+        password: "password123",
+        company: "Test Inc.",
+      });
+
+    expect(res.statusCode).toEqual(409); // 409 Conflict
+    expect(res.body.message).toBe("Email already registered");
+  });
+
+  it("should fail registration if validation fails (e.g., missing name)", async () => {
+    const res = await request(app)
+      .post("/api/auth/register")
+      .send({
+        email: "test2@example.com",
+        password: "password123",
+        company: "Test Inc.",
+      });
+
+    expect(res.statusCode).toEqual(400); // 400 Bad Request
+    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.details[0].path).toBe("name");
   });
 });

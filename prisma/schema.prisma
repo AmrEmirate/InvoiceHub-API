@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  // output   = "./generated/client"
   output   = "../src/generated/prisma"
 }
 
@@ -43,23 +42,23 @@ model Client {
   address            String?
   paymentPreferences String?
 
-  accountsId String
-  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   invoices Invoice[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([accountsId, email])
+  @@unique([userId, email])
 }
 
 model Category {
   id   String @id @default(cuid())
   name String
 
-  accountsId String
-  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   products Product[]
 
@@ -68,7 +67,7 @@ model Category {
   
   deletedAt DateTime?
 
-  @@unique([accountsId, name])
+  @@unique([userId, name])
 }
 
 model Product {
@@ -78,8 +77,8 @@ model Product {
   price       Decimal @default(0)
   sku         String
 
-  accountsId String
-  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
@@ -91,7 +90,7 @@ model Product {
   
   deletedAt DateTime?
 
-  @@unique([accountsId, sku])
+  @@unique([userId, sku])
 }
 
 enum InvoiceStatus {
@@ -107,18 +106,18 @@ model Invoice {
   invoiceNumber String
   status        InvoiceStatus @default(DRAFT)
   
-  invoiceDate   DateTime      @default(now())
-  dueDate       DateTime
+  invoiceDate DateTime @default(now())
+  dueDate     DateTime
   
-  currency      String        @default("USD")
-  notes         String?
-  totalAmount   Decimal       @default(0)
+  currency    String  @default("USD")
+  notes       String?
+  totalAmount Decimal @default(0)
 
   isRecurring        Boolean  @default(false)
   recurrenceInterval String?
 
-  accountsId String
-  accounts   User @relation(fields: [accountsId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   clientId String
   client   Client @relation(fields: [clientId], references: [id])
@@ -128,7 +127,7 @@ model Invoice {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([accountsId, invoiceNumber])
+  @@unique([userId, invoiceNumber])
 }
 
 model InvoiceItem {
