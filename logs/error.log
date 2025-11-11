@@ -1,0 +1,4 @@
+2025-11-10 19:56:37 [ERROR]: GET /api/clients/cmht5bdv80002h9z8vefemc1x: Validation failed {"code":400,"details":[{"type":"field","value":"cmht5bdv80002h9z8vefemc1x","msg":"Invalid ID format","path":"id","location":"params"}]}
+2025-11-10 19:57:31 [ERROR]: GET /api/clients/cmht5a5ph0000h9z8mug8diy5: Validation failed {"code":400,"details":[{"type":"field","value":"cmht5a5ph0000h9z8mug8diy5","msg":"Invalid ID format","path":"id","location":"params"}]}
+2025-11-10 19:57:34 [ERROR]: GET /api/clients/cmht5a5ph0000h9z8mug8diy5: Validation failed {"code":400,"details":[{"type":"field","value":"cmht5a5ph0000h9z8mug8diy5","msg":"Invalid ID format","path":"id","location":"params"}]}
+2025-11-10 19:57:55 [ERROR]: GET /api/clients/cmht5bdv80002h9z8vefemc1x: Validation failed {"code":400,"details":[{"type":"field","value":"cmht5bdv80002h9z8vefemc1x","msg":"Invalid ID format","path":"id","location":"params"}]}
