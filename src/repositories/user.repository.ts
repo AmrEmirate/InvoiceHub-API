@@ -39,6 +39,27 @@ class UserRepository {
       data,
     });
   }
+
+  public async findByVerificationToken(
+    token: string
+  ): Promise<User | null> {
+    return await prisma.user.findUnique({
+      where: { verificationToken: token },
+    });
+  }
+
+  /**
+   * Memverifikasi user dan menghapus tokennya
+   */
+  public async verifyUser(id: string): Promise<User> {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        isVerified: true,
+        verificationToken: null, // Hapus token setelah berhasil
+      },
+    });
+  }
   // --- AKHIR DARI METHOD BARU ---
 }
 

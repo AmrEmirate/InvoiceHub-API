@@ -1,123 +1,135 @@
-// File: src/service/auth.service.ts
 import UserRepository from "../repositories/user.repository";
 import {
   TCreateUserInput,
   TUpdateUserInput,
-} from "../types/user.types"; // <-- Pastikan TUpdateUserInput diimpor
+} from "../types/user.types";
 import AppError from "../utils/AppError";
-import { hashPassword, comparePassword } from "../utils/hash"; // <-- Pastikan comparePassword diimpor
+import { hashPassword, comparePassword } from "../utils/hash";
 import { createToken } from "../utils/jwt";
 import logger from "../utils/logger";
+import { transport } from "../config/nodemailer";
+import { generateVerificationToken } from "../utils/token";
 
-// Tipe data yang dikirim dari controller
 type TRegisterInput = Omit<TCreateUserInput, "password"> & {
   password_plain: string;
 };
 
 class AuthService {
-  /**
-   * Registrasi user baru
-   */
   public async register(
     input: TRegisterInput
-  ): Promise<{ user: any; token: string }> {
-    // 1. Cek apakah user sudah ada
-    const existingUser = await UserRepository.findUserByEmail(input.email); //
-    if (existingUser) { //
+  ): Promise<{ message: string }> {
+    const existingUser = await UserRepository.findUserByEmail(input.email);
+    if (existingUser) {
       logger.warn(
         `Registration attempt failed: Email ${input.email} already exists.`
-      ); //
-      throw new AppError(409, "Email already registered"); //
+      );
+      throw new AppError(409, "Email already registered");
     }
 
-    // 2. Hash password
-    const hashedPassword = await hashPassword(input.password_plain); //
+    const hashedPassword = await hashPassword(input.password_plain);
+    const verificationToken = generateVerificationToken();
 
-    // 3. Buat user baru
-    const newUserInput: TCreateUserInput = { //
-      email: input.email, //
-      name: input.name, //
-      company: input.company, //
-      password: hashedPassword, //
+    const newUserInput: TCreateUserInput & {
+      verificationToken: string;
+      isVerified: boolean;
+    } = {
+      email: input.email,
+      name: input.name,
+      company: input.company,
+      password: hashedPassword,
+      verificationToken: verificationToken,
+      isVerified: false,
     };
 
-    let createdUser; //
+    let createdUser;
     try {
-      createdUser = await UserRepository.createUser(newUserInput); //
-      logger.info(
-        `New user registered: ${createdUser.email} (ID: ${createdUser.id})`
-      ); //
+      createdUser = await UserRepository.createUser(newUserInput);
     } catch (dbError: any) {
-      logger.error(`Database error during user creation: ${dbError.message}`); //
-      throw new AppError(500, "Failed to create user", dbError); //
+      logger.error(`Database error during user creation: ${dbError.message}`);
+      throw new AppError(500, "Failed to create user", dbError);
     }
 
-    // 4. Buat JWT Token
-    const tokenPayload = { //
-      id: createdUser.id, //
-      email: createdUser.email, //
+    try {
+      const verificationUrl = `${
+        process.env.API_BASE_URL || "http://localhost:8181/api"
+      }/auth/verify?token=${verificationToken}`;
+
+      await transport.sendMail({
+        from: `"InvoiceHub" <${process.env.SMTP_USER}>`,
+        to: createdUser.email,
+        subject: "Selamat Datang! Verifikasi Akun Anda",
+        html: `
+          <p>Halo ${createdUser.name},</p>
+          <p>Terima kasih telah mendaftar. Silakan klik link di bawah ini untuk memverifikasi email Anda:</p>
+          <a href="${verificationUrl}" target="_blank">Verifikasi Akun Saya</a>
+          <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
+        `,
+      });
+
+      logger.info(
+        `Verification email sent to: ${createdUser.email} (ID: ${createdUser.id})`
+      );
+    } catch (emailError: any) {
+      logger.error(`Failed to send verification email: ${emailError.message}`);
+      throw new AppError(500, "Failed to send verification email", emailError);
+    }
+
+    return {
+      message: "Registration successful. Please check your email to verify your account.",
     };
-    const token = createToken(tokenPayload); //
-
-    // 5. Hapus password dari data user yang dikembalikan
-    const { password, ...userWithoutPassword } = createdUser; //
-
-    return { user: userWithoutPassword, token }; //
   }
 
-  // --- METHOD BARU (LOGIN) ---
-  /**
-   * Login user
-   */
+  public async verifyEmail(token: string): Promise<{ message: string }> {
+    const user = await UserRepository.findByVerificationToken(token);
+
+    if (!user) {
+      throw new AppError(404, "Invalid or expired verification token");
+    }
+
+    await UserRepository.verifyUser(user.id);
+    logger.info(`User verified: ${user.email} (ID: ${user.id})`);
+
+    return { message: "Email verified successfully. You can now login." };
+  }
+
   public async login(
     input: Pick<TRegisterInput, "email" | "password_plain">
   ): Promise<{ user: any; token: string }> {
-    // 1. Cari user berdasarkan email
     const user = await UserRepository.findUserByEmail(input.email);
     if (!user) {
       logger.warn(`Login attempt failed: Email ${input.email} not found.`);
       throw new AppError(401, "Invalid email or password");
     }
 
-    // 2. Bandingkan password
+    if (!user.isVerified) {
+      logger.warn(`Login attempt failed: Email ${input.email} not verified.`);
+      throw new AppError(403, "Please verify your email before logging in.");
+    }
+
     const isPasswordValid = await comparePassword(
       input.password_plain,
       user.password
     );
-
     if (!isPasswordValid) {
       logger.warn(`Login attempt failed: Invalid password for ${input.email}.`);
       throw new AppError(401, "Invalid email or password");
     }
 
-    // 3. Buat JWT Token
-    const tokenPayload = {
-      id: user.id,
-      email: user.email,
-    };
+    const tokenPayload = { id: user.id, email: user.email };
     const token = createToken(tokenPayload);
     logger.info(`User logged in: ${user.email} (ID: ${user.id})`);
 
-    // 4. Hapus password dari data user
     const { password, ...userWithoutPassword } = user;
-
     return { user: userWithoutPassword, token };
   }
 
-  // --- METHOD BARU (UPDATE PROFILE) ---
-  /**
-   * Update profile user
-   */
   public async updateProfile(
     userId: string,
     data: TUpdateUserInput
   ): Promise<any> {
     const updatedUser = await UserRepository.updateUser(userId, data);
     logger.info(`Profile updated for user: ${updatedUser.email} (ID: ${userId})`);
-
-    // Hapus password dari data user yang dikembalikan
     const { password, ...userWithoutPassword } = updatedUser;
-
     return userWithoutPassword;
   }
 }

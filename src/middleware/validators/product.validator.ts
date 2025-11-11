@@ -16,7 +16,7 @@ const handleValidationErrors = (
 };
 
 export const validateIdParam = [
-  param("id").isULID().withMessage("Invalid ID format"),
+  param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
 ];
 
@@ -27,7 +27,7 @@ export const createProductValidator = [
     .notEmpty().withMessage("Price is required")
     .isNumeric().withMessage("Price must be a number"),
   body("categoryId")
-    .isULID()
+    .isUUID()
     .withMessage("Invalid category ID format"),
   body("description").optional().isString(),
   handleValidationErrors,
@@ -40,7 +40,7 @@ export const updateProductValidator = [
     .isNumeric().withMessage("Price must be a number"),
   body("categoryId")
     .optional()
-    .isULID()
+    .isUUID()
     .withMessage("Invalid category ID format"),
   body("description").optional().isString(),
   handleValidationErrors,

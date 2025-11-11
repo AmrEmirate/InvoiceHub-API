@@ -17,23 +17,43 @@ class AuthController {
       // Data sudah divalidasi oleh middleware validator
       const { name, email, password, company } = req.body;
 
-      const { user, token } = await AuthService.register({
+      // PERUBAHAN: 'register' sekarang hanya mengembalikan pesan
+      const { message } = await AuthService.register({
         name,
         email,
         company,
         password_plain: password,
       });
 
-      // Kirim response sukses
+      // Kembalikan pesan sukses (BUKAN token)
       res.status(201).json({
-        message: "User registered successfully",
-        data: {
-          user,
-          token,
-        },
+        message: message,
       });
     } catch (error: any) {
       // Teruskan error ke error handler di app.ts
+      next(error);
+    }
+  }
+
+  /**
+   * @route GET /api/auth/verify
+   * @desc Verify a new user's email
+   */
+  public async verifyEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { token } = req.query as { token: string };
+
+      const { message } = await AuthService.verifyEmail(token);
+
+      // Kirim response HTML sederhana agar tab browser bisa ditutup
+      res.status(200).send(
+        `<html><body>
+           <h1>Verifikasi Berhasil!</h1>
+           <p>${message}</p>
+           <p>Anda bisa menutup tab ini sekarang.</p>
+         </body></html>`
+      );
+    } catch (error: any) {
       next(error);
     }
   }
@@ -47,6 +67,7 @@ class AuthController {
       // Data sudah divalidasi oleh middleware
       const { email, password } = req.body;
 
+      // (Service 'login' sekarang punya pengecekan isVerified)
       const { user, token } = await AuthService.login({
         email,
         password_plain: password,
@@ -88,7 +109,6 @@ class AuthController {
     }
   }
 
-  // --- METHOD BARU YANG DITAMBAHKAN ---
   /**
    * @route PUT /api/auth/me
    * @desc Update current user profile
@@ -106,7 +126,6 @@ class AuthController {
       next(error);
     }
   }
-  // --- AKHIR DARI METHOD BARU ---
 }
 
 export default new AuthController();

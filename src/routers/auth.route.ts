@@ -1,9 +1,11 @@
+// File: src/routers/auth.route.ts
 import { Router } from "express";
 import AuthController from "../controllers/auth.controller";
 import {
   registerValidator,
   loginValidator,
-  updateProfileValidator, // <-- 1. IMPORT VALIDATOR BARU
+  updateProfileValidator,
+  verifyEmailValidator, // <-- 1. Impor validator baru
 } from "../middleware/validators/auth.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -13,37 +15,43 @@ class AuthRouter {
 
   constructor() {
     this.router = Router();
-    this.controller = AuthController; // Pastikan ini sudah diperbaiki (tanpa 'new')
+    this.controller = AuthController;
     this.initializeRoutes();
   }
 
   private initializeRoutes(): void {
-    // Rute publik (tanpa authMiddleware)
+    // ... (route register, login) ...
     this.router.post(
       "/register",
       registerValidator,
-      this.controller.register.bind(this.controller) // .bind() untuk controller
+      this.controller.register.bind(this.controller)
     );
-
     this.router.post(
       "/login",
       loginValidator,
-      this.controller.login.bind(this.controller) // .bind() untuk controller
+      this.controller.login.bind(this.controller)
     );
 
-    // Rute yang dilindungi (membutuhkan authMiddleware)
+    // --- 2. TAMBAHKAN RUTE BARU ---
+    // Rute ini publik (tanpa authMiddleware) karena user belum login
+    this.router.get(
+      "/verify",
+      verifyEmailValidator, // Validasi query 'token'
+      this.controller.verifyEmail.bind(this.controller)
+    );
+    // --- AKHIR RUTE BARU ---
+
+    // ... (route /me GET dan PUT) ...
     this.router.get(
       "/me",
-      authMiddleware, // Dilindungi
+      authMiddleware,
       this.controller.getMe.bind(this.controller)
     );
-
-    // 2. RUTE BARU YANG DITAMBAHKAN
     this.router.put(
       "/me",
-      authMiddleware, // Dilindungi
-      updateProfileValidator, // Validasi input update
-      this.controller.updateMe.bind(this.controller) // .bind() untuk controller
+      authMiddleware,
+      updateProfileValidator,
+      this.controller.updateMe.bind(this.controller)
     );
   }
 }

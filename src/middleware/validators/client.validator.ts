@@ -15,9 +15,9 @@ const handleValidationErrors = (
   next();
 };
 
-// Validator untuk CUID (format ID default Prisma)
+// Validator untuk UUID (format ID default Prisma)
 export const validateIdParam = [
-  param("id").isULID().withMessage("Invalid ID format"),
+  param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
 ];
 

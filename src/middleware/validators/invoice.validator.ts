@@ -17,12 +17,12 @@ const handleValidationErrors = (
 };
     
 export const validateIdParam = [
-  param("id").isULID().withMessage("Invalid ID format"),
+  param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
 ];
 
 export const createInvoiceValidator = [
-  body("clientId").isULID().withMessage("Invalid client ID format"),
+  body("clientId").isUUID().withMessage("Invalid client ID format"),
   body("invoiceNumber").notEmpty().withMessage("Invoice number is required"),
   body("dueDate").isISO8601().toDate().withMessage("Invalid due date"),
   body("status")
@@ -47,7 +47,7 @@ export const createInvoiceValidator = [
     .withMessage("Item price must be a number"),
   body("items.*.productId")
     .optional()
-    .isULID()
+    .isUUID()
     .withMessage("Invalid product ID format"),
 
   handleValidationErrors,

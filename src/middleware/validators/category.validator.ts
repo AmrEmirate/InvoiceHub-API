@@ -15,11 +15,11 @@ const handleValidationErrors = (
   next();
 };
 
-// Validator untuk CUID (ID) sudah ada di client.validator.ts
+// Validator untuk UUID (ID) sudah ada di client.validator.ts
 // Kita bisa impor dari sana, atau buat lagi di sini.
 // Untuk kesederhanaan, kita buat lagi di sini.
 export const validateIdParam = [
-  param("id").isULID().withMessage("Invalid ID format"),
+  param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
 ];
 
