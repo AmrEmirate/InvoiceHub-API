@@ -24,3 +24,31 @@
 2025-11-10 20:05:02 [INFO]: GET /api/invoices
 2025-11-11 09:51:56 [INFO]: Starting cron jobs...
 2025-11-11 09:51:56 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-11 10:29:28 [INFO]: Starting cron jobs...
+2025-11-11 10:29:28 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-11 11:57:42 [INFO]: Starting cron jobs...
+2025-11-11 11:57:42 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-11 11:57:46 [INFO]: GET /
+2025-11-11 11:57:49 [INFO]: GET /favicon.ico
+2025-11-12 09:17:41 [INFO]: Starting cron jobs...
+2025-11-12 09:17:41 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-12 09:18:14 [INFO]: POST /api/auth/register
+2025-11-12 09:18:57 [INFO]: POST /api//auth/register
+2025-11-12 09:19:00 [INFO]: POST /api//auth/register
+2025-11-12 09:19:10 [INFO]: POST /api/auth/register
+2025-11-12 09:19:42 [INFO]: POST /api/auth/register
+2025-11-12 09:24:45 [INFO]: POST /api/auth/register
+2025-11-12 09:26:50 [INFO]: Starting cron jobs...
+2025-11-12 09:26:50 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-12 09:27:00 [INFO]: POST /api/auth/register
+2025-11-12 09:29:53 [INFO]: POST /api/auth/register
+2025-11-12 09:32:23 [INFO]: Starting cron jobs...
+2025-11-12 09:32:23 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-12 09:32:24 [INFO]: Nodemailer transport is ready.
+2025-11-12 09:33:41 [INFO]: POST /api/auth/register
+2025-11-12 09:33:44 [INFO]: Verification email sent to: amremirate205@gmail.com (ID: f796220b-ab09-474a-aa2c-fc74e55606f1)
+2025-11-12 09:35:08 [INFO]: Starting cron jobs...
+2025-11-12 09:35:08 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-12 09:35:09 [INFO]: Nodemailer transport is ready.
+2025-11-12 09:35:21 [INFO]: POST /api/auth/register
+2025-11-12 09:35:24 [INFO]: Verification email sent to: amremirate209@gmail.com (ID: 786435d7-5714-4a8e-9ea3-dc4bcc998de5)
