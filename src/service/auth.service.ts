@@ -9,6 +9,7 @@ import { createToken } from "../utils/jwt";
 import logger from "../utils/logger";
 import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
+import { User } from "../generated/prisma";
 
 // Tipe data input dari controller (tanpa password)
 type TRegisterInput = Omit<TCreateUserInput, "password" | "verificationToken" | "isVerified">;
@@ -157,6 +158,17 @@ class AuthService {
     const { password, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
   }
+  public async handleGoogleLogin(
+    user: User
+  ): Promise<{ user: any; token: string }> {
+    const tokenPayload = { id: user.id, email: user.email };
+    const token = createToken(tokenPayload);
+    logger.info(`User logged in via Google: ${user.email} (ID: ${user.id})`);
+
+    const { password, ...userWithoutPassword } = user;
+    return { user: userWithoutPassword, token };
+  }
 }
+
 
 export default new AuthService();

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import AuthService from "../service/auth.service";
 import AppError from "../utils/AppError";
 import { SafeUser } from "../types/express";
+import { User } from "../generated/prisma";
 
 interface AuthRequest extends Request {
   user?: SafeUser;
@@ -90,6 +91,31 @@ class AuthController {
       next(error);
     }
   }
+
+  public async googleCallback(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.user) {
+        throw new AppError(401, "Google authentication failed");
+      }
+
+      const { user, token } = await AuthService.handleGoogleLogin(
+        req.user as User
+      );
+
+      // Redirect kembali ke Frontend dengan token di URL
+      // FE_URL harus ada di .env (misal: http://localhost:3000)
+      const feUrl = process.env.FE_URL || "http://localhost:3000";
+      
+      // Kirim token dan data user sebagai query params
+      const userData = encodeURIComponent(JSON.stringify(user));
+      res.redirect(
+        `${feUrl}/auth/callback?token=${token}&user=${userData}`
+      );
+    } catch (error: any) {
+      next(error);
+    }
+  }
+  // --- AKHIR TAMBAHAN ---
 }
 
 export default new AuthController();
