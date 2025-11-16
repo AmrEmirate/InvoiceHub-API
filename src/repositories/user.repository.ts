@@ -1,7 +1,6 @@
 import { PrismaClient, User } from "../generated/prisma";
 import { TCreateUserInput, TUpdateUserInput } from "../types/user.types";
 
-// Inisialisasi Prisma Client (kamu bisa pindahkan ini ke src/config/prisma.ts jika mau)
 const prisma = new PrismaClient();
 
 class UserRepository {
@@ -23,13 +22,6 @@ class UserRepository {
     });
   }
 
-  // --- METHOD BARU YANG DITAMBAHKAN ---
-  /**
-   * Mengupdate data user berdasarkan ID
-   * @param id ID user yang akan di-update
-   * @param data Data baru yang akan di-update
-   * @returns User yang sudah ter-update
-   */
   public async updateUser(
     id: string,
     data: TUpdateUserInput
@@ -49,18 +41,21 @@ class UserRepository {
   }
 
   /**
-   * Memverifikasi user dan menghapus tokennya
+   * Mengatur password, memverifikasi user, dan menghapus token
    */
-  public async verifyUser(id: string): Promise<User> {
+  public async setPasswordAndVerify(
+    id: string,
+    hashedPassword: string
+  ): Promise<User> {
     return await prisma.user.update({
       where: { id },
       data: {
+        password: hashedPassword,
         isVerified: true,
         verificationToken: null, // Hapus token setelah berhasil
       },
     });
   }
-  // --- AKHIR DARI METHOD BARU ---
 }
 
 export default new UserRepository();

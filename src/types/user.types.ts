@@ -1,13 +1,14 @@
-// File: src/types/user.types.ts
-// Tipe ini berdasarkan input dari form signup
+// Tipe untuk membuat user baru di repo
 export type TCreateUserInput = {
-  email: string; // <-- BENAR (wajib)
-  password: string; // <-- BENAR (wajib)
-  name: string; // <-- BENAR (wajib)
-  company: string; // <-- BENAR (wajib)
+  email: string;
+  name: string;
+  company: string;
+  password?: string | null; // <-- UBAH INI
+  verificationToken?: string | null; // <-- Tambahkan ini
+  isVerified?: boolean; // <-- Tambahkan ini
 };
 
-// Tipe untuk update profile (ini boleh opsional)
+// Tipe untuk update profile (Tidak berubah)
 export type TUpdateUserInput = {
   name?: string;
   company?: string;

@@ -10,11 +10,13 @@ import logger from "../utils/logger";
 import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
 
-type TRegisterInput = Omit<TCreateUserInput, "password"> & {
-  password_plain: string;
-};
+// Tipe data input dari controller (tanpa password)
+type TRegisterInput = Omit<TCreateUserInput, "password" | "verificationToken" | "isVerified">;
 
 class AuthService {
+  /**
+   * Registrasi user baru (Tanpa Password)
+   */
   public async register(
     input: TRegisterInput
   ): Promise<{ message: string }> {
@@ -26,17 +28,13 @@ class AuthService {
       throw new AppError(409, "Email already registered");
     }
 
-    const hashedPassword = await hashPassword(input.password_plain);
     const verificationToken = generateVerificationToken();
 
-    const newUserInput: TCreateUserInput & {
-      verificationToken: string;
-      isVerified: boolean;
-    } = {
+    const newUserInput: TCreateUserInput = {
       email: input.email,
       name: input.name,
       company: input.company,
-      password: hashedPassword,
+      password: null, // Password belum di-set
       verificationToken: verificationToken,
       isVerified: false,
     };
@@ -49,51 +47,68 @@ class AuthService {
       throw new AppError(500, "Failed to create user", dbError);
     }
 
+    // Kirim email untuk "Set Password"
     try {
-      const verificationUrl = `${
-        process.env.API_BASE_URL || "http://localhost:8181/api"
-      }/auth/verify?token=${verificationToken}`;
+      // PENTING: Tambahkan FE_URL di .env (misal: http://localhost:3000)
+      const setPasswordUrl = `${
+        process.env.FE_URL || "http://localhost:3000"
+      }/auth/set-password?token=${verificationToken}`;
 
       await transport.sendMail({
         from: `"InvoiceHub" <${process.env.SMTP_USER}>`,
         to: createdUser.email,
-        subject: "Selamat Datang! Verifikasi Akun Anda",
+        subject: "Selamat Datang! Atur Password Akun Anda",
         html: `
           <p>Halo ${createdUser.name},</p>
-          <p>Terima kasih telah mendaftar. Silakan klik link di bawah ini untuk memverifikasi email Anda:</p>
-          <a href="${verificationUrl}" target="_blank">Verifikasi Akun Saya</a>
+          <p>Terima kasih telah mendaftar. Silakan klik link di bawah ini untuk mengatur password Anda:</p>
+          <a href="${setPasswordUrl}" target="_blank">Atur Password Saya</a>
           <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
         `,
       });
 
       logger.info(
-        `Verification email sent to: ${createdUser.email} (ID: ${createdUser.id})`
+        `Set password email sent to: ${createdUser.email} (ID: ${createdUser.id})`
       );
     } catch (emailError: any) {
-      logger.error(`Failed to send verification email: ${emailError.message}`);
+      logger.error(`Failed to send 'set password' email: ${emailError.message}`);
       throw new AppError(500, "Failed to send verification email", emailError);
     }
 
     return {
-      message: "Registration successful. Please check your email to verify your account.",
+      message:
+        "Registration successful. Please check your email to set your password.",
     };
   }
 
-  public async verifyEmail(token: string): Promise<{ message: string }> {
+  /**
+   * Logika baru untuk mengatur password
+   */
+  public async setPassword(
+    token: string,
+    password_plain: string
+  ): Promise<{ message: string }> {
     const user = await UserRepository.findByVerificationToken(token);
 
     if (!user) {
       throw new AppError(404, "Invalid or expired verification token");
     }
 
-    await UserRepository.verifyUser(user.id);
-    logger.info(`User verified: ${user.email} (ID: ${user.id})`);
+    if (user.isVerified || user.password) {
+       throw new AppError(400, "Password has already been set for this account.");
+    }
 
-    return { message: "Email verified successfully. You can now login." };
+    const hashedPassword = await hashPassword(password_plain);
+    await UserRepository.setPasswordAndVerify(user.id, hashedPassword);
+
+    logger.info(`Password set and user verified: ${user.email} (ID: ${user.id})`);
+    return { message: "Password set successfully. You can now login." };
   }
 
+  /**
+   * Login user (Logika tidak berubah, tapi pengecekan isVerified jadi lebih penting)
+   */
   public async login(
-    input: Pick<TRegisterInput, "email" | "password_plain">
+    input: Pick<TRegisterInput & { password_plain: string }, "email" | "password_plain">
   ): Promise<{ user: any; token: string }> {
     const user = await UserRepository.findUserByEmail(input.email);
     if (!user) {
@@ -101,6 +116,13 @@ class AuthService {
       throw new AppError(401, "Invalid email or password");
     }
 
+    // Jika password belum di-set SAMA SEKALI
+    if (!user.password) {
+        logger.warn(`Login attempt failed: Password not set for ${input.email}.`);
+        throw new AppError(403, "Please set your password via the verification email first.");
+    }
+    
+    // Jika password sudah di-set tapi belum diverifikasi (seharusnya tidak terjadi di alur ini)
     if (!user.isVerified) {
       logger.warn(`Login attempt failed: Email ${input.email} not verified.`);
       throw new AppError(403, "Please verify your email before logging in.");
@@ -123,6 +145,9 @@ class AuthService {
     return { user: userWithoutPassword, token };
   }
 
+  /**
+   * Update profile (Tidak berubah)
+   */
   public async updateProfile(
     userId: string,
     data: TUpdateUserInput

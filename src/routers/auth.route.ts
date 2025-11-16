@@ -1,11 +1,10 @@
-// File: src/routers/auth.route.ts
 import { Router } from "express";
 import AuthController from "../controllers/auth.controller";
 import {
   registerValidator,
   loginValidator,
   updateProfileValidator,
-  verifyEmailValidator, // <-- 1. Impor validator baru
+  setPasswordValidator, // <-- Ganti nama validator
 } from "../middleware/validators/auth.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -20,33 +19,31 @@ class AuthRouter {
   }
 
   private initializeRoutes(): void {
-    // ... (route register, login) ...
     this.router.post(
       "/register",
-      registerValidator,
+      registerValidator, // Validator sudah diubah (tanpa password)
       this.controller.register.bind(this.controller)
     );
+
     this.router.post(
       "/login",
       loginValidator,
       this.controller.login.bind(this.controller)
     );
 
-    // --- 2. TAMBAHKAN RUTE BARU ---
-    // Rute ini publik (tanpa authMiddleware) karena user belum login
-    this.router.get(
-      "/verify",
-      verifyEmailValidator, // Validasi query 'token'
-      this.controller.verifyEmail.bind(this.controller)
+    // GANTI route GET /verify menjadi POST /set-password
+    this.router.post(
+      "/set-password",
+      setPasswordValidator, // Gunakan validator baru
+      this.controller.setPassword.bind(this.controller)
     );
-    // --- AKHIR RUTE BARU ---
 
-    // ... (route /me GET dan PUT) ...
     this.router.get(
       "/me",
       authMiddleware,
       this.controller.getMe.bind(this.controller)
     );
+
     this.router.put(
       "/me",
       authMiddleware,

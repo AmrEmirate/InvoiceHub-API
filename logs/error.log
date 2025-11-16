@@ -12,3 +12,37 @@
 2025-11-12 09:27:02 [ERROR]: POST /api/auth/register: Failed to send verification email {"code":500,"details":{"code":"EAUTH","command":"API"}}
 2025-11-12 09:29:54 [ERROR]: Failed to send verification email: Missing credentials for "PLAIN"
 2025-11-12 09:29:54 [ERROR]: POST /api/auth/register: Failed to send verification email {"code":500,"details":{"code":"EAUTH","command":"API"}}
+2025-11-13 09:26:58 [ERROR]: GET /api/auth/verify: Invalid or expired verification token {"code":404}
+2025-11-13 09:27:21 [ERROR]: GET /api/auth/verify: Invalid or expired verification token {"code":404}
+2025-11-13 09:27:23 [ERROR]: GET /api/auth/verify: Invalid or expired verification token {"code":404}
+2025-11-13 09:27:25 [ERROR]: GET /api/auth/verify: Invalid or expired verification token {"code":404}
+2025-11-13 09:27:34 [ERROR]: GET /api/auth/verify: Invalid or expired verification token {"code":404}
+2025-11-13 09:27:52 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 10:08:33 [ERROR]: POST /api/products: 
+Invalid `prisma.product.create()` invocation in
+C:\Dev 1\InvoiceHub\invoicehub-api\src\repositories\product.repository.ts:13:33
+
+  10 // Pastikan harga adalah Decimal
+  11 const priceAsDecimal = new Decimal(data.price);
+  12 
+→ 13 return await prisma.product.create(
+Unique constraint failed on the fields: (`userId`,`sku`) {"code":"P2002","meta":{"modelName":"Product","target":["userId","sku"]},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-13 10:09:16 [ERROR]: POST /api/products: 
+Invalid `prisma.product.create()` invocation in
+C:\Dev 1\InvoiceHub\invoicehub-api\src\repositories\product.repository.ts:13:33
+
+  10 // Pastikan harga adalah Decimal
+  11 const priceAsDecimal = new Decimal(data.price);
+  12 
+→ 13 return await prisma.product.create(
+Unique constraint failed on the fields: (`userId`,`sku`) {"code":"P2002","meta":{"modelName":"Product","target":["userId","sku"]},"clientVersion":"6.17.1","name":"PrismaClientKnownRequestError"}
+2025-11-13 19:19:17 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:24:39 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:24:41 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:55:32 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:55:34 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:55:35 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 19:55:37 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 20:05:46 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 20:05:48 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-13 20:20:49 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
