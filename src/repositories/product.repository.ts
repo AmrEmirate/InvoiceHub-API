@@ -1,5 +1,6 @@
 // File: src/repositories/product.repository.ts
 import { PrismaClient, Product } from "../generated/prisma";
+import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 import { TCreateProductInput, TUpdateProductInput } from "../types/product.types";
 import { Decimal } from "@prisma/client/runtime/library";
 
@@ -35,10 +36,17 @@ class ProductRepository {
    * Mencari semua produk milik seorang user (yang belum di-soft-delete).
    * Termasuk filter dan relasi kategori.
    */
+/**
+   * PERUBAHAN: Mencari semua produk dengan paginasi
+   */
   public async findAllByUser(
     userId: string,
-    filters: { search?: string; categoryId?: string }
-  ): Promise<Product[]> {
+    filters: { search?: string; categoryId?: string },
+    pagination: PaginationParams // <-- PARAMETER BARU
+  ): Promise<PaginatedResponse<Product>> { // <-- TIPE KEMBALIAN BARU
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
     const whereCondition: any = { userId, deletedAt: null };
 
     if (filters.search) {
@@ -47,18 +55,37 @@ class ProductRepository {
         mode: "insensitive",
       };
     }
-    
+
     if (filters.categoryId) {
       whereCondition.categoryId = filters.categoryId;
     }
 
-    return await prisma.product.findMany({
+    // 1. Ambil data halaman saat ini
+    const data = await prisma.product.findMany({
       where: whereCondition,
       include: {
-        category: true, // Sertakan data kategori
+        category: true,
       },
       orderBy: { createdAt: "desc" },
+      skip: skip,
+      take: limit,
     });
+
+    // 2. Ambil total data
+    const total = await prisma.product.count({
+      where: whereCondition,
+    });
+
+    // 3. Kembalikan data + meta paginasi
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   /**

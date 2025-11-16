@@ -21,14 +21,34 @@ class ProductController {
     }
   }
 
-  public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
+public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
-      const filters = req.query as { search?: string; categoryId?: string };
-      const products = await ProductService.getProducts(userId, filters);
+
+      // Ambil filter dan paginasi dari query URL
+      const { search, categoryId, page, limit } = req.query;
+
+      const paginationParams = {
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
+      };
+
+      const filters = {
+        search: search as string | undefined,
+        categoryId: categoryId as string | undefined,
+      };
+
+      const productsResponse = await ProductService.getProducts(
+        userId,
+        filters,
+        paginationParams
+      );
+
+      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Products fetched successfully",
-        data: products,
+        data: productsResponse.data,
+        meta: productsResponse.meta,
       });
     } catch (error) {
       next(error);

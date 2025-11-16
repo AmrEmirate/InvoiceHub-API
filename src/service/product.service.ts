@@ -5,6 +5,8 @@ import { TUpdateProductInput } from "../types/product.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
+import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
+import { Product } from "../generated/prisma";
 
 type TCreateInput = {
   name: string;
@@ -51,11 +53,15 @@ class ProductService {
   /**
    * Mengambil semua produk milik user, dengan filter.
    */
+/**
+   * PERUBAHAN: Mengambil produk dengan paginasi
+   */
   public async getProducts(
     userId: string,
-    filters: { search?: string; categoryId?: string }
-  ) {
-    return await ProductRepository.findAllByUser(userId, filters);
+    filters: { search?: string; categoryId?: string },
+    pagination: PaginationParams // <-- PARAMETER BARU
+  ): Promise<PaginatedResponse<Product>> { // <-- TIPE KEMBALIAN BARU
+    return await ProductRepository.findAllByUser(userId, filters, pagination);
   }
 
   /**

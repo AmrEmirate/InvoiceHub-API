@@ -1,10 +1,10 @@
-// File: src/routers/product.route.ts
 import { Router } from "express";
 import ProductController from "../controllers/product.controller";
 import {
   createProductValidator,
   updateProductValidator,
   validateIdParam,
+  getProductsValidator, // <-- 1. IMPORT VALIDATOR BARU
 } from "../middleware/validators/product.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -19,7 +19,6 @@ class ProductRouter {
   }
 
   private initializeRoutes(): void {
-    // Terapkan authMiddleware ke SEMUA rute di bawah ini
     this.router.use(authMiddleware);
 
     this.router.post(
@@ -28,8 +27,10 @@ class ProductRouter {
       this.controller.create.bind(this.controller)
     );
 
+    // 2. TERAPKAN VALIDATOR BARU
     this.router.get(
       "/",
+      getProductsValidator,
       this.controller.getAll.bind(this.controller)
     );
 
