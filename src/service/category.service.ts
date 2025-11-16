@@ -1,6 +1,8 @@
 // File: src/service/category.service.ts
+import { Category } from "../generated/prisma";
 import CategoryRepository from "../repositories/category.repository";
 import { TUpdateCategoryInput } from "../types/category.types";
+import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
@@ -26,8 +28,12 @@ class CategoryService {
   /**
    * Mengambil semua kategori milik user, dengan filter.
    */
-  public async getCategories(userId: string, filters: { search?: string }) {
-    return await CategoryRepository.findAllByUser(userId, filters);
+ public async getCategories(
+    userId: string,
+    filters: { search?: string },
+    pagination: PaginationParams // <-- PARAMETER BARU
+  ): Promise<PaginatedResponse<Category>> { // <-- TIPE KEMBALIAN BARU
+    return await CategoryRepository.findAllByUser(userId, filters, pagination);
   }
 
   /**

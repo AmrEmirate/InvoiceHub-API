@@ -22,14 +22,36 @@ class CategoryController {
     }
   }
 
+ /**
+   * PERUBAHAN: Membaca query paginasi
+   */
   public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
-      const filters = req.query as { search?: string };
-      const categories = await CategoryService.getCategories(userId, filters);
+      
+      // Ambil filter dan paginasi dari query URL
+      const { search, page, limit } = req.query;
+
+      const paginationParams = {
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
+      };
+      
+      const filters = {
+        search: search as string | undefined
+      };
+
+      const categoriesResponse = await CategoryService.getCategories(
+        userId,
+        filters,
+        paginationParams
+      );
+
+      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Categories fetched successfully",
-        data: categories,
+        data: categoriesResponse.data,
+        meta: categoriesResponse.meta,
       });
     } catch (error) {
       next(error);

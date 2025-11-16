@@ -1,10 +1,10 @@
-// File: src/routers/category.route.ts
 import { Router } from "express";
 import CategoryController from "../controllers/category.controller";
 import {
   createCategoryValidator,
   updateCategoryValidator,
   validateIdParam,
+  getCategoriesValidator, // <-- 1. IMPORT VALIDATOR BARU
 } from "../middleware/validators/category.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -19,7 +19,6 @@ class CategoryRouter {
   }
 
   private initializeRoutes(): void {
-    // Terapkan authMiddleware ke SEMUA rute di bawah ini
     this.router.use(authMiddleware);
 
     this.router.post(
@@ -28,8 +27,10 @@ class CategoryRouter {
       this.controller.create.bind(this.controller)
     );
 
+    // 2. TERAPKAN VALIDATOR BARU
     this.router.get(
       "/",
+      getCategoriesValidator,
       this.controller.getAll.bind(this.controller)
     );
 
