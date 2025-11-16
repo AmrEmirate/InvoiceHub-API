@@ -21,18 +21,35 @@ class InvoiceController {
     }
   }
 
-  public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
+public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
-      const filters = req.query as {
-        search?: string;
-        status?: InvoiceStatus;
-        clientId?: string;
+
+      // Ambil filter dan paginasi dari query URL
+      const { search, status, clientId, page, limit } = req.query;
+
+      const paginationParams = {
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
       };
-      const invoices = await InvoiceService.getInvoices(userId, filters);
+
+      const filters = {
+        search: search as string | undefined,
+        status: status as InvoiceStatus | undefined,
+        clientId: clientId as string | undefined,
+      };
+
+      const invoicesResponse = await InvoiceService.getInvoices(
+        userId,
+        filters,
+        paginationParams
+      );
+
+      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Invoices fetched successfully",
-        data: invoices,
+        data: invoicesResponse.data,
+        meta: invoicesResponse.meta,
       });
     } catch (error) {
       next(error);

@@ -1,5 +1,5 @@
 // File: src/middleware/validators/invoice.validator.ts
-import { body, param, validationResult } from "express-validator";
+import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
 import { InvoiceStatus } from "../../generated/prisma";
@@ -57,5 +57,25 @@ export const updateInvoiceStatusValidator = [
   body("status")
     .isIn(Object.values(InvoiceStatus))
     .withMessage("Invalid status"),
+  handleValidationErrors,
+];
+
+export const getInvoicesValidator = [
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be a positive integer"),
+  query("limit")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Limit must be a positive integer"),
+  query("status")
+    .optional()
+    .isIn(Object.values(InvoiceStatus)) // Validasi status
+    .withMessage("Invalid status value"),
+  query("clientId")
+    .optional()
+    .isUUID() // Validasi UUID
+    .withMessage("Invalid Client ID format"),
   handleValidationErrors,
 ];

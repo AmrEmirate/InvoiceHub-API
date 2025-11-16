@@ -2,6 +2,7 @@
 import { PrismaClient, Invoice, InvoiceStatus } from "../generated/prisma";
 import { TCreateInvoiceInput } from "../types/invoice.types";
 import { Decimal } from "@prisma/client/runtime/library";
+import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 
 const prisma = new PrismaClient();
 
@@ -62,14 +63,18 @@ class InvoiceRepository {
    * Mencari semua invoice milik seorang user
    * (Termasuk filter yang kompleks)
    */
-  public async findAllByUser(
+public async findAllByUser(
     userId: string,
     filters: {
-      search?: string; // Untuk invoiceNumber
-      status?: InvoiceStatus; // Terima Tipe ENUM
+      search?: string;
+      status?: InvoiceStatus; // Gunakan tipe Enum
       clientId?: string;
-    }
-  ): Promise<Invoice[]> {
+    },
+    pagination: PaginationParams // <-- PARAMETER BARU
+  ): Promise<PaginatedResponse<Invoice>> { // <-- TIPE KEMBALIAN BARU
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
     const whereCondition: any = { userId };
 
     if (filters.search) {
@@ -85,13 +90,32 @@ class InvoiceRepository {
       whereCondition.clientId = filters.clientId;
     }
 
-    return await prisma.invoice.findMany({
+    // 1. Ambil data halaman saat ini
+    const data = await prisma.invoice.findMany({
       where: whereCondition,
       include: {
-        client: true, // Sertakan data client (penting untuk FE)
+        client: true,
       },
       orderBy: { invoiceDate: "desc" },
+      skip: skip,
+      take: limit,
     });
+
+    // 2. Ambil total data
+    const total = await prisma.invoice.count({
+      where: whereCondition,
+    });
+
+    // 3. Kembalikan data + meta paginasi
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   /**

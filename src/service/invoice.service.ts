@@ -14,6 +14,7 @@ import { Invoice, InvoiceStatus, User, InvoiceItem } from "../generated/prisma";
 
 // PERBAIKAN 2: Impor 'transporter' (bukan 'transport')
 import { transport } from "../config/nodemailer";
+import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 
 class InvoiceService {
   public async createInvoice(
@@ -66,11 +67,12 @@ class InvoiceService {
     }
   }
 
-  public async getInvoices(
+public async getInvoices(
     userId: string,
-    filters: { search?: string; status?: InvoiceStatus; clientId?: string }
-  ) {
-    return await InvoiceRepository.findAllByUser(userId, filters);
+    filters: { search?: string; status?: InvoiceStatus; clientId?: string },
+    pagination: PaginationParams // <-- PARAMETER BARU
+  ): Promise<PaginatedResponse<Invoice>> { // <-- TIPE KEMBALIAN BARU
+    return await InvoiceRepository.findAllByUser(userId, filters, pagination);
   }
 
   public async getInvoiceById(id: string, userId: string) {

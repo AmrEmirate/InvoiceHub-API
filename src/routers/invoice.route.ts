@@ -1,10 +1,10 @@
-// File: src/routers/invoice.route.ts
 import { Router } from "express";
 import InvoiceController from "../controllers/invoice.controller";
 import {
   createInvoiceValidator,
   updateInvoiceStatusValidator,
   validateIdParam,
+  getInvoicesValidator, // <-- 1. IMPORT VALIDATOR BARU
 } from "../middleware/validators/invoice.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -19,27 +19,39 @@ class InvoiceRouter {
   }
 
   private initializeRoutes(): void {
-    // Terapkan authMiddleware ke SEMUA rute di bawah ini
     this.router.use(authMiddleware);
 
-    // ... (Route POST /, GET /, GET /:id) ...
+    this.router.post(
+      "/",
+      createInvoiceValidator,
+      this.controller.create.bind(this.controller)
+    );
 
-    // Endpoint khusus untuk update status
+    // 2. TERAPKAN VALIDATOR BARU
+    this.router.get(
+      "/",
+      getInvoicesValidator,
+      this.controller.getAll.bind(this.controller)
+    );
+
+    this.router.get(
+      "/:id",
+      validateIdParam,
+      this.controller.getOne.bind(this.controller)
+    );
+
     this.router.patch(
       "/:id/status",
       validateIdParam,
       updateInvoiceStatusValidator,
       this.controller.updateStatus.bind(this.controller)
     );
-
-    // --- TAMBAHKAN RUTE BARU DI SINI ---
-    // Endpoint untuk mengirim email
+    
     this.router.post(
       "/:id/send",
       validateIdParam,
       this.controller.sendEmail.bind(this.controller)
     );
-    // --- AKHIR RUTE BARU ---
 
     this.router.delete(
       "/:id",
