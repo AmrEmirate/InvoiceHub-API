@@ -426,3 +426,60 @@
 2025-11-13 20:33:07 [INFO]: GET /api/auth/me
 2025-11-13 20:33:53 [INFO]: GET /api/invoices
 2025-11-13 20:33:53 [INFO]: GET /api/invoices
+2025-11-16 19:07:32 [INFO]: Starting cron jobs...
+2025-11-16 19:07:33 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-16 19:07:34 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:21:19 [INFO]: POST /api/auth/register
+2025-11-16 19:21:20 [INFO]: GET /
+2025-11-16 19:21:20 [INFO]: GET /transaction
+2025-11-16 19:21:21 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:21:21 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:21:23 [INFO]: Set password email sent to: test@example.com (ID: 223945a5-2636-44af-a811-c934f06b9fe1)
+2025-11-16 19:21:23 [INFO]: POST /api/auth/register
+2025-11-16 19:21:23 [INFO]: POST /api/auth/register
+2025-11-16 19:21:39 [INFO]: POST /api/auth/register
+2025-11-16 19:21:40 [INFO]: GET /
+2025-11-16 19:21:40 [INFO]: GET /transaction
+2025-11-16 19:21:40 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:21:41 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:21:42 [INFO]: Set password email sent to: test@example.com (ID: 0ddd23f5-9602-4dbe-9f5e-f4c45f910c95)
+2025-11-16 19:21:42 [INFO]: POST /api/auth/register
+2025-11-16 19:21:43 [INFO]: POST /api/auth/register
+2025-11-16 19:24:07 [INFO]: GET /
+2025-11-16 19:24:07 [INFO]: GET /transaction
+2025-11-16 19:24:08 [INFO]: POST /api/auth/register
+2025-11-16 19:24:08 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:24:10 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:24:13 [INFO]: POST /api/auth/register
+2025-11-16 19:24:13 [INFO]: POST /api/auth/register
+2025-11-16 19:24:13 [INFO]: Set password email sent to: test@example.com (ID: 70fe1779-c053-4227-9830-f1185c82664b)
+2025-11-16 19:25:44 [INFO]: GET /
+2025-11-16 19:25:44 [INFO]: GET /transaction
+2025-11-16 19:25:45 [INFO]: POST /api/auth/register
+2025-11-16 19:25:45 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:25:46 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:25:48 [INFO]: Set password email sent to: test.auth@example.com (ID: fed13be4-8637-4189-be57-f119874faf0c)
+2025-11-16 19:25:48 [INFO]: POST /api/auth/register
+2025-11-16 19:25:48 [INFO]: POST /api/auth/register
+2025-11-16 19:25:48 [INFO]: POST /api/auth/set-password
+2025-11-16 19:25:48 [INFO]: POST /api/auth/set-password
+2025-11-16 19:25:48 [INFO]: POST /api/auth/set-password
+2025-11-16 19:25:48 [INFO]: Password set and user verified: test.auth@example.com (ID: fed13be4-8637-4189-be57-f119874faf0c)
+2025-11-16 19:25:48 [INFO]: POST /api/auth/login
+2025-11-16 19:25:49 [INFO]: POST /api/auth/login
+2025-11-16 19:25:49 [INFO]: User logged in: test.auth@example.com (ID: fed13be4-8637-4189-be57-f119874faf0c)
+2025-11-16 19:27:26 [INFO]: POST /api/auth/register
+2025-11-16 19:27:27 [INFO]: GET /
+2025-11-16 19:27:27 [INFO]: GET /transaction
+2025-11-16 19:27:28 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:27:28 [INFO]: Nodemailer transport is ready.
+2025-11-16 19:27:30 [INFO]: Set password email sent to: test.auth@example.com (ID: 1bb5ecef-caab-476b-a039-d1f32ddff146)
+2025-11-16 19:27:30 [INFO]: POST /api/auth/register
+2025-11-16 19:27:30 [INFO]: POST /api/auth/register
+2025-11-16 19:27:30 [INFO]: POST /api/auth/set-password
+2025-11-16 19:27:30 [INFO]: POST /api/auth/set-password
+2025-11-16 19:27:30 [INFO]: POST /api/auth/set-password
+2025-11-16 19:27:30 [INFO]: Password set and user verified: test.auth@example.com (ID: 1bb5ecef-caab-476b-a039-d1f32ddff146)
+2025-11-16 19:27:30 [INFO]: POST /api/auth/login
+2025-11-16 19:27:31 [INFO]: POST /api/auth/login
+2025-11-16 19:27:31 [INFO]: User logged in: test.auth@example.com (ID: 1bb5ecef-caab-476b-a039-d1f32ddff146)

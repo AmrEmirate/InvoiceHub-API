@@ -1,13 +1,29 @@
-import bcrypt from "bcrypt";
 import { hashPassword } from "../src/utils/hash";
-
-jest.mock("bcrypt");
+import { compare } from "bcrypt"; // Impor 'compare'
 
 describe("Test hashing", () => {
-  it("Should return fake hash", async () => {
-    (bcrypt.hash as jest.Mock).mockReturnValue("fake-hash");
+  it("Should correctly hash a password", async () => {
+    const password = "mysecretpassword123";
+    const hashedPassword = await hashPassword(password);
 
-    const newPassword = await hashPassword("1234");
-    expect(newPassword).toBe("fake-hash");
+    // 1. Pastikan hash bukan string kosong
+    expect(hashedPassword).toBeDefined();
+    expect(typeof hashedPassword).toBe("string");
+    
+    // 2. Pastikan hash tidak sama dengan password asli
+    expect(hashedPassword).not.toBe(password);
+
+    // 3. Pastikan hash yang dihasilkan valid
+    const isMatch = await compare(password, hashedPassword);
+    expect(isMatch).toBe(true);
+  });
+
+  it("Should fail to compare wrong password", async () => {
+     const password = "mysecretpassword123";
+     const wrongPassword = "wrongpassword";
+     const hashedPassword = await hashPassword(password);
+
+     const isMatch = await compare(wrongPassword, hashedPassword);
+     expect(isMatch).toBe(false);
   });
 });
