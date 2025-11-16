@@ -1,4 +1,3 @@
-// File: src/controllers/client.controller.ts
 import { Request, Response, NextFunction } from "express";
 import ClientService from "../service/client.service";
 import { SafeUser } from "../types/express.d";
@@ -21,14 +20,38 @@ class ClientController {
     }
   }
 
+  /**
+   * PERUBAHAN: Sekarang menangani paginasi
+   */
   public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
-      const filters = req.query as { search?: string }; // Ambil filter dari query URL
-      const clients = await ClientService.getClients(userId, filters);
+
+      // Ambil filter dan paginasi dari query URL
+      const { search, page, limit } = req.query;
+
+      // Set default untuk paginasi jika tidak disediakan
+      const paginationParams = {
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
+      };
+
+      const filters = {
+        search: search as string | undefined,
+      };
+
+      // Panggil service dengan parameter baru
+      const clientsResponse = await ClientService.getClients(
+        userId,
+        filters,
+        paginationParams
+      );
+
+      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Clients fetched successfully",
-        data: clients,
+        data: clientsResponse.data,
+        meta: clientsResponse.meta,
       });
     } catch (error) {
       next(error);

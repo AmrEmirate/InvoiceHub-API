@@ -1,10 +1,10 @@
-// File: src/routers/client.route.ts
 import { Router } from "express";
 import ClientController from "../controllers/client.controller";
 import {
   createClientValidator,
   updateClientValidator,
   validateIdParam,
+  getClientsValidator, // <-- 1. IMPORT VALIDATOR BARU
 } from "../middleware/validators/client.validator";
 import { authMiddleware } from "../middleware/auth.middleware"; // Middleware utama kita!
 
@@ -32,6 +32,7 @@ class ClientRouter {
     // GET /api/clients
     this.router.get(
       "/",
+      getClientsValidator, // <-- 2. TERAPKAN VALIDATOR DI SINI
       this.controller.getAll.bind(this.controller)
     );
 

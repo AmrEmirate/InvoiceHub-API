@@ -1,8 +1,7 @@
-// File: src/repositories/client.repository.ts
-import { PrismaClient, Client } from "../generated/prisma"; // Ambil Client dari @prisma/client
+import { PrismaClient, Client } from "../generated/prisma"; // Menggunakan @prisma/client
 import { TCreateClientInput, TUpdateClientInput } from "../types/client.types";
+import { PaginationParams, PaginatedResponse } from "../types/pagination.types"; // Import tipe paginasi
 
-// Kamu sudah punya prisma client, gunakan itu
 const prisma = new PrismaClient();
 
 class ClientRepository {
@@ -10,10 +9,6 @@ class ClientRepository {
     return await prisma.client.create({ data });
   }
 
-  /**
-   * Mencari client berdasarkan email DAN userId.
-   * Ini penting agar email unik per user, bukan per global.
-   */
   public async findByEmailAndUser(
     email: string,
     userId: string
@@ -24,13 +19,16 @@ class ClientRepository {
   }
 
   /**
-   * Mencari semua client milik seorang user.
-   * Menerima filter untuk pencarian.
+   * PERUBAHAN: Mencari semua client dengan paginasi
    */
   public async findAllByUser(
     userId: string,
-    filters: { search?: string }
-  ): Promise<Client[]> {
+    filters: { search?: string },
+    pagination: PaginationParams
+  ): Promise<PaginatedResponse<Client>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit; // Hitung data yang akan di-skip
+
     const whereCondition: any = { userId };
 
     if (filters.search) {
@@ -40,15 +38,33 @@ class ClientRepository {
       ];
     }
 
-    return await prisma.client.findMany({
+    // 1. Ambil data untuk halaman saat ini (menggunakan skip dan take)
+    const data = await prisma.client.findMany({
       where: whereCondition,
       orderBy: { createdAt: "desc" },
+      skip: skip,
+      take: limit,
     });
+
+    // 2. Ambil total jumlah data (untuk menghitung total halaman)
+    const total = await prisma.client.count({
+      where: whereCondition,
+    });
+
+    // 3. Kembalikan data dan meta paginasi
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   /**
-   * Mencari satu client berdasarkan ID dan pemiliknya (userId).
-   * Ini adalah kunci keamanan kita.
+   * PERUBAHAN: findByIdAndUser sekarang mengambil 5 invoice terbaru
    */
   public async findByIdAndUser(
     id: string,
@@ -56,6 +72,12 @@ class ClientRepository {
   ): Promise<Client | null> {
     return await prisma.client.findFirst({
       where: { id, userId },
+      include: {
+        invoices: {
+          orderBy: { createdAt: "desc" },
+          take: 5, // Mengambil 5 invoice terkait
+        },
+      },
     });
   }
 

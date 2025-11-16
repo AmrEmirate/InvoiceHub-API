@@ -1,5 +1,5 @@
 // File: src/middleware/validators/client.validator.ts
-import { body, param, validationResult } from "express-validator";
+import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
 
@@ -42,5 +42,17 @@ export const updateClientValidator = [
     .optional()
     .isString()
     .withMessage("Payment preferences must be a string"),
+  handleValidationErrors,
+];
+
+export const getClientsValidator = [
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be a positive integer"),
+  query("limit")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Limit must be a positive integer"),
   handleValidationErrors,
 ];

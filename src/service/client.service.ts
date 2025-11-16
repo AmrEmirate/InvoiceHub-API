@@ -1,8 +1,9 @@
-// File: src/service/client.service.ts
 import ClientRepository from "../repositories/client.repository";
-import { TUpdateClientInput } from "../types/client.types";
+import { TCreateClientInput, TUpdateClientInput } from "../types/client.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
+import { PaginationParams, PaginatedResponse } from "../types/pagination.types";
+import { Client } from "../generated/prisma";
 
 // Tipe data input dari Controller
 type TCreateInput = {
@@ -36,10 +37,15 @@ class ClientService {
   }
 
   /**
-   * Mengambil semua client milik user, dengan filter.
+   * PERUBAHAN: Mengambil semua client milik user, dengan filter DAN paginasi.
    */
-  public async getClients(userId: string, filters: { search?: string }) {
-    return await ClientRepository.findAllByUser(userId, filters);
+  public async getClients(
+    userId: string,
+    filters: { search?: string },
+    pagination: PaginationParams
+  ): Promise<PaginatedResponse<Client>> {
+    // Meneruskan parameter paginasi ke repository
+    return await ClientRepository.findAllByUser(userId, filters, pagination);
   }
 
   /**
@@ -87,9 +93,6 @@ class ClientService {
 
   /**
    * Menghapus client.
-   * Memvalidasi kepemilikan sebelum hapus.
-   * Dokumen spesifikasi [cite: 114] HANYA meminta soft-delete untuk Product/Category.
-   * Jadi, kita akan lakukan hard-delete untuk Client.
    */
   public async deleteClient(id: string, userId: string) {
     // 1. Validasi kepemilikan
