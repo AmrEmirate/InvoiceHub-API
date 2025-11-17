@@ -1,5 +1,0 @@
-2025-11-17 11:22:14 [ERROR]: POST /api/auth/register: Email already registered {"code":409}
-2025-11-17 11:22:14 [ERROR]: POST /api/auth/register: Validation failed {"code":400,"details":[{"type":"field","msg":"Name is required","path":"name","location":"body"}]}
-2025-11-17 11:22:14 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":"invalidtoken123","msg":"Invalid token format","path":"token","location":"body"}]}
-2025-11-17 11:22:14 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":"123","msg":"Password must be at least 6 characters long","path":"password","location":"body"}]}
-2025-11-17 11:22:15 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
