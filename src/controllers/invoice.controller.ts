@@ -1,6 +1,6 @@
 // File: src/controllers/invoice.controller.ts
 import { Request, Response, NextFunction } from "express";
-import InvoiceService from "../service/invoice.service";// Menggunakan @prisma/client untuk InvoiceStatus
+import InvoiceService from "../service/invoice.service"; // Menggunakan @prisma/client untuk InvoiceStatus
 import { SafeUser } from "../types/express"; // Import SafeUser dari types/express
 import { InvoiceStatus } from "../generated/prisma";
 interface AuthRequest extends Request {
@@ -8,6 +8,7 @@ interface AuthRequest extends Request {
 }
 
 class InvoiceController {
+  
   public async create(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
@@ -21,7 +22,7 @@ class InvoiceController {
     }
   }
 
-public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
+  public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
 
@@ -48,8 +49,8 @@ public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
       // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Invoices fetched successfully",
-        data: invoicesResponse.data,
-        meta: invoicesResponse.meta,
+        // Pastikan Anda mengirimkan seluruh objek respons (data dan meta)
+        data: invoicesResponse,
       });
     } catch (error) {
       next(error);
@@ -117,6 +118,41 @@ public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
       next(error);
     }
   }
+
+  // --- 1. METHOD 'getDashboardStats' YANG HILANG, SAYA TAMBAHKAN DI SINI ---
+  public getDashboardStats = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const stats = await InvoiceService.getDashboardStats(req.user!.id);
+      res.status(200).json({
+        message: "Dashboard stats fetched successfully",
+        data: stats,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
+  public getChartStats = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      // --- 2. PERBAIKAN: Panggil 'InvoiceService' (Huruf besar 'I'), bukan 'this.invoiceService' ---
+      const data = await InvoiceService.getChartData(req.user!.id);
+      res.status(200).json({
+        message: "Chart data fetched successfully",
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 // Pastikan baris ini ada di paling bawah

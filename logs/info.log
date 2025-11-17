@@ -1,0 +1,27 @@
+2025-11-17 11:16:08 [INFO]: Starting cron jobs...
+2025-11-17 11:16:08 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 11:16:22 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:21:18 [INFO]: Starting cron jobs...
+2025-11-17 11:21:18 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 11:21:21 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:21:36 [INFO]: Starting cron jobs...
+2025-11-17 11:21:36 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 11:21:37 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:21:42 [INFO]: Starting cron jobs...
+2025-11-17 11:21:42 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 11:21:44 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:22:09 [INFO]: POST /api/auth/register
+2025-11-17 11:22:09 [INFO]: GET /
+2025-11-17 11:22:09 [INFO]: GET /transaction
+2025-11-17 11:22:10 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:22:10 [INFO]: Nodemailer transport is ready.
+2025-11-17 11:22:13 [INFO]: Set password email sent to: test.auth@example.com (ID: 0958272a-14ed-4642-ae07-012f0d2cb117)
+2025-11-17 11:22:14 [INFO]: POST /api/auth/register
+2025-11-17 11:22:14 [INFO]: POST /api/auth/register
+2025-11-17 11:22:14 [INFO]: POST /api/auth/set-password
+2025-11-17 11:22:14 [INFO]: POST /api/auth/set-password
+2025-11-17 11:22:14 [INFO]: POST /api/auth/set-password
+2025-11-17 11:22:14 [INFO]: Password set and user verified: test.auth@example.com (ID: 0958272a-14ed-4642-ae07-012f0d2cb117)
+2025-11-17 11:22:14 [INFO]: POST /api/auth/login
+2025-11-17 11:22:15 [INFO]: POST /api/auth/login
+2025-11-17 11:22:15 [INFO]: User logged in: test.auth@example.com (ID: 0958272a-14ed-4642-ae07-012f0d2cb117)

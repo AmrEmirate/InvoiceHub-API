@@ -15,8 +15,17 @@ import { Invoice, InvoiceStatus, User, InvoiceItem } from "../generated/prisma";
 // PERBAIKAN 2: Impor 'transporter' (bukan 'transport')
 import { transport } from "../config/nodemailer";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
+import { prisma } from "../config/prisma";
+
+type ChartData = {
+  month: string;
+  revenue: number;
+};
 
 class InvoiceService {
+  getDashboardStats(id: string) {
+    throw new Error("Method not implemented.");
+  }
   public async createInvoice(
     input: TCreateInvoiceInput,
     userId: string
@@ -197,6 +206,57 @@ public async getInvoices(
     } catch (emailError: any) {
       logger.error(`Failed to send invoice email: ${emailError.message}`);
       throw new AppError(500, "Failed to send email", emailError);
+    }
+  }
+  /**
+   * Mengambil data agregat untuk chart dashboard
+   */
+  public async getChartData(userId: string): Promise<ChartData[]> {
+    try {
+      // Query ini spesifik untuk PostgreSQL untuk mengambil 12 bulan terakhir
+      const result = await prisma.$queryRaw<ChartData[]>`
+        SELECT 
+          TO_CHAR(date_trunc('month', i."invoiceDate"), 'YYYY-MM') as month,
+          SUM(i."totalAmount")::float as revenue
+        FROM "Invoice" i
+        WHERE i."userId" = ${userId}
+          AND i."status" = ${InvoiceStatus.PAID}
+          AND i."invoiceDate" >= date_trunc('month', NOW() - interval '11 months')
+        GROUP BY 1
+        ORDER BY 1 ASC;
+      `;
+      
+      // Format data untuk memastikan 12 bulan ada (meskipun 0)
+      const monthlyData: Record<string, number> = {};
+      const months = [];
+      const today = new Date();
+
+      // Buat daftar 12 bulan terakhir (misal: "2025-11", "2025-10", ...)
+      for (let i = 0; i < 12; i++) {
+        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        const monthKey = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`;
+        months.push(monthKey);
+        monthlyData[monthKey] = 0; // Inisialisasi dengan 0
+      }
+
+      // Isi data dari hasil query
+      result.forEach(item => {
+        if (monthlyData.hasOwnProperty(item.month)) {
+          monthlyData[item.month] = item.revenue;
+        }
+      });
+
+      // Kembalikan dalam format yang diurutkan (terbaru ke terlama, lalu dibalik)
+      const formattedData = months.map(monthKey => ({
+        month: monthKey,
+        revenue: monthlyData[monthKey]
+      })).reverse(); // Balik agar bulan terlama di awal
+
+      return formattedData;
+
+    } catch (error: any) {
+      logger.error(`Error fetching chart data: ${error.message}`);
+      throw new AppError(500, "Failed to get chart data", error);
     }
   }
 }

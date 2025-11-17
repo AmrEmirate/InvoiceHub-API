@@ -20,4 +20,5 @@ export type TUpdateUserInput = {
   country?: string;
   taxId?: string;
   bankAccount?: string;
+  avatar?: string;
 };

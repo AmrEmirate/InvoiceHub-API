@@ -1,6 +1,7 @@
 import { body, validationResult, query } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
+import { z } from "zod";
 
 const handleValidationErrors = (
   req: Request,
@@ -58,3 +59,19 @@ export const updateProfileValidator = [
   body("bankAccount").optional().isString(),
   handleValidationErrors,
 ];
+
+export const updateProfileSchema = z.object({
+  body: z.object({
+    name: z.string().min(3, 'Name is required'),
+    company: z.string().min(3, 'Company name is required'),
+    phone: z.string().optional(),
+    address: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    zipCode: z.string().optional(),
+    country: z.string().optional(),
+    taxId: z.string().optional(),
+    bankAccount: z.string().optional(),
+    avatar: z.string().url('Must be a valid URL').optional(), // <-- TAMBAHKAN INI
+  }),
+});
