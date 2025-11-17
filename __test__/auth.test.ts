@@ -1,6 +1,15 @@
 import request from "supertest";
 import App from "../src/app";
 import { PrismaClient } from "../src/generated/prisma";
+// Import 'transport' untuk di-mock
+import { transport } from "../src/config/nodemailer";
+
+// Mock nodemailer agar tidak mengirim email sungguhan saat tes
+jest.mock("../src/config/nodemailer", () => ({
+  transport: {
+    sendMail: jest.fn().mockImplementation(() => Promise.resolve(true)),
+  },
+}));
 
 const appInstance = new App();
 const app = appInstance.app;
@@ -9,7 +18,11 @@ const prisma = new PrismaClient();
 describe("Auth Flow (Register, Set Password, Login)", () => {
   // Bersihkan database setelah semua tes
   afterAll(async () => {
-    await prisma.user.deleteMany();
+    // --- PERBAIKAN ---
+    // Baris ini telah diberi komentar agar tidak menghapus database Anda
+    // saat menjalankan 'npm test'.
+    // await prisma.user.deleteMany(); 
+    
     await prisma.$disconnect();
   });
 

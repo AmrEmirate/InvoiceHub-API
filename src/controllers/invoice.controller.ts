@@ -1,10 +1,12 @@
 // File: src/controllers/invoice.controller.ts
 import { Request, Response, NextFunction } from "express";
-import InvoiceService from "../service/invoice.service"; // Menggunakan @prisma/client untuk InvoiceStatus
+import InvoiceService from "../service/invoice.service";
 import { SafeUser } from "../types/express"; // Import SafeUser dari types/express
 import { InvoiceStatus } from "../generated/prisma";
+
+// Definisikan tipe request yang sudah diautentikasi
 interface AuthRequest extends Request {
-  user?: SafeUser; // Menggunakan SafeUser yang sudah didefinisikan
+  user?: SafeUser;
 }
 
 class InvoiceController {
@@ -49,8 +51,7 @@ class InvoiceController {
       // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Invoices fetched successfully",
-        // Pastikan Anda mengirimkan seluruh objek respons (data dan meta)
-        data: invoicesResponse,
+        data: invoicesResponse, // Kirim seluruh objek (data + meta)
       });
     } catch (error) {
       next(error);
@@ -119,7 +120,7 @@ class InvoiceController {
     }
   }
 
-  // --- 1. METHOD 'getDashboardStats' YANG HILANG, SAYA TAMBAHKAN DI SINI ---
+  // Handler untuk statistik dashboard (Stat Cards)
   public getDashboardStats = async (
     req: AuthRequest,
     res: Response,
@@ -136,14 +137,13 @@ class InvoiceController {
     }
   };
 
-
+  // Handler untuk data chart dashboard
   public getChartStats = async (
     req: AuthRequest,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      // --- 2. PERBAIKAN: Panggil 'InvoiceService' (Huruf besar 'I'), bukan 'this.invoiceService' ---
       const data = await InvoiceService.getChartData(req.user!.id);
       res.status(200).json({
         message: "Chart data fetched successfully",

@@ -24,6 +24,7 @@ model User {
   country     String?
   taxId       String?
   bankAccount String?
+  avatar      String?
 
   isVerified         Boolean  @default(false)
   verificationToken  String?  @unique

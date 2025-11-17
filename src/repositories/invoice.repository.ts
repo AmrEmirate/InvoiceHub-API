@@ -4,7 +4,15 @@ import { TCreateInvoiceInput } from "../types/invoice.types";
 import { Decimal } from "@prisma/client/runtime/library";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 
-const prisma = new PrismaClient();
+// Pastikan prisma diinisialisasi (Anda mungkin mengimpornya dari config/prisma)
+// Jika Anda punya file 'src/config/prisma.ts', gunakan impor itu:
+// import prisma from "../config/prisma";
+// Jika tidak, inisialisasi di sini:
+// const prisma = new PrismaClient();
+// Berdasarkan file Anda yang lain, Anda sepertinya mengimpor 'prisma' dari config.
+// Jika file ini tidak mengimpornya, mari kita asumsikan Anda memiliki 'config/prisma.ts'
+import { prisma } from "../config/prisma";
+
 
 class InvoiceRepository {
   /**
@@ -45,14 +53,11 @@ class InvoiceRepository {
       // 4. Ambil lagi invoice-nya dengan SEMUA relasi
       const createdInvoiceWithItems = await tx.invoice.findUniqueOrThrow({
         where: { id: newInvoice.id },
-        // --- PERBAIKAN DI SINI ---
-        // Kita harus 'include' relasi agar service bisa mengaksesnya
-        include: { 
-          items: true, 
-          client: true, 
-          user: true // <-- Ini yang hilang di 'create'
+        include: {
+          items: true,
+          client: true,
+          user: true,
         },
-        // --- AKHIR PERBAIKAN ---
       });
 
       return createdInvoiceWithItems;
@@ -63,7 +68,7 @@ class InvoiceRepository {
    * Mencari semua invoice milik seorang user
    * (Termasuk filter yang kompleks)
    */
-public async findAllByUser(
+  public async findAllByUser(
     userId: string,
     filters: {
       search?: string;
@@ -124,13 +129,11 @@ public async findAllByUser(
   public async findByIdAndUser(
     id: string,
     userId: string
-  ): Promise<(Invoice & { user: any; client: any; items: any[] }) | null> { // Memberi tipe yang lebih spesifik
+  ): Promise<(Invoice & { user: any; client: any; items: any[] }) | null> {
     return await prisma.invoice.findFirst({
       where: { id, userId },
-      // --- PERBAIKAN DI SINI ---
-      // Kita harus 'include' relasi 'user'
       include: {
-        user: true, // <-- Ini yang hilang di 'findByIdAndUser'
+        user: true,
         client: true,
         items: {
           include: {
@@ -138,9 +141,72 @@ public async findAllByUser(
           },
         },
       },
-      // --- AKHIR PERBAIKAN ---
     });
   }
+
+  // --- 🚀 KODE YANG HILANG DITAMBAHKAN DI SINI 🚀 ---
+  /**
+   * Mengambil statistik agregat untuk dashboard
+   */
+  public async getDashboardStats(userId: string) {
+    const now = new Date();
+
+    // Jalankan semua query agregat dalam satu transaksi
+    const [
+      totalInvoices,
+      paidInvoices,
+      pendingInvoices,
+      overdueInvoices,
+      totalRevenueResult,
+    ] = await prisma.$transaction([
+      // 1. Total Invoices
+      prisma.invoice.count({ where: { userId } }),
+      
+      // 2. Paid Invoices
+      prisma.invoice.count({
+        where: { userId, status: InvoiceStatus.PAID },
+      }),
+      
+      // 3. Pending Invoices (Sent + Pending)
+      prisma.invoice.count({
+        where: {
+          userId,
+          status: { in: [InvoiceStatus.SENT, InvoiceStatus.PENDING] },
+        },
+      }),
+      
+      // 4. Overdue Invoices
+      prisma.invoice.count({
+        where: {
+          userId,
+          status: InvoiceStatus.OVERDUE,
+          // Juga hitung yang SENT/PENDING tapi sudah lewat jatuh tempo
+          OR: [
+            { status: InvoiceStatus.OVERDUE },
+            {
+              status: { in: [InvoiceStatus.SENT, InvoiceStatus.PENDING] },
+              dueDate: { lt: now },
+            },
+          ],
+        },
+      }),
+      
+      // 5. Total Revenue (SUM dari semua yg PAID)
+      prisma.invoice.aggregate({
+        _sum: { totalAmount: true },
+        where: { userId, status: InvoiceStatus.PAID },
+      }),
+    ]);
+
+    return {
+      totalInvoices,
+      paidInvoices,
+      pendingInvoices,
+      overdueInvoices,
+      totalRevenue: totalRevenueResult._sum.totalAmount || 0,
+    };
+  }
+  // --- AKHIR DARI KODE YANG DITAMBAHKAN ---
 
   /**
    * Update status atau detail invoice

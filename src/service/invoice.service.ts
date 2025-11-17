@@ -3,18 +3,18 @@ import ClientRepository from "../repositories/client.repository";
 import ProductRepository from "../repositories/product.repository";
 import {
   TCreateInvoiceInput,
-  TUpdateInvoiceInput,
 } from "../types/invoice.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
 
-// PERBAIKAN 1: Impor tipe dari @prisma/client
+// Impor tipe dari @prisma/client
 import { Invoice, InvoiceStatus, User, InvoiceItem } from "../generated/prisma";
 
-// PERBAIKAN 2: Impor 'transporter' (bukan 'transport')
+// Impor 'transporter'
 import { transport } from "../config/nodemailer";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
+// Impor instance prisma
 import { prisma } from "../config/prisma";
 
 type ChartData = {
@@ -23,9 +23,22 @@ type ChartData = {
 };
 
 class InvoiceService {
-  getDashboardStats(id: string) {
-    throw new Error("Method not implemented.");
+  
+  // --- 🚀 PERBAIKAN 1: IMPLEMENTASIKAN FUNGSI INI ---
+  /**
+   * Mengambil statistik dashboard (Stat Cards)
+   */
+  public async getDashboardStats(userId: string) {
+    try {
+      // Panggil method repository yang sudah kita buat
+      const stats = await InvoiceRepository.getDashboardStats(userId);
+      return stats;
+    } catch (error: any) {
+      logger.error(`Error fetching dashboard stats: ${error.message}`);
+      throw new AppError(500, "Failed to get dashboard stats", error);
+    }
   }
+
   public async createInvoice(
     input: TCreateInvoiceInput,
     userId: string
@@ -76,11 +89,11 @@ class InvoiceService {
     }
   }
 
-public async getInvoices(
+  public async getInvoices(
     userId: string,
     filters: { search?: string; status?: InvoiceStatus; clientId?: string },
-    pagination: PaginationParams // <-- PARAMETER BARU
-  ): Promise<PaginatedResponse<Invoice>> { // <-- TIPE KEMBALIAN BARU
+    pagination: PaginationParams
+  ): Promise<PaginatedResponse<Invoice>> {
     return await InvoiceRepository.findAllByUser(userId, filters, pagination);
   }
 
@@ -99,7 +112,6 @@ public async getInvoices(
   ) {
     const invoice = await this.getInvoiceById(id, userId);
 
-    // PERBAIKAN 3: Gunakan Enum (bukan string "PAID")
     if (invoice.status === InvoiceStatus.PAID) {
       throw new AppError(400, "Cannot update a paid invoice");
     }
@@ -120,8 +132,6 @@ public async getInvoices(
   }
 
   public async sendInvoiceEmail(invoiceId: string, userId: string) {
-    // Tipe 'invoice' akan otomatis memiliki 'user' dan 'client'
-    // jika 'invoice.repository.ts' sudah diperbaiki
     const invoice = await this.getInvoiceById(invoiceId, userId);
 
     if (!invoice.client || !invoice.client.email) {
@@ -131,7 +141,6 @@ public async getInvoices(
     const user = invoice.user;
     const client = invoice.client;
 
-    // PERBAIKAN 4: Beri tipe ': InvoiceItem' pada parameter 'item'
     const itemsHtml = invoice.items
       .map(
         (item: InvoiceItem) =>
@@ -195,7 +204,6 @@ public async getInvoices(
         `Invoice (ID: ${invoiceId}) sent to ${client.email} by user ${userId}`
       );
 
-      // PERBAIKAN 5: Gunakan Enum (bukan string "DRAFT" / "SENT")
       if (invoice.status === InvoiceStatus.DRAFT) {
         await InvoiceRepository.updateStatus(invoiceId, {
           status: InvoiceStatus.SENT,
@@ -208,6 +216,7 @@ public async getInvoices(
       throw new AppError(500, "Failed to send email", emailError);
     }
   }
+  
   /**
    * Mengambil data agregat untuk chart dashboard
    */
@@ -220,7 +229,8 @@ public async getInvoices(
           SUM(i."totalAmount")::float as revenue
         FROM "Invoice" i
         WHERE i."userId" = ${userId}
-          AND i."status" = ${InvoiceStatus.PAID}
+          -- --- 🚀 PERBAIKAN 2: TAMBAHKAN TYPE CAST ::"InvoiceStatus" ---
+          AND i."status" = ${InvoiceStatus.PAID}::"InvoiceStatus"
           AND i."invoiceDate" >= date_trunc('month', NOW() - interval '11 months')
         GROUP BY 1
         ORDER BY 1 ASC;

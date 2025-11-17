@@ -1,0 +1,607 @@
+2025-11-17 18:45:55 [INFO]: Starting cron jobs...
+2025-11-17 18:45:55 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 18:45:56 [INFO]: Nodemailer transport is ready.
+2025-11-17 18:46:32 [INFO]: GET /api/clients
+2025-11-17 18:46:32 [INFO]: GET /api/clients
+2025-11-17 18:46:40 [INFO]: GET /api/invoices
+2025-11-17 18:46:40 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:46:40 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:46:40 [INFO]: GET /api/invoices
+2025-11-17 18:46:40 [INFO]: GET /api/invoices/stats
+2025-11-17 18:46:41 [INFO]: GET /api/invoices/stats
+2025-11-17 18:46:46 [INFO]: GET /api/invoices
+2025-11-17 18:46:46 [INFO]: GET /api/invoices
+2025-11-17 18:46:47 [INFO]: GET /api/clients
+2025-11-17 18:46:48 [INFO]: GET /api/clients
+2025-11-17 18:49:22 [INFO]: POST /api/clients
+2025-11-17 18:49:22 [INFO]: New client created (ID: 103e615b-5303-469c-b0d6-46b86a723df6) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:49:27 [INFO]: PUT /api/clients/103e615b-5303-469c-b0d6-46b86a723df6
+2025-11-17 18:49:28 [INFO]: Client updated (ID: 103e615b-5303-469c-b0d6-46b86a723df6) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:49:41 [INFO]: DELETE /api/clients/103e615b-5303-469c-b0d6-46b86a723df6
+2025-11-17 18:49:42 [INFO]: Client deleted (ID: 103e615b-5303-469c-b0d6-46b86a723df6) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:49:42 [INFO]: GET /api/clients
+2025-11-17 18:51:18 [INFO]: POST /api/clients
+2025-11-17 18:51:18 [INFO]: New client created (ID: 8ef85006-9aa9-4b03-8a7b-fa04a3cd6fd5) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:51:27 [INFO]: GET /api/categories
+2025-11-17 18:51:27 [INFO]: GET /api/products
+2025-11-17 18:51:28 [INFO]: GET /api/categories
+2025-11-17 18:51:28 [INFO]: GET /api/products
+2025-11-17 18:51:40 [INFO]: GET /api/categories
+2025-11-17 18:51:40 [INFO]: GET /api/categories
+2025-11-17 18:51:51 [INFO]: POST /api/categories
+2025-11-17 18:51:52 [INFO]: New category created (ID: c6c1a88b-5e3f-48ae-b15a-657733de4a5a) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:52:19 [INFO]: GET /api/categories
+2025-11-17 18:52:19 [INFO]: GET /api/products
+2025-11-17 18:52:20 [INFO]: GET /api/categories
+2025-11-17 18:52:20 [INFO]: GET /api/products
+2025-11-17 18:53:28 [INFO]: POST /api/products
+2025-11-17 18:53:29 [INFO]: New product created (ID: 3c9eec58-a081-468d-9399-2552333ae99c) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:53:29 [INFO]: GET /api/products
+2025-11-17 18:53:34 [INFO]: GET /api/products
+2025-11-17 18:53:37 [INFO]: GET /api/products
+2025-11-17 18:53:51 [INFO]: PUT /api/products/3c9eec58-a081-468d-9399-2552333ae99c
+2025-11-17 18:53:52 [INFO]: Product updated (ID: 3c9eec58-a081-468d-9399-2552333ae99c) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:53:52 [INFO]: GET /api/products
+2025-11-17 18:53:55 [INFO]: GET /api/products
+2025-11-17 18:53:59 [INFO]: GET /api/clients
+2025-11-17 18:54:00 [INFO]: GET /api/clients
+2025-11-17 18:54:04 [INFO]: GET /api/invoices
+2025-11-17 18:54:05 [INFO]: GET /api/invoices
+2025-11-17 18:54:07 [INFO]: GET /api/invoices
+2025-11-17 18:54:07 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:54:07 [INFO]: GET /api/invoices
+2025-11-17 18:54:07 [INFO]: GET /api/invoices/stats
+2025-11-17 18:54:07 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:54:08 [INFO]: GET /api/invoices/stats
+2025-11-17 18:54:14 [INFO]: GET /api/invoices
+2025-11-17 18:54:15 [INFO]: GET /api/invoices
+2025-11-17 18:54:18 [INFO]: GET /api/clients
+2025-11-17 18:54:18 [INFO]: GET /api/products
+2025-11-17 18:54:18 [INFO]: GET /api/clients
+2025-11-17 18:54:18 [INFO]: GET /api/products
+2025-11-17 18:54:59 [INFO]: POST /api/invoices
+2025-11-17 18:55:00 [INFO]: New invoice created (ID: e525ae41-b0c9-4b33-a478-68591810dcaa) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:55:00 [INFO]: GET /api/invoices
+2025-11-17 18:55:00 [INFO]: GET /api/invoices
+2025-11-17 18:55:10 [INFO]: GET /api/invoices
+2025-11-17 18:55:13 [INFO]: GET /api/invoices
+2025-11-17 18:55:16 [INFO]: GET /api/invoices
+2025-11-17 18:55:16 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:16 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:16 [INFO]: GET /api/invoices
+2025-11-17 18:55:16 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:17 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:26 [INFO]: GET /api/invoices
+2025-11-17 18:55:26 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:27 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:32 [INFO]: GET /api/invoices
+2025-11-17 18:55:32 [INFO]: GET /api/invoices
+2025-11-17 18:55:34 [INFO]: GET /api/invoices
+2025-11-17 18:55:34 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:34 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:34 [INFO]: GET /api/invoices
+2025-11-17 18:55:34 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:35 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:48 [INFO]: GET /api/invoices
+2025-11-17 18:55:48 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:49 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:55:49 [INFO]: GET /api/invoices
+2025-11-17 18:55:49 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:49 [INFO]: GET /api/invoices/stats
+2025-11-17 18:55:51 [INFO]: GET /api/clients
+2025-11-17 18:55:51 [INFO]: GET /api/clients
+2025-11-17 18:55:52 [INFO]: GET /api/categories
+2025-11-17 18:55:52 [INFO]: GET /api/products
+2025-11-17 18:55:53 [INFO]: GET /api/categories
+2025-11-17 18:55:53 [INFO]: GET /api/products
+2025-11-17 18:55:54 [INFO]: GET /api/clients
+2025-11-17 18:55:54 [INFO]: GET /api/clients
+2025-11-17 18:55:55 [INFO]: GET /api/invoices
+2025-11-17 18:55:55 [INFO]: GET /api/invoices
+2025-11-17 18:56:07 [INFO]: GET /api/clients
+2025-11-17 18:56:07 [INFO]: GET /api/products
+2025-11-17 18:56:08 [INFO]: GET /api/products
+2025-11-17 18:56:08 [INFO]: GET /api/clients
+2025-11-17 18:56:35 [INFO]: POST /api/invoices
+2025-11-17 18:56:36 [INFO]: New invoice created (ID: 970b1176-b868-4744-81e3-136e1fdf878e) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:56:36 [INFO]: GET /api/invoices
+2025-11-17 18:56:37 [INFO]: GET /api/invoices
+2025-11-17 18:57:04 [INFO]: PATCH /api/invoices/970b1176-b868-4744-81e3-136e1fdf878e/status
+2025-11-17 18:57:05 [INFO]: Invoice (ID: 970b1176-b868-4744-81e3-136e1fdf878e) status updated to PAID by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 18:57:05 [INFO]: GET /api/invoices
+2025-11-17 18:57:22 [INFO]: GET /api/invoices
+2025-11-17 18:57:22 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:57:22 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:57:22 [INFO]: GET /api/invoices
+2025-11-17 18:57:22 [INFO]: GET /api/invoices/stats
+2025-11-17 18:57:23 [INFO]: GET /api/invoices/stats
+2025-11-17 18:57:41 [INFO]: GET /api/invoices
+2025-11-17 18:57:41 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:57:42 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:57:42 [INFO]: GET /api/invoices
+2025-11-17 18:57:42 [INFO]: GET /api/invoices/stats
+2025-11-17 18:57:42 [INFO]: GET /api/invoices/stats
+2025-11-17 18:58:00 [INFO]: GET /api/invoices
+2025-11-17 18:58:00 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 18:58:00 [INFO]: GET /api/invoices/stats
+2025-11-17 18:59:01 [INFO]: GET /api/auth/me
+2025-11-17 18:59:01 [INFO]: GET /api/auth/me
+2025-11-17 19:02:58 [INFO]: PUT /api/auth/me
+2025-11-17 19:02:59 [INFO]: Profile updated for user: amremirate33@gmail.com (ID: 8af2ef1e-9037-42d0-9fec-826367ae2a17)
+2025-11-17 19:03:22 [INFO]: PUT /api/auth/me
+2025-11-17 19:03:23 [INFO]: Profile updated for user: amremirate33@gmail.com (ID: 8af2ef1e-9037-42d0-9fec-826367ae2a17)
+2025-11-17 19:03:37 [INFO]: GET /api/categories
+2025-11-17 19:03:37 [INFO]: GET /api/categories
+2025-11-17 19:03:42 [INFO]: GET /api/clients
+2025-11-17 19:03:43 [INFO]: GET /api/clients
+2025-11-17 19:03:44 [INFO]: GET /api/invoices
+2025-11-17 19:03:45 [INFO]: GET /api/invoices
+2025-11-17 19:03:46 [INFO]: GET /api/invoices
+2025-11-17 19:03:46 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:03:46 [INFO]: GET /api/invoices
+2025-11-17 19:03:46 [INFO]: GET /api/invoices/stats
+2025-11-17 19:03:46 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:03:46 [INFO]: GET /api/invoices/stats
+2025-11-17 19:03:48 [INFO]: GET /api/invoices
+2025-11-17 19:03:48 [INFO]: GET /api/invoices
+2025-11-17 19:03:54 [INFO]: GET /api/clients
+2025-11-17 19:03:55 [INFO]: GET /api/clients
+2025-11-17 19:03:57 [INFO]: GET /api/invoices
+2025-11-17 19:03:57 [INFO]: GET /api/invoices
+2025-11-17 19:04:06 [INFO]: GET /api/invoices
+2025-11-17 19:04:10 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:11 [INFO]: GET /api/invoices
+2025-11-17 19:04:15 [INFO]: GET /api/invoices
+2025-11-17 19:04:15 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:16 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:16 [INFO]: GET /api/invoices
+2025-11-17 19:04:16 [INFO]: GET /api/invoices/stats
+2025-11-17 19:04:16 [INFO]: GET /api/invoices/stats
+2025-11-17 19:04:31 [INFO]: GET /api/invoices
+2025-11-17 19:04:31 [INFO]: GET /api/invoices
+2025-11-17 19:04:36 [INFO]: GET /api/invoices
+2025-11-17 19:04:36 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:37 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:37 [INFO]: GET /api/invoices
+2025-11-17 19:04:37 [INFO]: GET /api/invoices/stats
+2025-11-17 19:04:37 [INFO]: GET /api/invoices/stats
+2025-11-17 19:04:57 [INFO]: POST /api/auth/login
+2025-11-17 19:04:57 [INFO]: User logged in: amremirate33@gmail.com (ID: 8af2ef1e-9037-42d0-9fec-826367ae2a17)
+2025-11-17 19:04:57 [INFO]: GET /api/invoices
+2025-11-17 19:04:57 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:57 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:04:58 [INFO]: GET /api/invoices
+2025-11-17 19:04:58 [INFO]: GET /api/invoices/stats
+2025-11-17 19:04:58 [INFO]: GET /api/invoices/stats
+2025-11-17 19:05:56 [INFO]: GET /api/invoices
+2025-11-17 19:05:56 [INFO]: GET /api/invoices
+2025-11-17 19:06:14 [INFO]: GET /api/categories
+2025-11-17 19:06:14 [INFO]: GET /api/categories
+2025-11-17 19:06:16 [INFO]: GET /api/products
+2025-11-17 19:06:16 [INFO]: GET /api/categories
+2025-11-17 19:06:17 [INFO]: GET /api/categories
+2025-11-17 19:06:17 [INFO]: GET /api/products
+2025-11-17 19:06:29 [INFO]: GET /api/categories
+2025-11-17 19:06:30 [INFO]: GET /api/categories
+2025-11-17 19:06:31 [INFO]: GET /api/clients
+2025-11-17 19:06:31 [INFO]: GET /api/clients
+2025-11-17 19:06:39 [INFO]: GET /api/invoices
+2025-11-17 19:06:39 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:06:39 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:06:39 [INFO]: GET /api/invoices
+2025-11-17 19:06:39 [INFO]: GET /api/invoices/stats
+2025-11-17 19:06:39 [INFO]: GET /api/invoices/stats
+2025-11-17 19:06:44 [INFO]: GET /api/invoices
+2025-11-17 19:06:44 [INFO]: GET /api/invoices
+2025-11-17 19:06:47 [INFO]: GET /api/clients
+2025-11-17 19:06:47 [INFO]: GET /api/products
+2025-11-17 19:06:47 [INFO]: GET /api/clients
+2025-11-17 19:06:47 [INFO]: GET /api/products
+2025-11-17 19:06:54 [INFO]: GET /api/categories
+2025-11-17 19:06:54 [INFO]: GET /api/products
+2025-11-17 19:06:55 [INFO]: GET /api/products
+2025-11-17 19:06:55 [INFO]: GET /api/categories
+2025-11-17 19:07:14 [INFO]: GET /api/categories
+2025-11-17 19:07:15 [INFO]: GET /api/categories
+2025-11-17 19:07:16 [INFO]: GET /api/clients
+2025-11-17 19:07:17 [INFO]: GET /api/clients
+2025-11-17 19:07:17 [INFO]: GET /api/invoices
+2025-11-17 19:07:18 [INFO]: GET /api/invoices
+2025-11-17 19:07:18 [INFO]: GET /api/invoices
+2025-11-17 19:07:18 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:07:19 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:07:19 [INFO]: GET /api/invoices
+2025-11-17 19:07:19 [INFO]: GET /api/invoices/stats
+2025-11-17 19:07:19 [INFO]: GET /api/invoices/stats
+2025-11-17 19:07:24 [INFO]: GET /api/invoices
+2025-11-17 19:07:24 [INFO]: GET /api/invoices
+2025-11-17 19:07:25 [INFO]: GET /api/clients
+2025-11-17 19:07:25 [INFO]: GET /api/products
+2025-11-17 19:07:26 [INFO]: GET /api/clients
+2025-11-17 19:07:26 [INFO]: GET /api/products
+2025-11-17 19:07:49 [INFO]: POST /api/invoices
+2025-11-17 19:07:50 [INFO]: New invoice created (ID: 60465745-c20c-4e39-bbc9-b51f79031e09) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:07:50 [INFO]: GET /api/invoices
+2025-11-17 19:07:50 [INFO]: GET /api/invoices
+2025-11-17 19:07:53 [INFO]: POST /api/invoices/60465745-c20c-4e39-bbc9-b51f79031e09/send
+2025-11-17 19:07:57 [INFO]: Invoice (ID: 60465745-c20c-4e39-bbc9-b51f79031e09) sent to sumber.rejeki@example.com by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:07:57 [INFO]: GET /api/invoices
+2025-11-17 19:17:09 [INFO]: GET /api/clients
+2025-11-17 19:17:09 [INFO]: GET /api/products
+2025-11-17 19:17:09 [INFO]: GET /api/clients
+2025-11-17 19:17:09 [INFO]: GET /api/products
+2025-11-17 19:17:15 [INFO]: GET /api/invoices
+2025-11-17 19:17:15 [INFO]: GET /api/invoices
+2025-11-17 19:17:26 [INFO]: GET /api/clients
+2025-11-17 19:17:26 [INFO]: GET /api/products
+2025-11-17 19:17:27 [INFO]: GET /api/clients
+2025-11-17 19:17:27 [INFO]: GET /api/products
+2025-11-17 19:17:49 [INFO]: POST /api/invoices
+2025-11-17 19:17:50 [INFO]: New invoice created (ID: c284e529-c38a-44ff-bb02-c4a921fc4af5) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:17:50 [INFO]: GET /api/invoices
+2025-11-17 19:17:50 [INFO]: GET /api/invoices
+2025-11-17 19:17:55 [INFO]: PATCH /api/invoices/c284e529-c38a-44ff-bb02-c4a921fc4af5/status
+2025-11-17 19:17:56 [INFO]: Invoice (ID: c284e529-c38a-44ff-bb02-c4a921fc4af5) status updated to PAID by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:17:56 [INFO]: GET /api/invoices
+2025-11-17 19:18:09 [INFO]: GET /api/clients
+2025-11-17 19:18:09 [INFO]: GET /api/products
+2025-11-17 19:18:09 [INFO]: GET /api/clients
+2025-11-17 19:18:09 [INFO]: GET /api/products
+2025-11-17 19:18:26 [INFO]: POST /api/invoices
+2025-11-17 19:18:27 [INFO]: New invoice created (ID: f6960438-c04a-4236-9141-b90c4518ce97) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:18:27 [INFO]: GET /api/invoices
+2025-11-17 19:18:27 [INFO]: GET /api/invoices
+2025-11-17 19:18:37 [INFO]: PATCH /api/invoices/f6960438-c04a-4236-9141-b90c4518ce97/status
+2025-11-17 19:18:38 [INFO]: Invoice (ID: f6960438-c04a-4236-9141-b90c4518ce97) status updated to PAID by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:18:38 [INFO]: GET /api/invoices
+2025-11-17 19:18:40 [INFO]: PATCH /api/invoices/60465745-c20c-4e39-bbc9-b51f79031e09/status
+2025-11-17 19:18:40 [INFO]: Invoice (ID: 60465745-c20c-4e39-bbc9-b51f79031e09) status updated to PAID by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:18:40 [INFO]: GET /api/invoices
+2025-11-17 19:18:46 [INFO]: GET /api/clients
+2025-11-17 19:18:46 [INFO]: GET /api/products
+2025-11-17 19:18:46 [INFO]: GET /api/clients
+2025-11-17 19:18:46 [INFO]: GET /api/products
+2025-11-17 19:19:02 [INFO]: GET /api/clients
+2025-11-17 19:19:02 [INFO]: GET /api/clients
+2025-11-17 19:19:18 [INFO]: POST /api/clients
+2025-11-17 19:19:19 [INFO]: New client created (ID: bac6ee1b-57cb-426a-b503-a33702ab673f) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:19:22 [INFO]: GET /api/invoices
+2025-11-17 19:19:22 [INFO]: GET /api/invoices
+2025-11-17 19:19:24 [INFO]: GET /api/clients
+2025-11-17 19:19:24 [INFO]: GET /api/products
+2025-11-17 19:19:25 [INFO]: GET /api/clients
+2025-11-17 19:19:25 [INFO]: GET /api/products
+2025-11-17 19:19:45 [INFO]: POST /api/invoices
+2025-11-17 19:19:46 [INFO]: New invoice created (ID: 906f2fa5-0fb6-4cb3-a576-30235022973f) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:19:46 [INFO]: GET /api/invoices
+2025-11-17 19:19:46 [INFO]: GET /api/invoices
+2025-11-17 19:19:48 [INFO]: POST /api/invoices/906f2fa5-0fb6-4cb3-a576-30235022973f/send
+2025-11-17 19:19:51 [INFO]: Invoice (ID: 906f2fa5-0fb6-4cb3-a576-30235022973f) sent to amremirate03@gmail.com by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:19:51 [INFO]: GET /api/invoices
+2025-11-17 19:20:57 [INFO]: PATCH /api/invoices/906f2fa5-0fb6-4cb3-a576-30235022973f/status
+2025-11-17 19:20:58 [INFO]: Invoice (ID: 906f2fa5-0fb6-4cb3-a576-30235022973f) status updated to PAID by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:20:58 [INFO]: GET /api/invoices
+2025-11-17 19:21:58 [INFO]: GET /api/categories
+2025-11-17 19:21:58 [INFO]: GET /api/products
+2025-11-17 19:21:59 [INFO]: GET /api/products
+2025-11-17 19:21:59 [INFO]: GET /api/categories
+2025-11-17 19:22:05 [INFO]: GET /api/categories
+2025-11-17 19:22:05 [INFO]: GET /api/categories
+2025-11-17 19:22:12 [INFO]: POST /api/categories
+2025-11-17 19:22:12 [INFO]: New category created (ID: 1c656ff1-6122-453d-9a2d-03c64b0bb730) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:17 [INFO]: POST /api/categories
+2025-11-17 19:22:18 [INFO]: New category created (ID: 3624d0f0-156d-4dfe-bd3e-bb97e5e2d31b) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:22 [INFO]: POST /api/categories
+2025-11-17 19:22:22 [INFO]: New category created (ID: 6d175782-f956-4b2a-9169-d67470d3f9d5) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:27 [INFO]: POST /api/categories
+2025-11-17 19:22:27 [INFO]: New category created (ID: 834b3968-2562-4ccd-942c-958022038c96) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:32 [INFO]: POST /api/categories
+2025-11-17 19:22:32 [INFO]: New category created (ID: e0cff3f9-d4dc-49d9-a9a0-1baf1fadd241) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:37 [INFO]: POST /api/categories
+2025-11-17 19:22:37 [INFO]: New category created (ID: 37586c65-9a27-4ecb-be9d-7d8acc718c04) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:45 [INFO]: POST /api/categories
+2025-11-17 19:22:45 [INFO]: New category created (ID: ad75fd48-416c-4f2f-ae91-bbb60f18c763) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:49 [INFO]: POST /api/categories
+2025-11-17 19:22:49 [INFO]: New category created (ID: d235dae5-bff4-4435-8f98-d5f57e00f88a) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:53 [INFO]: POST /api/categories
+2025-11-17 19:22:53 [INFO]: New category created (ID: f9a44906-7052-43d5-a013-6c0917c52bbd) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:22:57 [INFO]: POST /api/categories
+2025-11-17 19:22:57 [INFO]: New category created (ID: 34816d86-5194-448f-9c17-6bd119db4b58) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:23:03 [INFO]: POST /api/categories
+2025-11-17 19:23:03 [INFO]: New category created (ID: c51b269f-1e91-4f42-a651-536cf240a200) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 19:23:15 [INFO]: GET /api/categories
+2025-11-17 19:23:15 [INFO]: GET /api/products
+2025-11-17 19:23:16 [INFO]: GET /api/categories
+2025-11-17 19:23:16 [INFO]: GET /api/products
+2025-11-17 19:23:32 [INFO]: POST /api/products
+2025-11-17 19:23:34 [INFO]: POST /api/products
+2025-11-17 19:23:36 [INFO]: POST /api/products
+2025-11-17 19:23:36 [INFO]: POST /api/products
+2025-11-17 19:23:37 [INFO]: POST /api/products
+2025-11-17 19:23:38 [INFO]: POST /api/products
+2025-11-17 19:23:38 [INFO]: POST /api/products
+2025-11-17 19:23:39 [INFO]: POST /api/products
+2025-11-17 19:23:40 [INFO]: GET /api/clients
+2025-11-17 19:23:41 [INFO]: GET /api/clients
+2025-11-17 19:23:42 [INFO]: GET /api/categories
+2025-11-17 19:23:42 [INFO]: GET /api/products
+2025-11-17 19:23:42 [INFO]: GET /api/categories
+2025-11-17 19:23:42 [INFO]: GET /api/products
+2025-11-17 19:23:51 [INFO]: GET /api/clients
+2025-11-17 19:23:52 [INFO]: GET /api/clients
+2025-11-17 19:23:52 [INFO]: GET /api/invoices
+2025-11-17 19:23:53 [INFO]: GET /api/invoices
+2025-11-17 19:23:54 [INFO]: GET /api/clients
+2025-11-17 19:23:55 [INFO]: GET /api/clients
+2025-11-17 19:23:56 [INFO]: GET /api/invoices
+2025-11-17 19:23:56 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:23:56 [INFO]: GET /api/invoices
+2025-11-17 19:23:56 [INFO]: GET /api/invoices/stats
+2025-11-17 19:23:56 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 19:23:56 [INFO]: GET /api/invoices/stats
+2025-11-17 21:05:06 [INFO]: Starting cron jobs...
+2025-11-17 21:05:06 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:05:07 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:05:48 [INFO]: GET /api/invoices
+2025-11-17 21:05:48 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:05:48 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:05:49 [INFO]: GET /api/invoices
+2025-11-17 21:05:49 [INFO]: GET /api/invoices/stats
+2025-11-17 21:05:49 [INFO]: GET /api/invoices/stats
+2025-11-17 21:06:02 [INFO]: GET /api/invoices
+2025-11-17 21:06:02 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:06:02 [INFO]: GET /api/invoices/stats
+2025-11-17 21:10:27 [INFO]: Starting cron jobs...
+2025-11-17 21:10:27 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:10:28 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:10:35 [INFO]: GET /api/invoices
+2025-11-17 21:10:35 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:10:36 [INFO]: GET /api/invoices/stats
+2025-11-17 21:11:12 [INFO]: Starting cron jobs...
+2025-11-17 21:11:12 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:11:13 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:11:19 [INFO]: GET /api/invoices
+2025-11-17 21:11:19 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:11:20 [INFO]: GET /api/invoices/stats
+2025-11-17 21:11:46 [INFO]: GET /api/invoices
+2025-11-17 21:11:46 [INFO]: GET /api/invoices
+2025-11-17 21:12:04 [INFO]: GET /api/invoices
+2025-11-17 21:12:04 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:12:05 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:12:05 [INFO]: GET /api/invoices
+2025-11-17 21:12:05 [INFO]: GET /api/invoices/stats
+2025-11-17 21:12:05 [INFO]: GET /api/invoices/stats
+2025-11-17 21:14:30 [INFO]: Starting cron jobs...
+2025-11-17 21:14:30 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:14:32 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:14:50 [INFO]: GET /api/invoices
+2025-11-17 21:14:50 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:14:51 [INFO]: GET /api/invoices/stats
+2025-11-17 21:16:59 [INFO]: Starting cron jobs...
+2025-11-17 21:16:59 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:17:00 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:17:08 [INFO]: GET /api/invoices
+2025-11-17 21:17:08 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:17:09 [INFO]: GET /api/invoices/stats
+2025-11-17 21:19:13 [INFO]: GET /api/invoices/stats
+2025-11-17 21:19:13 [INFO]: GET /api/invoices
+2025-11-17 21:19:13 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:19:43 [INFO]: GET /api/invoices
+2025-11-17 21:19:43 [INFO]: GET /api/invoices
+2025-11-17 21:19:44 [INFO]: GET /api/clients
+2025-11-17 21:19:45 [INFO]: GET /api/clients
+2025-11-17 21:19:45 [INFO]: GET /api/categories
+2025-11-17 21:19:45 [INFO]: GET /api/products
+2025-11-17 21:19:46 [INFO]: GET /api/categories
+2025-11-17 21:19:46 [INFO]: GET /api/products
+2025-11-17 21:19:46 [INFO]: GET /api/invoices/stats
+2025-11-17 21:19:46 [INFO]: GET /api/invoices
+2025-11-17 21:19:46 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:19:47 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:19:47 [INFO]: GET /api/invoices
+2025-11-17 21:19:47 [INFO]: GET /api/invoices/stats
+2025-11-17 21:20:40 [INFO]: GET /api/invoices
+2025-11-17 21:20:40 [INFO]: GET /api/invoices
+2025-11-17 21:20:43 [INFO]: GET /api/clients
+2025-11-17 21:20:43 [INFO]: GET /api/products
+2025-11-17 21:20:44 [INFO]: GET /api/clients
+2025-11-17 21:20:44 [INFO]: GET /api/products
+2025-11-17 21:20:59 [INFO]: POST /api/invoices
+2025-11-17 21:21:00 [INFO]: New invoice created (ID: 64ba1ba3-a949-4e47-87c0-eee511f8242f) by user 8af2ef1e-9037-42d0-9fec-826367ae2a17
+2025-11-17 21:21:00 [INFO]: GET /api/invoices
+2025-11-17 21:21:01 [INFO]: GET /api/invoices
+2025-11-17 21:21:05 [INFO]: GET /api/invoices/stats
+2025-11-17 21:21:05 [INFO]: GET /api/invoices
+2025-11-17 21:21:05 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:21:06 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:21:06 [INFO]: GET /api/invoices/stats
+2025-11-17 21:21:06 [INFO]: GET /api/invoices
+2025-11-17 21:21:26 [INFO]: GET /api/auth/me
+2025-11-17 21:21:26 [INFO]: GET /api/auth/me
+2025-11-17 21:25:08 [INFO]: POST /api/upload
+2025-11-17 21:25:09 [INFO]: POST /api/upload
+2025-11-17 21:25:09 [INFO]: POST /api/upload
+2025-11-17 21:25:09 [INFO]: POST /api/upload
+2025-11-17 21:25:09 [INFO]: POST /api/upload
+2025-11-17 21:25:10 [INFO]: POST /api/upload
+2025-11-17 21:25:11 [INFO]: POST /api/upload
+2025-11-17 21:25:11 [INFO]: POST /api/upload
+2025-11-17 21:25:19 [INFO]: POST /api/upload
+2025-11-17 21:25:20 [INFO]: POST /api/upload
+2025-11-17 21:26:35 [INFO]: POST /api/auth/register
+2025-11-17 21:26:35 [INFO]: GET /
+2025-11-17 21:26:35 [INFO]: GET /transaction
+2025-11-17 21:26:36 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:26:36 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:26:38 [INFO]: Set password email sent to: test.auth@example.com (ID: 90e3e2e6-489e-4745-a0e7-8d1a5998ed84)
+2025-11-17 21:26:38 [INFO]: POST /api/auth/register
+2025-11-17 21:26:38 [INFO]: POST /api/auth/register
+2025-11-17 21:26:38 [INFO]: POST /api/auth/set-password
+2025-11-17 21:26:38 [INFO]: POST /api/auth/set-password
+2025-11-17 21:26:38 [INFO]: POST /api/auth/set-password
+2025-11-17 21:26:39 [INFO]: Password set and user verified: test.auth@example.com (ID: 90e3e2e6-489e-4745-a0e7-8d1a5998ed84)
+2025-11-17 21:26:39 [INFO]: POST /api/auth/login
+2025-11-17 21:26:39 [INFO]: POST /api/auth/login
+2025-11-17 21:26:39 [INFO]: User logged in: test.auth@example.com (ID: 90e3e2e6-489e-4745-a0e7-8d1a5998ed84)
+2025-11-17 21:26:58 [INFO]: POST /api/auth/register
+2025-11-17 21:26:58 [INFO]: GET /
+2025-11-17 21:26:59 [INFO]: GET /transaction
+2025-11-17 21:26:59 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:27:00 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:27:01 [INFO]: Set password email sent to: test.auth@example.com (ID: 00b3b349-d8ca-438a-8813-619de592ff24)
+2025-11-17 21:27:02 [INFO]: POST /api/auth/register
+2025-11-17 21:27:02 [INFO]: POST /api/auth/register
+2025-11-17 21:27:02 [INFO]: POST /api/auth/set-password
+2025-11-17 21:27:02 [INFO]: POST /api/auth/set-password
+2025-11-17 21:27:02 [INFO]: POST /api/auth/set-password
+2025-11-17 21:27:02 [INFO]: Password set and user verified: test.auth@example.com (ID: 00b3b349-d8ca-438a-8813-619de592ff24)
+2025-11-17 21:27:02 [INFO]: POST /api/auth/login
+2025-11-17 21:27:03 [INFO]: POST /api/auth/login
+2025-11-17 21:27:03 [INFO]: User logged in: test.auth@example.com (ID: 00b3b349-d8ca-438a-8813-619de592ff24)
+2025-11-17 21:29:29 [INFO]: Starting cron jobs...
+2025-11-17 21:29:29 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:29:30 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:30:15 [INFO]: Starting cron jobs...
+2025-11-17 21:30:15 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:30:16 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:30:20 [INFO]: GET /api/invoices/stats
+2025-11-17 21:30:20 [INFO]: GET /api/invoices
+2025-11-17 21:30:20 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:30:24 [INFO]: GET /api/invoices/stats
+2025-11-17 21:30:24 [INFO]: GET /api/invoices
+2025-11-17 21:30:24 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:30:26 [INFO]: GET /api/invoices/stats
+2025-11-17 21:30:26 [INFO]: GET /api/invoices
+2025-11-17 21:30:26 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:30:55 [INFO]: POST /api/auth/login
+2025-11-17 21:31:00 [INFO]: POST /api/auth/login
+2025-11-17 21:31:04 [INFO]: POST /api/auth/login
+2025-11-17 21:31:05 [INFO]: POST /api/auth/login
+2025-11-17 21:31:05 [INFO]: POST /api/auth/login
+2025-11-17 21:31:05 [INFO]: POST /api/auth/login
+2025-11-17 21:31:06 [INFO]: POST /api/auth/login
+2025-11-17 21:31:06 [INFO]: POST /api/auth/login
+2025-11-17 21:31:12 [INFO]: POST /api/auth/login
+2025-11-17 21:31:13 [INFO]: POST /api/auth/login
+2025-11-17 21:31:14 [INFO]: POST /api/auth/login
+2025-11-17 21:32:02 [INFO]: POST /api/auth/register
+2025-11-17 21:32:05 [INFO]: Set password email sent to: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-17 21:32:42 [INFO]: POST /api/auth/set-password
+2025-11-17 21:32:43 [INFO]: Password set and user verified: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-17 21:32:54 [INFO]: POST /api/auth/login
+2025-11-17 21:32:54 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-17 21:32:54 [INFO]: GET /api/invoices/stats
+2025-11-17 21:32:54 [INFO]: GET /api/invoices
+2025-11-17 21:32:54 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:32:55 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:32:55 [INFO]: GET /api/invoices/stats
+2025-11-17 21:33:05 [INFO]: GET /api/invoices
+2025-11-17 21:33:09 [INFO]: GET /api/invoices
+2025-11-17 21:33:10 [INFO]: GET /api/invoices
+2025-11-17 21:33:11 [INFO]: GET /api/clients
+2025-11-17 21:33:11 [INFO]: GET /api/clients
+2025-11-17 21:33:12 [INFO]: GET /api/auth/me
+2025-11-17 21:33:12 [INFO]: GET /api/auth/me
+2025-11-17 21:40:23 [INFO]: Starting cron jobs...
+2025-11-17 21:40:23 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:40:25 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:40:39 [INFO]: POST /api/auth/register
+2025-11-17 21:40:39 [INFO]: GET /
+2025-11-17 21:40:39 [INFO]: GET /transaction
+2025-11-17 21:40:40 [INFO]: Set password email sent to: test.auth@example.com (ID: afec36a7-afb6-4e17-b352-710935141794)
+2025-11-17 21:40:40 [INFO]: POST /api/auth/register
+2025-11-17 21:40:40 [INFO]: POST /api/auth/register
+2025-11-17 21:40:40 [INFO]: POST /api/auth/set-password
+2025-11-17 21:40:40 [INFO]: POST /api/auth/set-password
+2025-11-17 21:40:40 [INFO]: POST /api/auth/set-password
+2025-11-17 21:40:40 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:40:40 [INFO]: Password set and user verified: test.auth@example.com (ID: afec36a7-afb6-4e17-b352-710935141794)
+2025-11-17 21:40:40 [INFO]: POST /api/auth/login
+2025-11-17 21:40:41 [INFO]: POST /api/auth/login
+2025-11-17 21:40:41 [INFO]: User logged in: test.auth@example.com (ID: afec36a7-afb6-4e17-b352-710935141794)
+2025-11-17 21:41:16 [INFO]: Starting cron jobs...
+2025-11-17 21:41:16 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:41:18 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:41:27 [INFO]: GET /api/auth/me
+2025-11-17 21:41:32 [INFO]: GET /api/categories
+2025-11-17 21:41:32 [INFO]: GET /api/products
+2025-11-17 21:41:33 [INFO]: GET /api/categories
+2025-11-17 21:41:33 [INFO]: GET /api/products
+2025-11-17 21:41:37 [INFO]: GET /api/categories
+2025-11-17 21:41:37 [INFO]: GET /api/categories
+2025-11-17 21:41:45 [INFO]: POST /api/categories
+2025-11-17 21:41:45 [INFO]: New category created (ID: d594bb79-d9c1-4137-a6c5-416220be62ff) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:41:47 [INFO]: GET /api/categories
+2025-11-17 21:41:47 [INFO]: GET /api/products
+2025-11-17 21:41:47 [INFO]: GET /api/categories
+2025-11-17 21:41:47 [INFO]: GET /api/products
+2025-11-17 21:42:02 [INFO]: POST /api/products
+2025-11-17 21:42:03 [INFO]: New product created (ID: d8b60322-d34e-4138-abd0-66f967bbd371) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:42:03 [INFO]: GET /api/products
+2025-11-17 21:42:12 [INFO]: GET /api/categories
+2025-11-17 21:42:12 [INFO]: GET /api/products
+2025-11-17 21:42:16 [INFO]: GET /api/clients
+2025-11-17 21:42:17 [INFO]: GET /api/clients
+2025-11-17 21:42:27 [INFO]: POST /api/clients
+2025-11-17 21:42:28 [INFO]: New client created (ID: 3a96b479-1661-4958-b471-5e0e947f9444) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:42:32 [INFO]: GET /api/invoices
+2025-11-17 21:42:32 [INFO]: GET /api/invoices
+2025-11-17 21:42:34 [INFO]: GET /api/clients
+2025-11-17 21:42:34 [INFO]: GET /api/products
+2025-11-17 21:42:34 [INFO]: GET /api/clients
+2025-11-17 21:42:34 [INFO]: GET /api/products
+2025-11-17 21:42:49 [INFO]: POST /api/invoices
+2025-11-17 21:42:50 [INFO]: New invoice created (ID: 28c14dc0-223b-4b2b-bcaa-d6ab21c87a96) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:42:50 [INFO]: GET /api/invoices
+2025-11-17 21:42:51 [INFO]: GET /api/invoices
+2025-11-17 21:42:52 [INFO]: POST /api/invoices/28c14dc0-223b-4b2b-bcaa-d6ab21c87a96/send
+2025-11-17 21:42:55 [INFO]: Invoice (ID: 28c14dc0-223b-4b2b-bcaa-d6ab21c87a96) sent to amremirate03@gmail.com by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:42:56 [INFO]: GET /api/invoices
+2025-11-17 21:43:25 [INFO]: GET /api/invoices/stats
+2025-11-17 21:43:25 [INFO]: GET /api/invoices
+2025-11-17 21:43:25 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:43:25 [INFO]: GET /api/invoices/stats
+2025-11-17 21:43:25 [INFO]: GET /api/invoices
+2025-11-17 21:43:25 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:43:30 [INFO]: GET /api/invoices
+2025-11-17 21:43:31 [INFO]: GET /api/invoices
+2025-11-17 21:43:32 [INFO]: PATCH /api/invoices/28c14dc0-223b-4b2b-bcaa-d6ab21c87a96/status
+2025-11-17 21:43:33 [INFO]: Invoice (ID: 28c14dc0-223b-4b2b-bcaa-d6ab21c87a96) status updated to PAID by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-17 21:43:33 [INFO]: GET /api/invoices
+2025-11-17 21:43:36 [INFO]: GET /api/invoices/stats
+2025-11-17 21:43:36 [INFO]: GET /api/invoices
+2025-11-17 21:43:36 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:43:36 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:43:37 [INFO]: GET /api/invoices
+2025-11-17 21:43:37 [INFO]: GET /api/invoices/stats
+2025-11-17 21:43:59 [INFO]: GET /api/auth/me
+2025-11-17 21:43:59 [INFO]: GET /api/auth/me
+2025-11-17 21:46:24 [INFO]: POST /api/uploads
+2025-11-17 21:46:26 [INFO]: PUT /api/auth/me
+2025-11-17 21:46:42 [INFO]: POST /api/uploads
+2025-11-17 21:46:43 [INFO]: PUT /api/auth/me
+2025-11-17 21:46:59 [INFO]: Starting cron jobs...
+2025-11-17 21:46:59 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:47:00 [INFO]: POST /api/uploads
+2025-11-17 21:47:01 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:47:03 [INFO]: PUT /api/auth/me
+2025-11-17 21:50:03 [INFO]: Starting cron jobs...
+2025-11-17 21:50:03 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-17 21:50:05 [INFO]: Nodemailer transport is ready.
+2025-11-17 21:50:06 [INFO]: POST /api/uploads
+2025-11-17 21:50:09 [INFO]: PUT /api/auth/me
+2025-11-17 21:50:10 [INFO]: Profile updated for user: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-17 21:50:39 [INFO]: GET /api/invoices/stats
+2025-11-17 21:50:39 [INFO]: GET /api/invoices
+2025-11-17 21:50:39 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:50:39 [INFO]: GET /api/invoices/stats/chart
+2025-11-17 21:50:44 [INFO]: GET /api/invoices
+2025-11-17 21:50:44 [INFO]: GET /api/invoices/stats
+2025-11-17 21:50:54 [INFO]: GET /api/auth/me
+2025-11-17 21:50:54 [INFO]: GET /api/auth/me
