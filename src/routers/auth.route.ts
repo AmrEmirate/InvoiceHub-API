@@ -4,7 +4,7 @@ import {
   registerValidator,
   loginValidator,
   updateProfileValidator,
-  setPasswordValidator, // <-- Ganti nama validator
+  setPasswordValidator,
 } from "../middleware/validators/auth.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 import passport from "passport";
@@ -22,7 +22,7 @@ class AuthRouter {
   private initializeRoutes(): void {
     this.router.post(
       "/register",
-      registerValidator, // Validator sudah diubah (tanpa password)
+      registerValidator,
       this.controller.register.bind(this.controller)
     );
 
@@ -32,10 +32,9 @@ class AuthRouter {
       this.controller.login.bind(this.controller)
     );
 
-    // GANTI route GET /verify menjadi POST /set-password
     this.router.post(
       "/set-password",
-      setPasswordValidator, // Gunakan validator baru
+      setPasswordValidator,
       this.controller.setPassword.bind(this.controller)
     );
 
@@ -55,16 +54,15 @@ class AuthRouter {
     this.router.get(
       "/google",
       passport.authenticate("google", {
-        scope: ["profile", "email"], // Data yang kita minta
-        session: false, // Kita tidak pakai session, kita pakai JWT
+        scope: ["profile", "email"],
+        session: false,
       })
     );
 
-    // Rute ini adalah callback yang Google panggil
     this.router.get(
       "/google/callback",
       passport.authenticate("google", {
-        failureRedirect: "/login", // Gagal? kembali ke login
+        failureRedirect: "/login",
         session: false,
       }),
       this.controller.googleCallback.bind(this.controller)

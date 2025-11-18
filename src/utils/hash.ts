@@ -1,4 +1,3 @@
-// File: src/utils/hash.ts
 import { hash, compare } from "bcryptjs";
 
 const SALT_ROUNDS = 10;

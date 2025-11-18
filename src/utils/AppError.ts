@@ -1,5 +1,3 @@
-// File: src/utils/AppError.ts
-
 class AppError extends Error {
   public code: number;
   public details?: any;

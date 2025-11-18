@@ -1,6 +1,6 @@
-import { PrismaClient, Client } from "../generated/prisma"; // Menggunakan @prisma/client
+import { PrismaClient, Client } from "../generated/prisma";
 import { TCreateClientInput, TUpdateClientInput } from "../types/client.types";
-import { PaginationParams, PaginatedResponse } from "../types/pagination.types"; // Import tipe paginasi
+import { PaginationParams, PaginatedResponse } from "../types/pagination.types";
 
 const prisma = new PrismaClient();
 
@@ -18,16 +18,13 @@ class ClientRepository {
     });
   }
 
-  /**
-   * PERUBAHAN: Mencari semua client dengan paginasi
-   */
   public async findAllByUser(
     userId: string,
     filters: { search?: string },
     pagination: PaginationParams
   ): Promise<PaginatedResponse<Client>> {
     const { page, limit } = pagination;
-    const skip = (page - 1) * limit; // Hitung data yang akan di-skip
+    const skip = (page - 1) * limit;
 
     const whereCondition: any = { userId };
 
@@ -38,7 +35,6 @@ class ClientRepository {
       ];
     }
 
-    // 1. Ambil data untuk halaman saat ini (menggunakan skip dan take)
     const data = await prisma.client.findMany({
       where: whereCondition,
       orderBy: { createdAt: "desc" },
@@ -46,12 +42,10 @@ class ClientRepository {
       take: limit,
     });
 
-    // 2. Ambil total jumlah data (untuk menghitung total halaman)
     const total = await prisma.client.count({
       where: whereCondition,
     });
 
-    // 3. Kembalikan data dan meta paginasi
     return {
       data,
       meta: {
@@ -63,9 +57,6 @@ class ClientRepository {
     };
   }
 
-  /**
-   * PERUBAHAN: findByIdAndUser sekarang mengambil 5 invoice terbaru
-   */
   public async findByIdAndUser(
     id: string,
     userId: string
@@ -75,7 +66,7 @@ class ClientRepository {
       include: {
         invoices: {
           orderBy: { createdAt: "desc" },
-          take: 5, // Mengambil 5 invoice terkait
+          take: 5,
         },
       },
     });

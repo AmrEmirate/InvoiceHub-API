@@ -1,4 +1,3 @@
-// File: src/cron/invoice.cron.ts
 import cron from "node-cron";
 import RecurringService from "../service/recurring.service";
 import logger from "../utils/logger";
@@ -10,13 +9,9 @@ class InvoiceCron {
     this.recurringService = RecurringService;
   }
 
-  /**
-   * Mulai semua cron job
-   */
   public start() {
     logger.info("Starting cron jobs...");
 
-    // Jadwal: '0 1 * * *' = Jam 1 pagi setiap hari
     cron.schedule("0 1 * * *", async () => {
       try {
         await this.recurringService.generateRecurringInvoices();

@@ -1,4 +1,3 @@
-// File: src/middleware/validators/invoice.validator.ts
 import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
@@ -30,12 +29,10 @@ export const createInvoiceValidator = [
     .isIn(Object.values(InvoiceStatus))
     .withMessage("Invalid status"),
 
-  // Validasi Array 'items'
   body("items")
     .isArray({ min: 1 })
     .withMessage("Invoice must have at least one item"),
   
-  // Validasi setiap objek di dalam array 'items'
   body("items.*.description")
     .notEmpty()
     .withMessage("Item description is required"),
@@ -71,11 +68,11 @@ export const getInvoicesValidator = [
     .withMessage("Limit must be a positive integer"),
   query("status")
     .optional()
-    .isIn(Object.values(InvoiceStatus)) // Validasi status
+    .isIn(Object.values(InvoiceStatus))
     .withMessage("Invalid status value"),
   query("clientId")
     .optional()
-    .isUUID() // Validasi UUID
+    .isUUID()
     .withMessage("Invalid Client ID format"),
   handleValidationErrors,
 ];

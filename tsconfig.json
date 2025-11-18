@@ -2,13 +2,13 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    /* "rootDir": "./src", */ // <-- Menghapus ini akan memperbaiki error 'rootDir'
+    /* "rootDir": "./src", */ 
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "__test__/**/*"], // <-- Ini sudah benar
+  "include": ["src/**/*", "__test__/**/*"],
   "exclude": ["node_modules"]
 }

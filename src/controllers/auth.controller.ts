@@ -11,7 +11,6 @@ interface AuthRequest extends Request {
 class AuthController {
   public async register(req: Request, res: Response, next: NextFunction) {
     try {
-      // Hanya ambil data ini (tanpa password)
       const { name, email, company } = req.body;
 
       const { message } = await AuthService.register({
@@ -28,10 +27,6 @@ class AuthController {
     }
   }
 
-  /**
-   * Ganti nama 'verifyEmail' menjadi 'setPassword'
-   * @route POST /api/auth/set-password
-   */
   public async setPassword(req: Request, res: Response, next: NextFunction) {
     try {
       const { token, password } = req.body;
@@ -102,11 +97,8 @@ class AuthController {
         req.user as User
       );
 
-      // Redirect kembali ke Frontend dengan token di URL
-      // FE_URL harus ada di .env (misal: http://localhost:3000)
       const feUrl = process.env.FE_URL || "http://localhost:3000";
       
-      // Kirim token dan data user sebagai query params
       const userData = encodeURIComponent(JSON.stringify(user));
       res.redirect(
         `${feUrl}/auth/callback?token=${token}&user=${userData}`
@@ -115,7 +107,6 @@ class AuthController {
       next(error);
     }
   }
-  // --- AKHIR TAMBAHAN ---
 }
 
 export default new AuthController();

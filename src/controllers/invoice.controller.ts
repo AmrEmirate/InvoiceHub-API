@@ -1,10 +1,8 @@
-// File: src/controllers/invoice.controller.ts
 import { Request, Response, NextFunction } from "express";
 import InvoiceService from "../service/invoice.service";
-import { SafeUser } from "../types/express"; // Import SafeUser dari types/express
+import { SafeUser } from "../types/express";
 import { InvoiceStatus } from "../generated/prisma";
 
-// Definisikan tipe request yang sudah diautentikasi
 interface AuthRequest extends Request {
   user?: SafeUser;
 }
@@ -28,7 +26,6 @@ class InvoiceController {
     try {
       const userId = req.user!.id;
 
-      // Ambil filter dan paginasi dari query URL
       const { search, status, clientId, page, limit } = req.query;
 
       const paginationParams = {
@@ -48,10 +45,9 @@ class InvoiceController {
         paginationParams
       );
 
-      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Invoices fetched successfully",
-        data: invoicesResponse, // Kirim seluruh objek (data + meta)
+        data: invoicesResponse,
       });
     } catch (error) {
       next(error);
@@ -76,7 +72,7 @@ class InvoiceController {
     try {
       const userId = req.user!.id;
       const { id } = req.params;
-      const { status } = req.body; // Hanya ambil status
+      const { status } = req.body;
       
       const updatedInvoice = await InvoiceService.updateInvoiceStatus(
         id,
@@ -108,7 +104,7 @@ class InvoiceController {
   public async sendEmail(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
-      const { id } = req.params; // ID Invoice
+      const { id } = req.params;
 
       await InvoiceService.sendInvoiceEmail(id, userId);
 
@@ -120,7 +116,6 @@ class InvoiceController {
     }
   }
 
-  // Handler untuk statistik dashboard (Stat Cards)
   public getDashboardStats = async (
     req: AuthRequest,
     res: Response,
@@ -137,7 +132,6 @@ class InvoiceController {
     }
   };
 
-  // Handler untuk data chart dashboard
   public getChartStats = async (
     req: AuthRequest,
     res: Response,
@@ -155,5 +149,4 @@ class InvoiceController {
   };
 }
 
-// Pastikan baris ini ada di paling bawah
 export default new InvoiceController();

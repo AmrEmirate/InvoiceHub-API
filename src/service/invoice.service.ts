@@ -7,14 +7,9 @@ import {
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
-
-// Impor tipe dari @prisma/client
 import { Invoice, InvoiceStatus, User, InvoiceItem } from "../generated/prisma";
-
-// Impor 'transporter'
 import { transport } from "../config/nodemailer";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
-// Impor instance prisma
 import { prisma } from "../config/prisma";
 
 type ChartData = {
@@ -23,14 +18,8 @@ type ChartData = {
 };
 
 class InvoiceService {
-  
-  // --- 🚀 PERBAIKAN 1: IMPLEMENTASIKAN FUNGSI INI ---
-  /**
-   * Mengambil statistik dashboard (Stat Cards)
-   */
   public async getDashboardStats(userId: string) {
     try {
-      // Panggil method repository yang sudah kita buat
       const stats = await InvoiceRepository.getDashboardStats(userId);
       return stats;
     } catch (error: any) {
@@ -216,51 +205,41 @@ class InvoiceService {
       throw new AppError(500, "Failed to send email", emailError);
     }
   }
-  
-  /**
-   * Mengambil data agregat untuk chart dashboard
-   */
   public async getChartData(userId: string): Promise<ChartData[]> {
     try {
-      // Query ini spesifik untuk PostgreSQL untuk mengambil 12 bulan terakhir
       const result = await prisma.$queryRaw<ChartData[]>`
         SELECT 
           TO_CHAR(date_trunc('month', i."invoiceDate"), 'YYYY-MM') as month,
           SUM(i."totalAmount")::float as revenue
         FROM "Invoice" i
         WHERE i."userId" = ${userId}
-          -- --- 🚀 PERBAIKAN 2: TAMBAHKAN TYPE CAST ::"InvoiceStatus" ---
           AND i."status" = ${InvoiceStatus.PAID}::"InvoiceStatus"
           AND i."invoiceDate" >= date_trunc('month', NOW() - interval '11 months')
         GROUP BY 1
         ORDER BY 1 ASC;
       `;
       
-      // Format data untuk memastikan 12 bulan ada (meskipun 0)
       const monthlyData: Record<string, number> = {};
       const months = [];
       const today = new Date();
 
-      // Buat daftar 12 bulan terakhir (misal: "2025-11", "2025-10", ...)
       for (let i = 0; i < 12; i++) {
         const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
         const monthKey = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`;
         months.push(monthKey);
-        monthlyData[monthKey] = 0; // Inisialisasi dengan 0
+        monthlyData[monthKey] = 0;
       }
 
-      // Isi data dari hasil query
       result.forEach(item => {
         if (monthlyData.hasOwnProperty(item.month)) {
           monthlyData[item.month] = item.revenue;
         }
       });
 
-      // Kembalikan dalam format yang diurutkan (terbaru ke terlama, lalu dibalik)
       const formattedData = months.map(monthKey => ({
         month: monthKey,
         revenue: monthlyData[monthKey]
-      })).reverse(); // Balik agar bulan terlama di awal
+      })).reverse();
 
       return formattedData;
 

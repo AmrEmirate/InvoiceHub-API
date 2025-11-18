@@ -1,4 +1,3 @@
-// File: src/service/category.service.ts
 import { Category } from "../generated/prisma";
 import CategoryRepository from "../repositories/category.repository";
 import { TUpdateCategoryInput } from "../types/category.types";
@@ -7,9 +6,6 @@ import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
 class CategoryService {
-  /**
-   * Membuat kategori baru.
-   */
   public async createCategory(name: string, userId: string) {
     const existing = await CategoryRepository.findByNameAndUser(name, userId);
 
@@ -25,20 +21,14 @@ class CategoryService {
     return newCategory;
   }
 
-  /**
-   * Mengambil semua kategori milik user, dengan filter.
-   */
- public async getCategories(
+  public async getCategories(
     userId: string,
     filters: { search?: string },
-    pagination: PaginationParams // <-- PARAMETER BARU
-  ): Promise<PaginatedResponse<Category>> { // <-- TIPE KEMBALIAN BARU
+    pagination: PaginationParams
+  ): Promise<PaginatedResponse<Category>> {
     return await CategoryRepository.findAllByUser(userId, filters, pagination);
   }
 
-  /**
-   * Mengambil satu kategori. (Juga memvalidasi kepemilikan)
-   */
   public async getCategoryById(id: string, userId: string) {
     const category = await CategoryRepository.findByIdAndUser(id, userId);
 
@@ -49,18 +39,13 @@ class CategoryService {
     return category;
   }
 
-  /**
-   * Mengupdate kategori.
-   */
   public async updateCategory(
     id: string,
     data: TUpdateCategoryInput,
     userId: string
   ) {
-    // 1. Validasi kepemilikan
     await this.getCategoryById(id, userId);
 
-    // 2. Jika nama diubah, cek duplikat
     if (data.name) {
       const existing = await CategoryRepository.findByNameAndUser(
         data.name,
@@ -77,18 +62,13 @@ class CategoryService {
     return updatedCategory;
   }
 
-  /**
-   * Menghapus kategori (Soft Delete).
-   */
   public async deleteCategory(id: string, userId: string) {
-    // 1. Validasi kepemilikan
     await this.getCategoryById(id, userId);
 
-    // 2. Lakukan Soft Delete
     await CategoryRepository.softDelete(id);
     logger.info(`Category soft-deleted (ID: ${id}) by user ${userId}`);
 
-    return true; // Sukses
+    return true;
   }
 }
 

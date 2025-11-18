@@ -11,13 +11,9 @@ import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
 import { User } from "../generated/prisma";
 
-// Tipe data input dari controller (tanpa password)
 type TRegisterInput = Omit<TCreateUserInput, "password" | "verificationToken" | "isVerified">;
 
 class AuthService {
-  /**
-   * Registrasi user baru (Tanpa Password)
-   */
   public async register(
     input: TRegisterInput
   ): Promise<{ message: string }> {
@@ -35,7 +31,7 @@ class AuthService {
       email: input.email,
       name: input.name,
       company: input.company,
-      password: null, // Password belum di-set
+      password: null,
       verificationToken: verificationToken,
       isVerified: false,
     };
@@ -48,9 +44,7 @@ class AuthService {
       throw new AppError(500, "Failed to create user", dbError);
     }
 
-    // Kirim email untuk "Set Password"
     try {
-      // PENTING: Tambahkan FE_URL di .env (misal: http://localhost:3000)
       const setPasswordUrl = `${
         process.env.FE_URL || "http://localhost:3000"
       }/auth/set-password?token=${verificationToken}`;
@@ -81,9 +75,6 @@ class AuthService {
     };
   }
 
-  /**
-   * Logika baru untuk mengatur password
-   */
   public async setPassword(
     token: string,
     password_plain: string
@@ -105,9 +96,6 @@ class AuthService {
     return { message: "Password set successfully. You can now login." };
   }
 
-  /**
-   * Login user (Logika tidak berubah, tapi pengecekan isVerified jadi lebih penting)
-   */
   public async login(
     input: Pick<TRegisterInput & { password_plain: string }, "email" | "password_plain">
   ): Promise<{ user: any; token: string }> {
@@ -117,13 +105,11 @@ class AuthService {
       throw new AppError(401, "Invalid email or password");
     }
 
-    // Jika password belum di-set SAMA SEKALI
     if (!user.password) {
         logger.warn(`Login attempt failed: Password not set for ${input.email}.`);
         throw new AppError(403, "Please set your password via the verification email first.");
     }
     
-    // Jika password sudah di-set tapi belum diverifikasi (seharusnya tidak terjadi di alur ini)
     if (!user.isVerified) {
       logger.warn(`Login attempt failed: Email ${input.email} not verified.`);
       throw new AppError(403, "Please verify your email before logging in.");
@@ -146,9 +132,6 @@ class AuthService {
     return { user: userWithoutPassword, token };
   }
 
-  /**
-   * Update profile (Tidak berubah)
-   */
   public async updateProfile(
     userId: string,
     data: TUpdateUserInput

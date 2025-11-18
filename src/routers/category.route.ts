@@ -4,7 +4,7 @@ import {
   createCategoryValidator,
   updateCategoryValidator,
   validateIdParam,
-  getCategoriesValidator, // <-- 1. IMPORT VALIDATOR BARU
+  getCategoriesValidator,
 } from "../middleware/validators/category.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -27,7 +27,6 @@ class CategoryRouter {
       this.controller.create.bind(this.controller)
     );
 
-    // 2. TERAPKAN VALIDATOR BARU
     this.router.get(
       "/",
       getCategoriesValidator,

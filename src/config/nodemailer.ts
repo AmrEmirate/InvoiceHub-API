@@ -4,7 +4,7 @@ import logger from "../utils/logger";
 export const transport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: false, // true untuk port 465, false untuk port lain seperti 587
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,

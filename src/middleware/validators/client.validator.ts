@@ -1,4 +1,3 @@
-// File: src/middleware/validators/client.validator.ts
 import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
@@ -15,7 +14,6 @@ const handleValidationErrors = (
   next();
 };
 
-// Validator untuk UUID (format ID default Prisma)
 export const validateIdParam = [
   param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,

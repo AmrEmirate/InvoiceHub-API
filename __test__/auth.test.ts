@@ -1,10 +1,7 @@
 import request from "supertest";
 import App from "../src/app";
 import { PrismaClient } from "../src/generated/prisma";
-// Import 'transport' untuk di-mock
 import { transport } from "../src/config/nodemailer";
-
-// Mock nodemailer agar tidak mengirim email sungguhan saat tes
 jest.mock("../src/config/nodemailer", () => ({
   transport: {
     sendMail: jest.fn().mockImplementation(() => Promise.resolve(true)),
@@ -16,17 +13,10 @@ const app = appInstance.app;
 const prisma = new PrismaClient();
 
 describe("Auth Flow (Register, Set Password, Login)", () => {
-  // Bersihkan database setelah semua tes
   afterAll(async () => {
-    // --- PERBAIKAN ---
-    // Baris ini telah diberi komentar agar tidak menghapus database Anda
-    // saat menjalankan 'npm test'.
-    // await prisma.user.deleteMany(); 
-    
     await prisma.$disconnect();
   });
 
-  // Variabel untuk menyimpan token antar tes
   let verificationToken: string | null = null;
 
   describe("1. POST /api/auth/register", () => {
@@ -37,27 +27,22 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
           name: "Test User",
           email: "test.auth@example.com",
           company: "Test Inc.",
-          // Password tidak dikirim
         });
 
       expect(res.statusCode).toEqual(201);
-      // Cek pesan baru
       expect(res.body.message).toBe(
         "Registration successful. Please check your email to set your password."
       );
-      // Pastikan TIDAK ADA token atau data user yang dikembalikan
       expect(res.body.data).toBeUndefined();
 
-      // Cek di database apakah user dibuat dengan benar
       const user = await prisma.user.findUnique({
         where: { email: "test.auth@example.com" },
       });
       expect(user).toBeDefined();
-      expect(user?.isVerified).toBe(false); // Belum terverifikasi
-      expect(user?.password).toBeNull(); // Password null
-      expect(user?.verificationToken).toBeDefined(); // Token ada
+      expect(user?.isVerified).toBe(false);
+      expect(user?.password).toBeNull();
+      expect(user?.verificationToken).toBeDefined();
 
-      // Simpan token untuk tes berikutnya
       verificationToken = user?.verificationToken || null;
     });
 
@@ -66,7 +51,7 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
         .post("/api/auth/register")
         .send({
           name: "Test User 2",
-          email: "test.auth@example.com", // Email yang sama
+          email: "test.auth@example.com",
           company: "Test Inc.",
         });
 
@@ -97,15 +82,15 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
           password: "newpassword123",
         });
 
-      expect(res.statusCode).toEqual(400); // Gagal validasi heksadesimal
+      expect(res.statusCode).toEqual(400);
     });
     
     it("should fail if password is too short", async () => {
       const res = await request(app)
         .post("/api/auth/set-password")
         .send({
-          token: verificationToken, // Token yang valid
-          password: "123", // Password terlalu pendek
+          token: verificationToken,
+          password: "123",
         });
 
       expect(res.statusCode).toEqual(400);
@@ -116,7 +101,7 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
       const res = await request(app)
         .post("/api/auth/set-password")
         .send({
-          token: verificationToken, // Token yang valid
+          token: verificationToken,
           password: "newpassword123",
         });
 
@@ -125,14 +110,13 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
         "Password set successfully. You can now login."
       );
 
-      // Cek database
       const user = await prisma.user.findUnique({
         where: { email: "test.auth@example.com" },
       });
-      expect(user?.isVerified).toBe(true); // Sudah terverifikasi
-      expect(user?.password).toBeDefined(); // Password sudah di-set
+      expect(user?.isVerified).toBe(true);
+      expect(user?.password).toBeDefined();
       expect(user?.password).not.toBeNull();
-      expect(user?.verificationToken).toBeNull(); // Token sudah dihapus
+      expect(user?.verificationToken).toBeNull();
     });
   });
 
@@ -154,13 +138,13 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
          .post("/api/auth/login")
          .send({
            email: "test.auth@example.com",
-           password: "newpassword123", // Password yang baru di-set
+           password: "newpassword123",
          });
          
        expect(res.statusCode).toEqual(200);
        expect(res.body.message).toBe("User logged in successfully");
        expect(res.body.data.user.email).toBe("test.auth@example.com");
-       expect(res.body.data.token).toBeDefined(); // Dapat token JWT
+       expect(res.body.data.token).toBeDefined();
      });
   });
 });

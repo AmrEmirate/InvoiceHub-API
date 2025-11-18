@@ -1,4 +1,3 @@
-// File: src/app.ts (Diperbarui)
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
@@ -18,7 +17,7 @@ class App {
     this.app = express();
     this.configure();
     this.route();
-    this.errorHandler(); // Pastikan error handler dipanggil setelah route
+    this.errorHandler();
   }
 
   private configure(): void {
@@ -36,8 +35,7 @@ class App {
       res.status(200).send("<h1>Classbase API</h1>");
     });
 
-    // DAFTARKAN SEMUA API ROUTES DI BAWAH /api
-    this.app.use("/api", mainRouter);// <-- GUNAKAN ROUTER UTAMA
+    this.app.use("/api", mainRouter);
   }
 
   private errorHandler(): void {
@@ -47,7 +45,6 @@ class App {
           `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`
         );
         
-        // Cek jika error adalah AppError kustom kita
         if (error instanceof AppError) {
           return res.status(error.code).json({
             message: error.message,
@@ -55,7 +52,6 @@ class App {
           });
         }
 
-        // Error bawaan server
         res.status(500).json({
           message: "Internal Server Error",
           details: error.message,

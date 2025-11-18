@@ -1,5 +1,3 @@
-// File: src/middleware/auth.middleware.ts
-// (Buat folder src/middleware jika belum ada)
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../utils/jwt";
 import AppError from "../utils/AppError";
@@ -43,13 +41,11 @@ export const authMiddleware = async (
       throw new AppError(401, "Invalid token. User not found.");
     }
 
-    // Hapus password sebelum meneruskan
     const { password, ...safeUser } = user;
 
-    // Tambahkan data user ke request object
     req.user = safeUser;
     next();
   } catch (error) {
-    next(error); // Teruskan error ke error handler
+    next(error);
   }
 };

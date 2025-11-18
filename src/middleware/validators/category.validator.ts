@@ -1,4 +1,3 @@
-// File: src/middleware/validators/category.validator.ts
 import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
@@ -15,9 +14,6 @@ const handleValidationErrors = (
   next();
 };
 
-// Validator untuk UUID (ID) sudah ada di client.validator.ts
-// Kita bisa impor dari sana, atau buat lagi di sini.
-// Untuk kesederhanaan, kita buat lagi di sini.
 export const validateIdParam = [
   param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,

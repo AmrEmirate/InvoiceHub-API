@@ -1,4 +1,3 @@
-// File: src/controllers/upload.controller.ts
 import { Request, Response, NextFunction } from "express";
 import UploadService from "../service/upload.service";
 import AppError from "../utils/AppError";

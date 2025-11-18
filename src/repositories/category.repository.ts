@@ -1,4 +1,3 @@
-// File: src/repositories/category.repository.ts
 import { PrismaClient, Category } from "../generated/prisma";
 import {
   TCreateCategoryInput,
@@ -13,26 +12,20 @@ class CategoryRepository {
     return await prisma.category.create({ data });
   }
 
-  /**
-   * Mencari kategori berdasarkan nama DAN userId (yang belum di-soft-delete).
-   */
   public async findByNameAndUser(
     name: string,
     userId: string
   ): Promise<Category | null> {
     return await prisma.category.findFirst({
-      where: { name, userId, deletedAt: null }, // Hanya cari yang aktif
+      where: { name, userId, deletedAt: null },
     });
   }
 
- /**
-   * PERUBAHAN: Mencari semua kategori dengan paginasi
-   */
   public async findAllByUser(
     userId: string,
     filters: { search?: string },
-    pagination: PaginationParams // <-- PARAMETER BARU
-  ): Promise<PaginatedResponse<Category>> { // <-- TIPE KEMBALIAN BARU
+    pagination: PaginationParams
+  ): Promise<PaginatedResponse<Category>> {
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
 
@@ -45,7 +38,6 @@ class CategoryRepository {
       };
     }
 
-    // 1. Ambil data halaman saat ini
     const data = await prisma.category.findMany({
       where: whereCondition,
       orderBy: { createdAt: "desc" },
@@ -53,12 +45,10 @@ class CategoryRepository {
       take: limit,
     });
 
-    // 2. Ambil total data
     const total = await prisma.category.count({
       where: whereCondition,
     });
 
-    // 3. Kembalikan data + meta paginasi
     return {
       data,
       meta: {
@@ -70,15 +60,12 @@ class CategoryRepository {
     };
   }
 
-  /**
-   * Mencari satu kategori berdasarkan ID dan pemiliknya (yang belum di-soft-delete).
-   */
   public async findByIdAndUser(
     id: string,
     userId: string
   ): Promise<Category | null> {
     return await prisma.category.findFirst({
-      where: { id, userId, deletedAt: null }, // Hanya cari yang aktif
+      where: { id, userId, deletedAt: null },
     });
   }
 
@@ -92,10 +79,6 @@ class CategoryRepository {
     });
   }
 
-  /**
-   * IMPLEMENTASI SOFT DELETE
-   * Kita meng-update kolom `deletedAt` dengan tanggal saat ini.
-   */
   public async softDelete(id: string): Promise<Category> {
     return await prisma.category.update({
       where: { id },

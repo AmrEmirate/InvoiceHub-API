@@ -4,7 +4,7 @@ import {
   createProductValidator,
   updateProductValidator,
   validateIdParam,
-  getProductsValidator, // <-- 1. IMPORT VALIDATOR BARU
+  getProductsValidator,
 } from "../middleware/validators/product.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -27,7 +27,6 @@ class ProductRouter {
       this.controller.create.bind(this.controller)
     );
 
-    // 2. TERAPKAN VALIDATOR BARU
     this.router.get(
       "/",
       getProductsValidator,

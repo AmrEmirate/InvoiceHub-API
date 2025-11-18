@@ -40,9 +40,6 @@ class UserRepository {
     });
   }
 
-  /**
-   * Mengatur password, memverifikasi user, dan menghapus token
-   */
   public async setPasswordAndVerify(
     id: string,
     hashedPassword: string
@@ -52,7 +49,7 @@ class UserRepository {
       data: {
         password: hashedPassword,
         isVerified: true,
-        verificationToken: null, // Hapus token setelah berhasil
+        verificationToken: null,
       },
     });
   }

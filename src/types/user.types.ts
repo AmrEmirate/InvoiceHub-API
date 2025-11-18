@@ -1,14 +1,12 @@
-// Tipe untuk membuat user baru di repo
 export type TCreateUserInput = {
   email: string;
   name: string;
   company: string;
-  password?: string | null; // <-- UBAH INI
-  verificationToken?: string | null; // <-- Tambahkan ini
-  isVerified?: boolean; // <-- Tambahkan ini
+  password?: string | null;
+  verificationToken?: string | null;
+  isVerified?: boolean;
 };
 
-// Tipe untuk update profile (Tidak berubah)
 export type TUpdateUserInput = {
   name?: string;
   company?: string;

@@ -1,4 +1,4 @@
-import { body, param, query, validationResult } from "express-validator"; // Import query
+import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
 
@@ -15,11 +15,10 @@ const handleValidationErrors = (
 };
 
 export const validateIdParam = [
-  param("id").isUUID().withMessage("Invalid ID format"), // Pastikan sudah isUUID
+  param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
 ];
 
-// --- TAMBAHAN BARU ---
 export const getProductsValidator = [
   query("page")
     .optional()
@@ -31,11 +30,10 @@ export const getProductsValidator = [
     .withMessage("Limit must be a positive integer"),
   query("categoryId")
     .optional()
-    .isUUID() // Validasi categoryId juga
+    .isUUID()
     .withMessage("Invalid Category ID format"),
   handleValidationErrors,
 ];
-// --- AKHIR TAMBAHAN ---
 
 export const createProductValidator = [
   body("name").notEmpty().withMessage("Product name is required"),

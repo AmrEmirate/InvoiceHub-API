@@ -1,4 +1,3 @@
-// File: src/controllers/product.controller.ts
 import { Request, Response, NextFunction } from "express";
 import ProductService from "../service/product.service";
 import { SafeUser } from "../types/express";
@@ -25,7 +24,6 @@ public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
 
-      // Ambil filter dan paginasi dari query URL
       const { search, categoryId, page, limit } = req.query;
 
       const paginationParams = {
@@ -44,7 +42,6 @@ public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
         paginationParams
       );
 
-      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Products fetched successfully",
         data: productsResponse.data,

@@ -19,7 +19,6 @@ export const registerValidator = [
   body("name").notEmpty().withMessage("Name is required"),
   body("company").notEmpty().withMessage("Company name is required"),
   body("email").isEmail().withMessage("Must be a valid email"),
-  // HAPUS validasi password dari sini
   handleValidationErrors,
 ];
 
@@ -29,7 +28,6 @@ export const loginValidator = [
   handleValidationErrors,
 ];
 
-// GANTI NAMA DARI 'verifyEmailValidator'
 export const setPasswordValidator = [
   body("token")
     .notEmpty()
@@ -72,6 +70,6 @@ export const updateProfileSchema = z.object({
     country: z.string().optional(),
     taxId: z.string().optional(),
     bankAccount: z.string().optional(),
-    avatar: z.string().url('Must be a valid URL').optional(), // <-- TAMBAHKAN INI
+    avatar: z.string().url('Must be a valid URL').optional(),
   }),
 });

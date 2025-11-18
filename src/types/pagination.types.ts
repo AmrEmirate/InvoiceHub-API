@@ -1,10 +1,10 @@
 export interface PaginatedResponse<T> {
-  data: T[]; // Data untuk halaman saat ini
+  data: T[];
   meta: {
-    total: number; // Total semua data
-    page: number; // Halaman saat ini
-    limit: number; // Item per halaman
-    totalPages: number; // Total halaman
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
   };
 }
 

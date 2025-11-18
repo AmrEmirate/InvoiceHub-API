@@ -9,7 +9,7 @@ interface AuthRequest extends Request {
 class ClientController {
   public async create(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const userId = req.user!.id; // `req.user` dijamin ada oleh authMiddleware
+      const userId = req.user!.id;
       const newClient = await ClientService.createClient(req.body, userId);
       res.status(201).json({
         message: "Client created successfully",
@@ -20,17 +20,12 @@ class ClientController {
     }
   }
 
-  /**
-   * PERUBAHAN: Sekarang menangani paginasi
-   */
   public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
 
-      // Ambil filter dan paginasi dari query URL
       const { search, page, limit } = req.query;
 
-      // Set default untuk paginasi jika tidak disediakan
       const paginationParams = {
         page: Number(page) || 1,
         limit: Number(limit) || 10,
@@ -40,14 +35,12 @@ class ClientController {
         search: search as string | undefined,
       };
 
-      // Panggil service dengan parameter baru
       const clientsResponse = await ClientService.getClients(
         userId,
         filters,
         paginationParams
       );
 
-      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Clients fetched successfully",
         data: clientsResponse.data,

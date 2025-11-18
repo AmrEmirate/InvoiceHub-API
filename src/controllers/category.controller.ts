@@ -1,4 +1,3 @@
-// File: src/controllers/category.controller.ts
 import { Request, Response, NextFunction } from "express";
 import CategoryService from "../service/category.service";
 import { SafeUser } from "../types/express";
@@ -22,14 +21,10 @@ class CategoryController {
     }
   }
 
- /**
-   * PERUBAHAN: Membaca query paginasi
-   */
-  public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
+ public async getAll(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
       
-      // Ambil filter dan paginasi dari query URL
       const { search, page, limit } = req.query;
 
       const paginationParams = {
@@ -47,7 +42,6 @@ class CategoryController {
         paginationParams
       );
 
-      // Kembalikan data DAN meta paginasi
       res.status(200).json({
         message: "Categories fetched successfully",
         data: categoriesResponse.data,

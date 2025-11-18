@@ -4,9 +4,9 @@ import {
   createClientValidator,
   updateClientValidator,
   validateIdParam,
-  getClientsValidator, // <-- 1. IMPORT VALIDATOR BARU
+  getClientsValidator,
 } from "../middleware/validators/client.validator";
-import { authMiddleware } from "../middleware/auth.middleware"; // Middleware utama kita!
+import { authMiddleware } from "../middleware/auth.middleware";
 
 class ClientRouter {
   public router: Router;
@@ -19,31 +19,26 @@ class ClientRouter {
   }
 
   private initializeRoutes(): void {
-    // Terapkan authMiddleware ke SEMUA rute di bawah ini
     this.router.use(authMiddleware);
 
-    // POST /api/clients
     this.router.post(
       "/",
       createClientValidator,
       this.controller.create.bind(this.controller)
     );
 
-    // GET /api/clients
     this.router.get(
       "/",
-      getClientsValidator, // <-- 2. TERAPKAN VALIDATOR DI SINI
+        getClientsValidator,
       this.controller.getAll.bind(this.controller)
     );
 
-    // GET /api/clients/:id
     this.router.get(
       "/:id",
       validateIdParam,
       this.controller.getOne.bind(this.controller)
     );
 
-    // PUT /api/clients/:id
     this.router.put(
       "/:id",
       validateIdParam,
@@ -51,7 +46,6 @@ class ClientRouter {
       this.controller.update.bind(this.controller)
     );
 
-    // DELETE /api/clients/:id
     this.router.delete(
       "/:id",
       validateIdParam,

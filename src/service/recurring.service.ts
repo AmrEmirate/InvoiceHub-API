@@ -1,4 +1,3 @@
-// PERBAIKAN: Tambahkan 'InvoiceItem' ke daftar import
 import {
   PrismaClient,
   Invoice,
@@ -13,9 +12,6 @@ import { TCreateInvoiceInput } from "../types/invoice.types";
 const prisma = new PrismaClient();
 
 class RecurringService {
-  /**
-   * Logika utama yang dipanggil oleh Cron Job setiap hari.
-   */
   public async generateRecurringInvoices() {
     logger.info("[Cron] Running recurring invoice check...");
 
@@ -25,7 +21,7 @@ class RecurringService {
         recurrenceInterval: { not: null },
       },
       include: {
-        items: true, // Kita butuh item untuk diduplikasi
+        items: true,
       },
     });
 
@@ -35,7 +31,7 @@ class RecurringService {
     }
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalisasi ke awal hari
+    today.setHours(0, 0, 0, 0);
 
     for (const template of templateInvoices) {
       try {
@@ -43,7 +39,7 @@ class RecurringService {
           template.dueDate,
           template.recurrenceInterval!
         );
-        nextDueDate.setHours(0, 0, 0, 0); // Normalisasi
+        nextDueDate.setHours(0, 0, 0, 0);
 
         if (nextDueDate.getTime() === today.getTime()) {
           const alreadyExists = await this.checkIfDuplicateExists(
@@ -52,8 +48,6 @@ class RecurringService {
           );
 
           if (!alreadyExists) {
-            // PERBAIKAN: Pastikan 'template' di-pass dengan benar
-            // Tipe 'items' akan otomatis valid karena 'include' di atas
             await this.duplicateInvoice(template as Invoice & { items: InvoiceItem[] }, today);
           }
         }
@@ -66,9 +60,6 @@ class RecurringService {
     logger.info("[Cron] Recurring invoice check finished.");
   }
 
-  /**
-   * Menghitung tanggal jatuh tempo berikutnya berdasarkan interval
-   */
   private calculateNextDueDate(
     originalDueDate: Date,
     interval: string
@@ -96,9 +87,6 @@ class RecurringService {
     return nextDate;
   }
 
-  /**
-   * Mencegah duplikat: Cek apakah invoice untuk template ini sudah ada
-   */
   private async checkIfDuplicateExists(
     template: Invoice,
     newDueDate: Date
@@ -115,11 +103,7 @@ class RecurringService {
     return !!existing;
   }
 
-  /**
-   * Menduplikasi invoice template menjadi invoice baru
-   */
   private async duplicateInvoice(
-    // PERBAIKAN: Gunakan tipe InvoiceItem yang sudah diimpor
     template: Invoice & { items: InvoiceItem[] },
     newDueDate: Date
   ) {
