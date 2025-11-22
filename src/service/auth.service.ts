@@ -141,6 +141,7 @@ class AuthService {
     const { password, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
   }
+
   public async handleGoogleLogin(
     user: User
   ): Promise<{ user: any; token: string }> {
@@ -149,6 +150,47 @@ class AuthService {
     logger.info(`User logged in via Google: ${user.email} (ID: ${user.id})`);
 
     const { password, ...userWithoutPassword } = user;
+    return { user: userWithoutPassword, token };
+  }
+
+  public async googleSignup(
+    input: { email: string; name: string; company: string }
+  ): Promise<{ user: any; token: string }> {
+    // Check if user already exists
+    const existingUser = await UserRepository.findUserByEmail(input.email);
+    if (existingUser) {
+      logger.warn(
+        `Google signup attempt failed: Email ${input.email} already exists.`
+      );
+      throw new AppError(409, "Email already registered");
+    }
+
+    // Create new user with Google data
+    const newUserInput: TCreateUserInput = {
+      email: input.email,
+      name: input.name,
+      company: input.company,
+      password: null, // No password needed for Google users
+      verificationToken: null,
+      isVerified: true, // Auto-verify Google users
+    };
+
+    let createdUser;
+    try {
+      createdUser = await UserRepository.createUser(newUserInput);
+      logger.info(
+        `New user registered via Google signup: ${createdUser.email} (ID: ${createdUser.id})`
+      );
+    } catch (dbError: any) {
+      logger.error(`Database error during Google signup: ${dbError.message}`);
+      throw new AppError(500, "Failed to create user", dbError);
+    }
+
+    // Generate token
+    const tokenPayload = { id: createdUser.id, email: createdUser.email };
+    const token = createToken(tokenPayload);
+
+    const { password, ...userWithoutPassword } = createdUser;
     return { user: userWithoutPassword, token };
   }
 }

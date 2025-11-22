@@ -123,3 +123,23 @@
 2025-11-22 21:15:57 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
 2025-11-22 21:16:03 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
 2025-11-22 21:16:04 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:09:39 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:09:44 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:09:45 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:11:18 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:12:00 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:12:03 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 22:13:54 [ERROR]: GET /api/categories: Access denied. No token provided. {"code":401}
+2025-11-22 22:13:54 [ERROR]: GET /api/products: Access denied. No token provided. {"code":401}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/register: Email already registered {"code":409}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/register: Email already registered {"code":409}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/register: Validation failed {"code":400,"details":[{"type":"field","msg":"Name is required","path":"name","location":"body"}]}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":"invalidtoken123","msg":"Invalid token format","path":"token","location":"body"}]}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":null,"msg":"Token is required","path":"token","location":"body"},{"type":"field","value":null,"msg":"Invalid token format","path":"token","location":"body"},{"type":"field","value":"123","msg":"Password must be at least 6 characters long","path":"password","location":"body"}]}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":null,"msg":"Token is required","path":"token","location":"body"},{"type":"field","value":null,"msg":"Invalid token format","path":"token","location":"body"}]}
+2025-11-22 23:03:14 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}
+2025-11-22 23:05:52 [ERROR]: POST /api/auth/register: Email already registered {"code":409}
+2025-11-22 23:05:52 [ERROR]: POST /api/auth/register: Validation failed {"code":400,"details":[{"type":"field","msg":"Name is required","path":"name","location":"body"}]}
+2025-11-22 23:05:52 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":"invalidtoken123","msg":"Invalid token format","path":"token","location":"body"}]}
+2025-11-22 23:05:52 [ERROR]: POST /api/auth/set-password: Validation failed {"code":400,"details":[{"type":"field","value":"123","msg":"Password must be at least 6 characters long","path":"password","location":"body"}]}
+2025-11-22 23:05:53 [ERROR]: POST /api/auth/login: Invalid email or password {"code":401}

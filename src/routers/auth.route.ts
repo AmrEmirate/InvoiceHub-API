@@ -51,6 +51,12 @@ class AuthRouter {
       this.controller.updateMe.bind(this.controller)
     );
 
+    this.router.post(
+      "/google-signup",
+      registerValidator,
+      this.controller.googleSignup.bind(this.controller)
+    );
+
     this.router.get(
       "/google",
       passport.authenticate("google", {

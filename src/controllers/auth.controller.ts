@@ -87,21 +87,58 @@ class AuthController {
     }
   }
 
+  public async googleSignup(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, name, company } = req.body;
+
+      const { user, token } = await AuthService.googleSignup({
+        email,
+        name,
+        company,
+      });
+
+      res.status(201).json({
+        message: "Registration with Google successful",
+        data: {
+          user,
+          token,
+        },
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
   public async googleCallback(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         throw new AppError(401, "Google authentication failed");
       }
 
-      const { user, token } = await AuthService.handleGoogleLogin(
-        req.user as User
-      );
-
+      const userData = req.user as any;
       const feUrl = process.env.FE_URL || "http://localhost:3000";
+
+      // Check if this is a new user (not yet registered)
+      if (userData.isNewUser) {
+        // Redirect to signup page with Google data pre-filled
+        const encodedEmail = encodeURIComponent(userData.email);
+        const encodedName = encodeURIComponent(userData.name);
+        const encodedGoogleId = encodeURIComponent(userData.googleId);
+        
+        res.redirect(
+          `${feUrl}/auth/callback?newUser=true&googleEmail=${encodedEmail}&googleName=${encodedName}&googleId=${encodedGoogleId}`
+        );
+        return;
+      }
+
+      // Existing user - proceed with normal login
+      const { user, token } = await AuthService.handleGoogleLogin(
+        userData as User
+      );
       
-      const userData = encodeURIComponent(JSON.stringify(user));
+      const userDataEncoded = encodeURIComponent(JSON.stringify(user));
       res.redirect(
-        `${feUrl}/auth/callback?token=${token}&user=${userData}`
+        `${feUrl}/auth/callback?token=${token}&user=${userDataEncoded}`
       );
     } catch (error: any) {
       next(error);

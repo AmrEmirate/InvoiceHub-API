@@ -724,3 +724,303 @@
 2025-11-22 21:29:28 [INFO]: GET /api/products
 2025-11-22 21:29:28 [INFO]: GET /api/categories
 2025-11-22 21:29:28 [INFO]: GET /api/products
+2025-11-22 21:48:45 [INFO]: Starting cron jobs...
+2025-11-22 21:48:45 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 21:48:47 [INFO]: Nodemailer transport is ready.
+2025-11-22 21:49:40 [INFO]: GET /api/invoices/stats
+2025-11-22 21:49:40 [INFO]: GET /api/invoices
+2025-11-22 21:49:40 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 21:49:41 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 21:49:41 [INFO]: GET /api/invoices
+2025-11-22 21:49:41 [INFO]: GET /api/invoices/stats
+2025-11-22 21:49:46 [INFO]: GET /api/categories
+2025-11-22 21:49:46 [INFO]: GET /api/categories
+2025-11-22 21:49:49 [INFO]: GET /api/auth/me
+2025-11-22 21:49:49 [INFO]: GET /api/auth/me
+2025-11-22 21:55:38 [INFO]: GET /api/categories
+2025-11-22 21:55:39 [INFO]: GET /api/categories
+2025-11-22 22:05:08 [INFO]: GET /api/categories
+2025-11-22 22:07:29 [INFO]: GET /api/categories
+2025-11-22 22:07:59 [INFO]: GET /api/categories
+2025-11-22 22:08:17 [INFO]: GET /api/categories
+2025-11-22 22:09:03 [INFO]: GET /api/categories
+2025-11-22 22:09:05 [INFO]: GET /api/categories
+2025-11-22 22:09:07 [INFO]: GET /api/categories
+2025-11-22 22:09:07 [INFO]: GET /api/products
+2025-11-22 22:09:08 [INFO]: GET /api/categories
+2025-11-22 22:09:08 [INFO]: GET /api/products
+2025-11-22 22:09:15 [INFO]: GET /api/categories
+2025-11-22 22:09:15 [INFO]: GET /api/categories
+2025-11-22 22:09:27 [INFO]: POST /api/products
+2025-11-22 22:09:27 [INFO]: New product created (ID: a050a803-28dd-487f-ba9e-2f78e8408880) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:09:27 [INFO]: GET /api/categories
+2025-11-22 22:09:27 [INFO]: GET /api/products
+2025-11-22 22:09:28 [INFO]: GET /api/categories
+2025-11-22 22:09:28 [INFO]: GET /api/products
+2025-11-22 22:09:29 [INFO]: GET /api/categories
+2025-11-22 22:09:30 [INFO]: GET /api/categories
+2025-11-22 22:09:38 [INFO]: POST /api/products
+2025-11-22 22:09:44 [INFO]: POST /api/products
+2025-11-22 22:09:45 [INFO]: POST /api/products
+2025-11-22 22:09:48 [INFO]: POST /api/products
+2025-11-22 22:09:49 [INFO]: New product created (ID: 4cf98dfa-a314-46cf-b2f7-cbdfba7732f4) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:09:49 [INFO]: GET /api/categories
+2025-11-22 22:09:49 [INFO]: GET /api/products
+2025-11-22 22:09:49 [INFO]: GET /api/categories
+2025-11-22 22:09:49 [INFO]: GET /api/products
+2025-11-22 22:09:56 [INFO]: GET /api/categories
+2025-11-22 22:09:56 [INFO]: GET /api/categories
+2025-11-22 22:10:08 [INFO]: POST /api/products
+2025-11-22 22:10:09 [INFO]: New product created (ID: 6a7cabad-7b30-4679-ac7b-d718bdc8be58) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:10:09 [INFO]: GET /api/categories
+2025-11-22 22:10:09 [INFO]: GET /api/products
+2025-11-22 22:10:10 [INFO]: GET /api/categories
+2025-11-22 22:10:10 [INFO]: GET /api/products
+2025-11-22 22:10:12 [INFO]: GET /api/categories
+2025-11-22 22:10:12 [INFO]: GET /api/categories
+2025-11-22 22:10:39 [INFO]: POST /api/products
+2025-11-22 22:10:39 [INFO]: New product created (ID: d63be6b3-5436-4e65-b1a2-074802c4bb63) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:10:39 [INFO]: GET /api/categories
+2025-11-22 22:10:39 [INFO]: GET /api/products
+2025-11-22 22:10:40 [INFO]: GET /api/categories
+2025-11-22 22:10:40 [INFO]: GET /api/products
+2025-11-22 22:10:51 [INFO]: GET /api/categories
+2025-11-22 22:10:51 [INFO]: GET /api/categories
+2025-11-22 22:11:03 [INFO]: POST /api/products
+2025-11-22 22:11:04 [INFO]: New product created (ID: 01434a0b-223c-4847-9a10-eed9bca57fc6) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:11:04 [INFO]: GET /api/categories
+2025-11-22 22:11:04 [INFO]: GET /api/products
+2025-11-22 22:11:04 [INFO]: GET /api/categories
+2025-11-22 22:11:04 [INFO]: GET /api/products
+2025-11-22 22:11:08 [INFO]: GET /api/categories
+2025-11-22 22:11:08 [INFO]: GET /api/categories
+2025-11-22 22:11:18 [INFO]: POST /api/products
+2025-11-22 22:11:23 [INFO]: POST /api/products
+2025-11-22 22:11:23 [INFO]: New product created (ID: fcb1b957-2e15-4614-b956-518ba573de11) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:11:23 [INFO]: GET /api/categories
+2025-11-22 22:11:23 [INFO]: GET /api/products
+2025-11-22 22:11:24 [INFO]: GET /api/categories
+2025-11-22 22:11:24 [INFO]: GET /api/products
+2025-11-22 22:11:48 [INFO]: GET /api/categories
+2025-11-22 22:11:48 [INFO]: GET /api/categories
+2025-11-22 22:11:59 [INFO]: POST /api/products
+2025-11-22 22:12:02 [INFO]: POST /api/products
+2025-11-22 22:12:07 [INFO]: POST /api/products
+2025-11-22 22:12:08 [INFO]: New product created (ID: 567a3756-6798-4686-b2c9-0076f4f7b895) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-22 22:12:08 [INFO]: GET /api/categories
+2025-11-22 22:12:08 [INFO]: GET /api/products
+2025-11-22 22:12:08 [INFO]: GET /api/categories
+2025-11-22 22:12:08 [INFO]: GET /api/products
+2025-11-22 22:13:54 [INFO]: GET /api/categories
+2025-11-22 22:13:54 [INFO]: GET /api/products
+2025-11-22 22:15:12 [INFO]: POST /api/auth/login
+2025-11-22 22:15:13 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-22 22:15:14 [INFO]: GET /api/invoices/stats
+2025-11-22 22:15:14 [INFO]: GET /api/invoices
+2025-11-22 22:15:14 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:15:14 [INFO]: GET /api/invoices/stats
+2025-11-22 22:15:15 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:15:15 [INFO]: GET /api/invoices
+2025-11-22 22:15:18 [INFO]: GET /api/invoices
+2025-11-22 22:15:19 [INFO]: GET /api/invoices
+2025-11-22 22:15:20 [INFO]: GET /api/categories
+2025-11-22 22:15:20 [INFO]: GET /api/products
+2025-11-22 22:15:21 [INFO]: GET /api/categories
+2025-11-22 22:15:21 [INFO]: GET /api/products
+2025-11-22 22:16:23 [INFO]: GET /api/categories
+2025-11-22 22:16:23 [INFO]: GET /api/products
+2025-11-22 22:17:10 [INFO]: GET /api/categories
+2025-11-22 22:17:10 [INFO]: GET /api/products
+2025-11-22 22:18:01 [INFO]: GET /api/categories
+2025-11-22 22:18:01 [INFO]: GET /api/products
+2025-11-22 22:18:27 [INFO]: GET /api/categories
+2025-11-22 22:18:27 [INFO]: GET /api/products
+2025-11-22 22:18:59 [INFO]: GET /api/categories
+2025-11-22 22:18:59 [INFO]: GET /api/products
+2025-11-22 22:19:04 [INFO]: GET /api/products
+2025-11-22 22:19:08 [INFO]: GET /api/products
+2025-11-22 22:19:12 [INFO]: GET /api/products
+2025-11-22 22:19:12 [INFO]: GET /api/categories
+2025-11-22 22:21:57 [INFO]: GET /api/categories
+2025-11-22 22:21:57 [INFO]: GET /api/products
+2025-11-22 22:22:05 [INFO]: GET /api/invoices
+2025-11-22 22:22:14 [INFO]: GET /api/clients
+2025-11-22 22:22:22 [INFO]: GET /api/categories
+2025-11-22 22:25:47 [INFO]: GET /api/categories
+2025-11-22 22:25:47 [INFO]: GET /api/products
+2025-11-22 22:29:42 [INFO]: GET /api/categories
+2025-11-22 22:29:42 [INFO]: GET /api/products
+2025-11-22 22:29:42 [INFO]: GET /api/categories
+2025-11-22 22:29:42 [INFO]: GET /api/products
+2025-11-22 22:30:45 [INFO]: GET /api/categories
+2025-11-22 22:31:12 [INFO]: GET /api/categories
+2025-11-22 22:31:12 [INFO]: GET /api/products
+2025-11-22 22:31:38 [INFO]: GET /api/categories
+2025-11-22 22:37:06 [INFO]: GET /api/categories
+2025-11-22 22:37:07 [INFO]: GET /api/categories
+2025-11-22 22:37:08 [INFO]: GET /api/categories
+2025-11-22 22:37:08 [INFO]: GET /api/products
+2025-11-22 22:37:08 [INFO]: GET /api/categories
+2025-11-22 22:37:09 [INFO]: GET /api/products
+2025-11-22 22:37:10 [INFO]: GET /api/clients
+2025-11-22 22:37:10 [INFO]: GET /api/clients
+2025-11-22 22:37:14 [INFO]: GET /api/clients
+2025-11-22 22:37:14 [INFO]: GET /api/clients
+2025-11-22 22:37:15 [INFO]: GET /api/clients
+2025-11-22 22:37:16 [INFO]: GET /api/clients
+2025-11-22 22:37:17 [INFO]: GET /api/clients
+2025-11-22 22:37:19 [INFO]: GET /api/clients
+2025-11-22 22:38:35 [INFO]: GET /api/clients/6240e095-24bf-4a85-a280-2ed90f55d1bd
+2025-11-22 22:38:36 [INFO]: GET /api/clients/6240e095-24bf-4a85-a280-2ed90f55d1bd
+2025-11-22 22:38:38 [INFO]: GET /api/invoices
+2025-11-22 22:38:38 [INFO]: GET /api/invoices
+2025-11-22 22:38:43 [INFO]: GET /api/invoices
+2025-11-22 22:39:04 [INFO]: GET /api/invoices
+2025-11-22 22:39:04 [INFO]: GET /api/invoices
+2025-11-22 22:39:23 [INFO]: GET /api/invoices
+2025-11-22 22:40:15 [INFO]: GET /api/invoices
+2025-11-22 22:40:47 [INFO]: GET /api/invoices/stats
+2025-11-22 22:40:47 [INFO]: GET /api/invoices
+2025-11-22 22:40:47 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:40:48 [INFO]: GET /api/invoices
+2025-11-22 22:40:48 [INFO]: GET /api/invoices/stats
+2025-11-22 22:40:48 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:40:54 [INFO]: GET /api/invoices/stats
+2025-11-22 22:40:54 [INFO]: GET /api/invoices
+2025-11-22 22:40:54 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:41:29 [INFO]: GET /api/invoices
+2025-11-22 22:42:04 [INFO]: GET /api/invoices
+2025-11-22 22:42:05 [INFO]: GET /api/invoices/stats
+2025-11-22 22:42:05 [INFO]: GET /api/invoices
+2025-11-22 22:42:05 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:42:12 [INFO]: GET /api/invoices
+2025-11-22 22:42:53 [INFO]: GET /api/invoices
+2025-11-22 22:42:55 [INFO]: GET /api/invoices
+2025-11-22 22:43:07 [INFO]: GET /api/invoices/stats
+2025-11-22 22:43:07 [INFO]: GET /api/invoices
+2025-11-22 22:43:07 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:44:32 [INFO]: Starting cron jobs...
+2025-11-22 22:44:32 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 22:44:34 [INFO]: Nodemailer transport is ready.
+2025-11-22 22:44:39 [INFO]: GET /api/invoices
+2025-11-22 22:44:40 [INFO]: GET /api/invoices
+2025-11-22 22:47:37 [INFO]: GET /api/invoices
+2025-11-22 22:47:47 [INFO]: GET /api/invoices
+2025-11-22 22:48:12 [INFO]: GET /api/clients
+2025-11-22 22:48:13 [INFO]: GET /api/clients
+2025-11-22 22:48:15 [INFO]: GET /api/invoices
+2025-11-22 22:48:15 [INFO]: GET /api/invoices
+2025-11-22 22:48:33 [INFO]: GET /api/invoices
+2025-11-22 22:50:07 [INFO]: GET /api/invoices
+2025-11-22 22:50:09 [INFO]: GET /api/invoices
+2025-11-22 22:50:10 [INFO]: GET /api/invoices
+2025-11-22 22:50:10 [INFO]: GET /api/invoices
+2025-11-22 22:50:48 [INFO]: GET /api/clients
+2025-11-22 22:50:49 [INFO]: GET /api/clients
+2025-11-22 22:50:51 [INFO]: GET /api/categories
+2025-11-22 22:50:51 [INFO]: GET /api/products
+2025-11-22 22:50:51 [INFO]: GET /api/categories
+2025-11-22 22:50:51 [INFO]: GET /api/products
+2025-11-22 22:50:53 [INFO]: GET /api/categories
+2025-11-22 22:50:53 [INFO]: GET /api/categories
+2025-11-22 22:50:55 [INFO]: GET /api/categories
+2025-11-22 22:50:55 [INFO]: GET /api/products
+2025-11-22 22:50:55 [INFO]: GET /api/categories
+2025-11-22 22:50:55 [INFO]: GET /api/products
+2025-11-22 22:50:59 [INFO]: GET /api/products
+2025-11-22 22:51:04 [INFO]: GET /api/invoices/stats
+2025-11-22 22:51:04 [INFO]: GET /api/invoices
+2025-11-22 22:51:04 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:51:04 [INFO]: GET /api/invoices
+2025-11-22 22:51:04 [INFO]: GET /api/invoices/stats
+2025-11-22 22:51:05 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:51:26 [INFO]: GET /api/invoices/stats
+2025-11-22 22:51:26 [INFO]: GET /api/invoices
+2025-11-22 22:51:26 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:51:26 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:51:26 [INFO]: GET /api/invoices/stats
+2025-11-22 22:51:26 [INFO]: GET /api/invoices
+2025-11-22 22:51:41 [INFO]: GET /api/clients
+2025-11-22 22:51:41 [INFO]: GET /api/clients
+2025-11-22 22:51:42 [INFO]: GET /api/categories
+2025-11-22 22:51:42 [INFO]: GET /api/products
+2025-11-22 22:51:43 [INFO]: GET /api/categories
+2025-11-22 22:51:43 [INFO]: GET /api/products
+2025-11-22 22:51:44 [INFO]: GET /api/categories
+2025-11-22 22:51:44 [INFO]: GET /api/categories
+2025-11-22 22:51:47 [INFO]: GET /api/categories
+2025-11-22 22:51:47 [INFO]: GET /api/products
+2025-11-22 22:51:47 [INFO]: GET /api/categories
+2025-11-22 22:51:48 [INFO]: GET /api/products
+2025-11-22 22:51:51 [INFO]: GET /api/categories
+2025-11-22 22:51:51 [INFO]: GET /api/categories
+2025-11-22 22:51:52 [INFO]: GET /api/categories
+2025-11-22 22:51:52 [INFO]: GET /api/products
+2025-11-22 22:51:52 [INFO]: GET /api/categories
+2025-11-22 22:51:52 [INFO]: GET /api/products
+2025-11-22 22:51:56 [INFO]: GET /api/clients
+2025-11-22 22:51:56 [INFO]: GET /api/clients
+2025-11-22 22:53:25 [INFO]: GET /api/invoices/stats
+2025-11-22 22:53:25 [INFO]: GET /api/invoices
+2025-11-22 22:53:25 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:53:43 [INFO]: GET /api/invoices
+2025-11-22 22:55:10 [INFO]: GET /api/invoices
+2025-11-22 22:55:11 [INFO]: GET /api/invoices/stats
+2025-11-22 22:55:11 [INFO]: GET /api/invoices
+2025-11-22 22:55:11 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:55:15 [INFO]: GET /api/clients
+2025-11-22 22:57:12 [INFO]: Starting cron jobs...
+2025-11-22 22:57:12 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 22:57:13 [INFO]: Nodemailer transport is ready.
+2025-11-22 22:57:19 [INFO]: GET /api/invoices/stats
+2025-11-22 22:57:19 [INFO]: GET /api/invoices
+2025-11-22 22:57:19 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 22:57:19 [INFO]: GET /api/invoices
+2025-11-22 22:57:24 [INFO]: GET /api/clients
+2025-11-22 23:03:14 [INFO]: POST /api/auth/register
+2025-11-22 23:03:14 [INFO]: GET /
+2025-11-22 23:03:14 [INFO]: GET /transaction
+2025-11-22 23:03:14 [INFO]: POST /api/auth/register
+2025-11-22 23:03:14 [INFO]: POST /api/auth/register
+2025-11-22 23:03:14 [INFO]: POST /api/auth/set-password
+2025-11-22 23:03:14 [INFO]: POST /api/auth/set-password
+2025-11-22 23:03:14 [INFO]: POST /api/auth/set-password
+2025-11-22 23:03:14 [INFO]: POST /api/auth/login
+2025-11-22 23:03:15 [INFO]: POST /api/auth/login
+2025-11-22 23:03:15 [INFO]: User logged in: test.auth@example.com (ID: afec36a7-afb6-4e17-b352-710935141794)
+2025-11-22 23:03:15 [INFO]: Nodemailer transport is ready.
+2025-11-22 23:05:50 [INFO]: GET /
+2025-11-22 23:05:50 [INFO]: GET /transaction
+2025-11-22 23:05:51 [INFO]: POST /api/auth/register
+2025-11-22 23:05:51 [INFO]: Nodemailer transport is ready.
+2025-11-22 23:05:52 [INFO]: Set password email sent to: test.auth@example.com (ID: 8371b605-654e-4464-8599-d52e8603a3ff)
+2025-11-22 23:05:52 [INFO]: POST /api/auth/register
+2025-11-22 23:05:52 [INFO]: POST /api/auth/register
+2025-11-22 23:05:52 [INFO]: POST /api/auth/set-password
+2025-11-22 23:05:52 [INFO]: POST /api/auth/set-password
+2025-11-22 23:05:52 [INFO]: POST /api/auth/set-password
+2025-11-22 23:05:52 [INFO]: Password set and user verified: test.auth@example.com (ID: 8371b605-654e-4464-8599-d52e8603a3ff)
+2025-11-22 23:05:52 [INFO]: POST /api/auth/login
+2025-11-22 23:05:53 [INFO]: POST /api/auth/login
+2025-11-22 23:05:53 [INFO]: User logged in: test.auth@example.com (ID: 8371b605-654e-4464-8599-d52e8603a3ff)
+2025-11-22 23:07:35 [INFO]: Starting cron jobs...
+2025-11-22 23:07:35 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 23:07:37 [INFO]: Nodemailer transport is ready.
+2025-11-22 23:08:09 [INFO]: GET /api/invoices/stats
+2025-11-22 23:08:09 [INFO]: GET /api/invoices
+2025-11-22 23:08:09 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 23:08:10 [INFO]: GET /api/invoices
+2025-11-22 23:08:10 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 23:08:10 [INFO]: GET /api/invoices/stats
+2025-11-22 23:09:19 [INFO]: Starting cron jobs...
+2025-11-22 23:09:19 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 23:09:20 [INFO]: Nodemailer transport is ready.
+2025-11-22 23:09:30 [INFO]: GET /api/invoices/stats
+2025-11-22 23:09:30 [INFO]: GET /api/invoices
+2025-11-22 23:09:30 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 23:09:31 [INFO]: GET /api/invoices/stats/chart
+2025-11-22 23:09:32 [INFO]: GET /api/invoices
+2025-11-22 23:09:32 [INFO]: GET /api/invoices/stats
+2025-11-22 23:17:46 [INFO]: Starting cron jobs...
+2025-11-22 23:17:46 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-22 23:17:47 [INFO]: Nodemailer transport is ready.
