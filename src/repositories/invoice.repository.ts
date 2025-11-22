@@ -2,13 +2,11 @@ import { PrismaClient, Invoice, InvoiceStatus } from "../generated/prisma";
 import { TCreateInvoiceInput } from "../types/invoice.types";
 import { Decimal } from "@prisma/client/runtime/library";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
-
 import { prisma } from "../config/prisma";
-
 
 class InvoiceRepository {
   public async create(
-    data: TCreateInvoiceInput,
+    data: TCreateInvoiceInput & { invoiceNumber: string },
     userId: string,
     totalAmount: Decimal
   ): Promise<Invoice> {
@@ -114,6 +112,27 @@ class InvoiceRepository {
               product: true,
           },
         },
+      },
+    });
+  }
+
+  public async findLastInvoiceByDate(userId: string, date: Date): Promise<Invoice | null> {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    return await prisma.invoice.findFirst({
+      where: {
+        userId,
+        createdAt: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
   }

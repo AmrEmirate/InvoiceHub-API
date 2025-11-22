@@ -1,16 +1,16 @@
+
 import { InvoiceStatus } from "../generated/prisma";
-import { Decimal } from "@prisma/client/runtime/library";
 
 export type TInvoiceItemInput = {
-  productId?: string;
   description: string;
   quantity: number;
-  price: number | Decimal;
+  price: number | string;
+  productId?: string;
 };
 
 export type TCreateInvoiceInput = {
   clientId: string;
-  invoiceNumber: string;
+  invoiceNumber?: string;
   status: InvoiceStatus;
   dueDate: string | Date;
   notes?: string;

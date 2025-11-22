@@ -28,6 +28,30 @@ class InvoiceService {
     }
   }
 
+  private async generateInvoiceNumber(userId: string): Promise<string> {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    const datePrefix = `${year}${month}${day}`;
+
+    const lastInvoice = await InvoiceRepository.findLastInvoiceByDate(userId, today);
+
+    let sequence = 1;
+    if (lastInvoice && lastInvoice.invoiceNumber) {
+      // Expected format: INV-YYYYMMDD-XXXX
+      const parts = lastInvoice.invoiceNumber.split("-");
+      if (parts.length === 3 && parts[1] === datePrefix) {
+        const lastSequence = parseInt(parts[2], 10);
+        if (!isNaN(lastSequence)) {
+          sequence = lastSequence + 1;
+        }
+      }
+    }
+
+    return `INV-${datePrefix}-${String(sequence).padStart(4, "0")}`;
+  }
+
   public async createInvoice(
     input: TCreateInvoiceInput,
     userId: string
@@ -59,9 +83,11 @@ class InvoiceService {
       })
     );
 
+    const invoiceNumber = await this.generateInvoiceNumber(userId);
+
     try {
       const newInvoice = await InvoiceRepository.create(
-        input,
+        { ...input, invoiceNumber },
         userId,
         totalAmount
       );
@@ -72,7 +98,18 @@ class InvoiceService {
     } catch (error: any) {
       logger.error(`Invoice creation failed: ${error.message}`, error);
       if (error.code === "P2002") {
-        throw new AppError(409, "Invoice number already exists.");
+        // Retry once if collision
+        try {
+             const retryInvoiceNumber = await this.generateInvoiceNumber(userId);
+             const newInvoice = await InvoiceRepository.create(
+                { ...input, invoiceNumber: retryInvoiceNumber },
+                userId,
+                totalAmount
+              );
+              return newInvoice;
+        } catch (retryError: any) {
+             throw new AppError(409, "Invoice number already exists.");
+        }
       }
       throw new AppError(500, "Failed to create invoice", error);
     }

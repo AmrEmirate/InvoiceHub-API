@@ -114,7 +114,7 @@ class RecurringService {
     const newItems = template.items.map((item) => ({
       description: item.description,
       quantity: item.quantity,
-      price: item.price,
+      price: item.price.toString(),
       productId: item.productId || undefined,
     }));
 
@@ -122,7 +122,7 @@ class RecurringService {
       template.invoiceNumber.split("-")[0]
     }-RE-${newDueDate.getTime()}`;
 
-    const newInvoiceData: TCreateInvoiceInput = {
+    const newInvoiceData = {
       clientId: template.clientId,
       invoiceNumber: newInvoiceNumber,
       status: InvoiceStatus.DRAFT,
@@ -136,7 +136,7 @@ class RecurringService {
     };
 
     await InvoiceRepository.create(
-      newInvoiceData,
+      newInvoiceData as any,
       template.userId,
       template.totalAmount
     );
