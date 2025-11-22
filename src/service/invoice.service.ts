@@ -167,35 +167,18 @@ class InvoiceService {
     const user = invoice.user;
     const client = invoice.client;
 
-    const itemsHtml = invoice.items
-      .map(
-        (item: InvoiceItem) =>
-          `<tr>
-             <td style="padding: 8px; border: 1px solid #ddd;">${
-               item.description
-             }</td>
-             <td style="padding: 8px; border: 1px solid #ddd;">${
-               item.quantity
-             }</td>
-             <td style="padding: 8px; border: 1px solid #ddd;">$${item.price.toFixed(
-               2
-             )}</td>
-           </tr>`
-      )
-      .join("");
-
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2>Halo ${client.name},</h2>
         <p>Anda menerima invoice baru (${invoice.invoiceNumber}) dari ${
       user.company
     }.</p>
-        <p><strong>Total Tagihan: $${invoice.totalAmount.toFixed(
-          2
+        <p><strong>Total Tagihan: Rp ${Number(invoice.totalAmount).toLocaleString(
+          "id-ID"
         )}</strong></p>
         <p><strong>Jatuh Tempo: ${new Date(
           invoice.dueDate
-        ).toLocaleDateString()}</p>
+        ).toLocaleDateString("id-ID")}</strong></p>
         <hr>
         <h3>Detail Item:</h3>
         <table style="width: 100%; border-collapse: collapse;">
@@ -207,7 +190,22 @@ class InvoiceService {
             </tr>
           </thead>
           <tbody>
-            ${itemsHtml}
+            ${invoice.items
+              .map(
+                (item: InvoiceItem) =>
+                  `<tr>
+             <td style="padding: 8px; border: 1px solid #ddd;">${
+               item.description
+             }</td>
+             <td style="padding: 8px; border: 1px solid #ddd;">${
+               item.quantity
+             }</td>
+             <td style="padding: 8px; border: 1px solid #ddd;">Rp ${Number(item.price).toLocaleString(
+               "id-ID"
+             )}</td>
+           </tr>`
+              )
+              .join("")}
           </tbody>
         </table>
         <hr>
@@ -242,6 +240,7 @@ class InvoiceService {
       throw new AppError(500, "Failed to send email", emailError);
     }
   }
+
   public async getChartData(userId: string): Promise<ChartData[]> {
     try {
       const result = await prisma.$queryRaw<ChartData[]>`

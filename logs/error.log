@@ -106,3 +106,20 @@
 2025-11-22 21:00:34 [ERROR]: POST /api/invoices: Validation failed {"code":400,"details":[{"type":"field","msg":"Invoice number is required","path":"invoiceNumber","location":"body"}]}
 2025-11-22 21:00:34 [ERROR]: POST /api/invoices: Validation failed {"code":400,"details":[{"type":"field","msg":"Invoice number is required","path":"invoiceNumber","location":"body"}]}
 2025-11-22 21:00:35 [ERROR]: POST /api/invoices: Validation failed {"code":400,"details":[{"type":"field","msg":"Invoice number is required","path":"invoiceNumber","location":"body"}]}
+2025-11-22 21:14:54 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:55 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:56 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:56 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:57 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:58 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:58 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:58 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:59 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:14:59 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:15:00 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:15:02 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:15:54 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:15:55 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:15:57 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:16:03 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}
+2025-11-22 21:16:04 [ERROR]: POST /api/products: SKU already exists for this user {"code":409}

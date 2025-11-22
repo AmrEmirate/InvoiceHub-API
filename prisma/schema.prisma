@@ -114,7 +114,7 @@ model Invoice {
   invoiceDate   DateTime      @default(now())
   dueDate       DateTime
   
-  currency      String        @default("USD")
+  currency      String        @default("IDR")
   notes         String?
   totalAmount   Decimal       @default(0)
 
