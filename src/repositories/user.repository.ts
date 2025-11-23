@@ -40,6 +40,12 @@ class UserRepository {
     });
   }
 
+  public async findByResetToken(token: string): Promise<User | null> {
+    return await prisma.user.findUnique({
+      where: { resetToken: token },
+    });
+  }
+
   public async setPasswordAndVerify(
     id: string,
     hashedPassword: string
@@ -50,6 +56,34 @@ class UserRepository {
         password: hashedPassword,
         isVerified: true,
         verificationToken: null,
+      },
+    });
+  }
+
+  public async setResetToken(
+    id: string,
+    resetToken: string,
+    resetTokenExpiry: Date
+  ): Promise<User> {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        resetToken,
+        resetTokenExpiry,
+      },
+    });
+  }
+
+  public async updatePasswordFromReset(
+    id: string,
+    hashedPassword: string
+  ): Promise<User> {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        password: hashedPassword,
+        resetToken: null,
+        resetTokenExpiry: null,
       },
     });
   }

@@ -19,4 +19,9 @@ export type TUpdateUserInput = {
   taxId?: string;
   bankAccount?: string;
   avatar?: string;
+  password?: string | null;
+  verificationToken?: string | null;
+  isVerified?: boolean;
+  resetToken?: string | null;
+  resetTokenExpiry?: Date | null;
 };

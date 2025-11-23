@@ -19,7 +19,9 @@ class UploadService {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: "invoicehub_uploads",
-          public_id: `img_${Date.now()}_${originalName.split(".")[0]}`,
+          public_id: `img_${Date.now()}_${originalName
+            .split(".")[0]
+            .replace(/[^a-zA-Z0-9]/g, "")}`,
         },
         (error, result) => {
           if (error) {

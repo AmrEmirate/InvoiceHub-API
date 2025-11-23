@@ -1,0 +1,97 @@
+2025-11-23 22:33:57 [INFO]: Starting cron jobs...
+2025-11-23 22:33:57 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 22:33:58 [INFO]: Nodemailer transport is ready.
+2025-11-23 22:35:10 [INFO]: GET /api/clients
+2025-11-23 22:35:14 [INFO]: GET /api/auth/me
+2025-11-23 22:35:14 [INFO]: GET /api/auth/me
+2025-11-23 22:35:24 [INFO]: POST /api/uploads
+2025-11-23 22:35:27 [INFO]: PUT /api/auth/me
+2025-11-23 22:35:27 [INFO]: Profile updated for user: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-23 22:35:33 [INFO]: GET /api/auth/google
+2025-11-23 22:35:40 [INFO]: GET /api/auth/google/callback
+2025-11-23 22:35:40 [INFO]: User logged in via Google: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
+2025-11-23 22:35:42 [INFO]: GET /api/invoices/stats
+2025-11-23 22:35:42 [INFO]: GET /api/invoices
+2025-11-23 22:35:42 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 22:35:42 [INFO]: GET /api/invoices
+2025-11-23 22:35:42 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 22:35:42 [INFO]: GET /api/invoices/stats
+2025-11-23 22:35:44 [INFO]: GET /api/auth/me
+2025-11-23 22:35:44 [INFO]: GET /api/auth/me
+2025-11-23 22:38:23 [INFO]: PUT /api/auth/me
+2025-11-23 22:38:23 [INFO]: Profile updated for user: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
+2025-11-23 22:40:20 [INFO]: GET /api/categories
+2025-11-23 22:40:20 [INFO]: [CategoryRepository] findAllByUser: userId=7afc0328-faa9-49aa-8f9f-11279faa59d3, filters={}, whereCondition={"userId":"7afc0328-faa9-49aa-8f9f-11279faa59d3","deletedAt":null}
+2025-11-23 22:40:20 [INFO]: [CategoryRepository] Found 2 categories. IDs: 4406d01a-957a-45ff-a681-a17a64da7fd9, 14f3f027-3251-410e-b978-21aea0471346
+2025-11-23 22:40:20 [INFO]: GET /api/categories
+2025-11-23 22:40:21 [INFO]: [CategoryRepository] findAllByUser: userId=7afc0328-faa9-49aa-8f9f-11279faa59d3, filters={}, whereCondition={"userId":"7afc0328-faa9-49aa-8f9f-11279faa59d3","deletedAt":null}
+2025-11-23 22:40:21 [INFO]: [CategoryRepository] Found 2 categories. IDs: 4406d01a-957a-45ff-a681-a17a64da7fd9, 14f3f027-3251-410e-b978-21aea0471346
+2025-11-23 22:40:21 [INFO]: GET /api/auth/me
+2025-11-23 22:40:21 [INFO]: GET /api/auth/me
+2025-11-23 22:40:44 [INFO]: GET /api/clients
+2025-11-23 22:40:46 [INFO]: GET /api/clients
+2025-11-23 22:40:49 [INFO]: GET /api/clients
+2025-11-23 22:40:51 [INFO]: GET /api/clients
+2025-11-23 22:41:08 [INFO]: GET /api/auth/me
+2025-11-23 22:42:26 [INFO]: POST /api/uploads
+2025-11-23 22:42:30 [INFO]: PUT /api/auth/me
+2025-11-23 22:42:30 [INFO]: Profile updated for user: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
+2025-11-23 22:44:44 [INFO]: GET /api/auth/me
+2025-11-23 22:44:48 [INFO]: GET /api/clients
+2025-11-23 22:44:56 [INFO]: GET /api/auth/me
+2025-11-23 22:45:11 [INFO]: POST /api/uploads
+2025-11-23 22:45:13 [INFO]: PUT /api/auth/me
+2025-11-23 22:45:13 [INFO]: Profile updated for user: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
+2025-11-23 22:48:23 [INFO]: Starting cron jobs...
+2025-11-23 22:48:23 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 22:48:23 [INFO]: API Running: http://localhost:2020
+2025-11-23 22:48:25 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:07:03 [INFO]: Starting cron jobs...
+2025-11-23 23:07:03 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:07:03 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:07:05 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:09:02 [INFO]: POST /api/auth/register
+2025-11-23 23:09:06 [INFO]: Set password email sent to: testuser_forgotpass@example.com (ID: f81043a8-0244-42fb-8142-e470119f98ea)
+2025-11-23 23:09:37 [INFO]: POST /api/auth/forgot-password
+2025-11-23 23:10:04 [INFO]: Starting cron jobs...
+2025-11-23 23:10:04 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:10:04 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:05 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:10:29 [INFO]: Starting cron jobs...
+2025-11-23 23:10:29 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:10:29 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:30 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:10:53 [INFO]: Starting cron jobs...
+2025-11-23 23:10:53 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:10:53 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:55 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:11:32 [INFO]: Starting cron jobs...
+2025-11-23 23:11:32 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:11:32 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:11:34 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:12:05 [INFO]: Starting cron jobs...
+2025-11-23 23:12:05 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:12:05 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:12:07 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:12:20 [INFO]: POST /api/auth/forgot-password
+2025-11-23 23:12:23 [INFO]: Reset password email sent to: testuser_forgotpass@example.com (ID: f81043a8-0244-42fb-8142-e470119f98ea)
+2025-11-23 23:13:26 [INFO]: Starting cron jobs...
+2025-11-23 23:13:26 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:13:26 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:13:28 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:14:16 [INFO]: Starting cron jobs...
+2025-11-23 23:14:16 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:14:16 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:14:18 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:19:16 [INFO]: POST /api/auth/forgot-password
+2025-11-23 23:19:20 [INFO]: Reset password email sent to: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
+2025-11-23 23:22:59 [INFO]: Starting cron jobs...
+2025-11-23 23:22:59 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:22:59 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:23:01 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:33:28 [INFO]: Starting cron jobs...
+2025-11-23 23:33:28 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 23:33:28 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:33:30 [INFO]: Nodemailer transport is ready.
+2025-11-23 23:40:22 [INFO]: POST /api/auth/forgot-password
+2025-11-23 23:40:26 [INFO]: Password reset email sent to: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)

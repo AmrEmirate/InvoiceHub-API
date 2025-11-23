@@ -1,4 +1,4 @@
-import UserRepository from "../repositories/user.repository";
+﻿import UserRepository from "../repositories/user.repository";
 import {
   TCreateUserInput,
   TUpdateUserInput,
@@ -10,6 +10,7 @@ import logger from "../utils/logger";
 import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
 import { User } from "../generated/prisma";
+import { generateSetPasswordEmail, generateResetPasswordEmail } from "../utils/email-templates";
 
 type TRegisterInput = Omit<TCreateUserInput, "password" | "verificationToken" | "isVerified">;
 
@@ -53,12 +54,7 @@ class AuthService {
         from: `"InvoiceHub" <${process.env.SMTP_USER}>`,
         to: createdUser.email,
         subject: "Selamat Datang! Atur Password Akun Anda",
-        html: `
-          <p>Halo ${createdUser.name},</p>
-          <p>Terima kasih telah mendaftar. Silakan klik link di bawah ini untuk mengatur password Anda:</p>
-          <a href="${setPasswordUrl}" target="_blank">Atur Password Saya</a>
-          <p>Jika Anda tidak mendaftar, abaikan email ini.</p>
-        `,
+        html: generateSetPasswordEmail(createdUser.name, setPasswordUrl),
       });
 
       logger.info(
@@ -192,6 +188,73 @@ class AuthService {
 
     const { password, ...userWithoutPassword } = createdUser;
     return { user: userWithoutPassword, token };
+  }
+
+  public async forgotPassword(email: string): Promise<{ message: string }> {
+    const user = await UserRepository.findUserByEmail(email);
+    
+    if (!user) {
+      logger.warn(`Forgot password attempt for non-existent email: ${email}`);
+      // For security, we don't reveal if the email exists or not
+      return {
+        message: "If an account with that email exists, a password reset link has been sent.",
+      };
+    }
+
+    if (!user.password) {
+      logger.warn(`Forgot password attempt for user without password: ${email}`);
+      throw new AppError(400, "Your account was created via Google. Please use Google Sign-In.");
+    }
+
+    // Generate reset token and set expiry (1 hour from now)
+    const resetToken = generateVerificationToken();
+    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await UserRepository.setResetToken(user.id, resetToken, resetTokenExpiry);
+
+    try {
+      const resetPasswordUrl = `${
+        process.env.FE_URL || "http://localhost:3000"
+      }/auth/reset-password?token=${resetToken}`;
+
+      await transport.sendMail({
+        from: `"InvoiceHub" <${process.env.SMTP_USER}>`,
+        to: user.email,
+        subject: "Reset Password - InvoiceHub",
+        html: generateResetPasswordEmail(user.name, resetPasswordUrl),
+      });
+
+      logger.info(`Password reset email sent to: ${user.email} (ID: ${user.id})`);
+    } catch (emailError: any) {
+      logger.error(`Failed to send password reset email: ${emailError.message}`);
+      throw new AppError(500, "Failed to send password reset email", emailError);
+    }
+
+    return {
+      message: "If an account with that email exists, a password reset link has been sent.",
+    };
+  }
+
+  public async resetPassword(
+    token: string,
+    newPassword: string
+  ): Promise<{ message: string }> {
+    const user = await UserRepository.findByResetToken(token);
+
+    if (!user) {
+      throw new AppError(404, "Invalid or expired reset token");
+    }
+
+    // Check if token is expired
+    if (user.resetTokenExpiry && user.resetTokenExpiry < new Date()) {
+      throw new AppError(400, "Reset token has expired. Please request a new one.");
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+    await UserRepository.updatePasswordFromReset(user.id, hashedPassword);
+
+    logger.info(`Password reset successful for user: ${user.email} (ID: ${user.id})`);
+    return { message: "Password has been reset successfully. You can now login with your new password." };
   }
 }
 

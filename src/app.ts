@@ -62,7 +62,7 @@ class App {
 
   public start(): void {
     this.app.listen(PORT, () => {
-      console.log(`API Running: http://localhost:${PORT}`);
+      logger.info(`API Running: http://localhost:${PORT}`);
     });
   }
 }

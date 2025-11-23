@@ -38,6 +38,16 @@ class AuthRouter {
       this.controller.setPassword.bind(this.controller)
     );
 
+    this.router.post(
+      "/forgot-password",
+      this.controller.forgotPassword.bind(this.controller)
+    );
+
+    this.router.post(
+      "/reset-password",
+      this.controller.resetPassword.bind(this.controller)
+    );
+
     this.router.get(
       "/me",
       authMiddleware,
