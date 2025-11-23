@@ -37,7 +37,7 @@ class ClientRepository {
       ];
     }
 
-    const data = await prisma.client.findMany({
+    const clients = await prisma.client.findMany({
       where: whereCondition,
       include: {
         _count: {
@@ -48,6 +48,14 @@ class ClientRepository {
       skip: skip,
       take: limit,
     });
+
+    // Transform _count to plain object for proper JSON serialization
+    const data = clients.map((client) => ({
+      ...client,
+      _count: {
+        invoices: client._count?.invoices || 0,
+      },
+    }));
 
     const total = await prisma.client.count({
       where: whereCondition,
@@ -68,15 +76,28 @@ class ClientRepository {
     id: string,
     userId: string
   ): Promise<Client | null> {
-    return await prisma.client.findFirst({
+    const client = await prisma.client.findFirst({
       where: { id, userId },
       include: {
+        _count: {
+          select: { invoices: true },
+        },
         invoices: {
           orderBy: { createdAt: "desc" },
           take: 5,
         },
       },
     });
+
+    if (!client) return null;
+
+    // Transform _count to plain object for proper JSON serialization
+    return {
+      ...client,
+      _count: {
+        invoices: client._count?.invoices || 0,
+      },
+    } as any;
   }
 
   public async update(id: string, data: TUpdateClientInput): Promise<Client> {

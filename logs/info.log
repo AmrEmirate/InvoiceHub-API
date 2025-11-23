@@ -518,3 +518,168 @@
 2025-11-23 11:58:35 [INFO]: GET /api/invoices
 2025-11-23 11:58:36 [INFO]: GET /api/invoices
 2025-11-23 12:05:09 [INFO]: GET /api/invoices
+2025-11-23 12:10:19 [INFO]: Starting cron jobs...
+2025-11-23 12:10:19 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 12:10:20 [INFO]: Nodemailer transport is ready.
+2025-11-23 12:10:31 [INFO]: GET /api/invoices
+2025-11-23 12:12:11 [INFO]: GET /api/invoices/stats
+2025-11-23 12:12:11 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:12:11 [INFO]: GET /api/invoices
+2025-11-23 12:12:11 [INFO]: GET /api/invoices/stats
+2025-11-23 12:12:11 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:12:12 [INFO]: GET /api/invoices
+2025-11-23 12:12:21 [INFO]: GET /api/categories
+2025-11-23 12:12:21 [INFO]: GET /api/products
+2025-11-23 12:12:22 [INFO]: [CategoryRepository] findAllByUser: userId=94e3a025-b103-42d9-8715-8374fdb85eb7, filters={}, whereCondition={"userId":"94e3a025-b103-42d9-8715-8374fdb85eb7","deletedAt":null}
+2025-11-23 12:12:22 [INFO]: [CategoryRepository] Found 2 categories. IDs: a4a7efcf-fc8a-42af-b114-3db13e73de63, d594bb79-d9c1-4137-a6c5-416220be62ff
+2025-11-23 12:12:22 [INFO]: GET /api/categories
+2025-11-23 12:12:22 [INFO]: GET /api/products
+2025-11-23 12:12:22 [INFO]: [CategoryRepository] findAllByUser: userId=94e3a025-b103-42d9-8715-8374fdb85eb7, filters={}, whereCondition={"userId":"94e3a025-b103-42d9-8715-8374fdb85eb7","deletedAt":null}
+2025-11-23 12:12:22 [INFO]: [CategoryRepository] Found 2 categories. IDs: a4a7efcf-fc8a-42af-b114-3db13e73de63, d594bb79-d9c1-4137-a6c5-416220be62ff
+2025-11-23 12:12:31 [INFO]: GET /api/invoices
+2025-11-23 12:12:31 [INFO]: GET /api/invoices
+2025-11-23 12:12:44 [INFO]: GET /api/clients
+2025-11-23 12:12:44 [INFO]: GET /api/products
+2025-11-23 12:12:44 [INFO]: GET /api/products
+2025-11-23 12:12:45 [INFO]: GET /api/clients
+2025-11-23 12:13:58 [INFO]: POST /api/auth/login
+2025-11-23 12:13:58 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-23 12:13:58 [INFO]: GET /api/invoices/stats
+2025-11-23 12:13:58 [INFO]: GET /api/invoices
+2025-11-23 12:13:58 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:13:59 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:13:59 [INFO]: GET /api/invoices/stats
+2025-11-23 12:13:59 [INFO]: GET /api/invoices
+2025-11-23 12:14:03 [INFO]: GET /api/invoices
+2025-11-23 12:14:04 [INFO]: GET /api/invoices
+2025-11-23 12:14:07 [INFO]: GET /api/clients
+2025-11-23 12:14:08 [INFO]: GET /api/clients
+2025-11-23 12:14:46 [INFO]: GET /api/clients
+2025-11-23 12:15:02 [INFO]: GET /api/clients
+2025-11-23 12:15:04 [INFO]: GET /api/clients
+2025-11-23 12:18:43 [INFO]: POST /api/auth/login
+2025-11-23 12:18:43 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-23 12:18:43 [INFO]: GET /api/invoices/stats
+2025-11-23 12:18:43 [INFO]: GET /api/invoices
+2025-11-23 12:18:43 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:18:44 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:18:44 [INFO]: GET /api/invoices/stats
+2025-11-23 12:18:44 [INFO]: GET /api/invoices
+2025-11-23 12:19:19 [INFO]: GET /api/clients
+2025-11-23 12:19:25 [INFO]: GET /api/clients
+2025-11-23 12:20:10 [INFO]: POST /api/auth/login
+2025-11-23 12:20:18 [INFO]: POST /api/auth/login
+2025-11-23 12:20:18 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-23 12:20:18 [INFO]: GET /api/invoices/stats
+2025-11-23 12:20:18 [INFO]: GET /api/invoices
+2025-11-23 12:20:18 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:20:19 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 12:20:19 [INFO]: GET /api/invoices
+2025-11-23 12:20:19 [INFO]: GET /api/invoices/stats
+2025-11-23 12:20:33 [INFO]: GET /api/invoices
+2025-11-23 12:20:33 [INFO]: GET /api/invoices
+2025-11-23 12:20:55 [INFO]: GET /api/clients
+2025-11-23 12:20:55 [INFO]: GET /api/clients
+2025-11-23 12:20:57 [INFO]: GET /api/invoices
+2025-11-23 12:20:57 [INFO]: GET /api/invoices
+2025-11-23 12:21:00 [INFO]: GET /api/clients
+2025-11-23 12:21:01 [INFO]: GET /api/clients
+2025-11-23 12:22:37 [INFO]: Starting cron jobs...
+2025-11-23 12:22:37 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 12:22:38 [INFO]: Nodemailer transport is ready.
+2025-11-23 12:22:52 [INFO]: GET /api/clients
+2025-11-23 12:24:18 [INFO]: Starting cron jobs...
+2025-11-23 12:24:18 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 12:24:20 [INFO]: Nodemailer transport is ready.
+2025-11-23 12:25:22 [INFO]: Starting cron jobs...
+2025-11-23 12:25:22 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 12:25:24 [INFO]: Nodemailer transport is ready.
+2025-11-23 12:25:38 [INFO]: GET /api/clients
+2025-11-23 12:28:28 [INFO]: Starting cron jobs...
+2025-11-23 12:28:29 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 12:28:30 [INFO]: Nodemailer transport is ready.
+2025-11-23 12:28:39 [INFO]: GET /api/clients
+2025-11-23 12:29:06 [INFO]: GET /api/invoices
+2025-11-23 12:29:06 [INFO]: GET /api/invoices
+2025-11-23 12:29:13 [INFO]: POST /api/invoices/a340c7f1-1dfd-44f7-aa93-621f561a3c14/send
+2025-11-23 12:29:17 [INFO]: Invoice (ID: a340c7f1-1dfd-44f7-aa93-621f561a3c14) sent to amremirate33@gmail.com by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-23 12:29:17 [INFO]: GET /api/invoices
+2025-11-23 12:29:19 [INFO]: GET /api/clients
+2025-11-23 12:29:19 [INFO]: GET /api/clients
+2025-11-23 12:29:42 [INFO]: GET /api/clients
+2025-11-23 12:30:15 [INFO]: GET /api/clients
+2025-11-23 12:30:28 [INFO]: GET /api/clients
+2025-11-23 12:30:28 [INFO]: GET /api/clients
+2025-11-23 12:30:28 [INFO]: GET /favicon.ico
+2025-11-23 12:30:31 [INFO]: GET /api/clients
+2025-11-23 12:30:32 [INFO]: GET /api/clients
+2025-11-23 12:30:32 [INFO]: GET /api/clients
+2025-11-23 12:30:32 [INFO]: GET /api/clients
+2025-11-23 12:30:36 [INFO]: GET /api/clients
+2025-11-23 12:30:58 [INFO]: GET /api/clients
+2025-11-23 12:32:27 [INFO]: GET /api/clients
+2025-11-23 12:32:28 [INFO]: GET /api/clients
+2025-11-23 12:32:29 [INFO]: GET /api/clients
+2025-11-23 12:32:30 [INFO]: GET /api/clients
+2025-11-23 12:32:30 [INFO]: GET /api/clients
+2025-11-23 12:32:31 [INFO]: GET /api/clients
+2025-11-23 13:20:53 [INFO]: GET /
+2025-11-23 13:20:53 [INFO]: GET /transaction
+2025-11-23 13:20:53 [INFO]: POST /api/auth/register
+2025-11-23 13:20:54 [INFO]: Set password email sent to: test.auth@example.com (ID: 214681d3-fba5-4700-b50f-19531c8ccf81)
+2025-11-23 13:20:54 [INFO]: POST /api/auth/register
+2025-11-23 13:20:54 [INFO]: POST /api/auth/register
+2025-11-23 13:20:54 [INFO]: POST /api/auth/set-password
+2025-11-23 13:20:54 [INFO]: POST /api/auth/set-password
+2025-11-23 13:20:54 [INFO]: POST /api/auth/set-password
+2025-11-23 13:20:54 [INFO]: Password set and user verified: test.auth@example.com (ID: 214681d3-fba5-4700-b50f-19531c8ccf81)
+2025-11-23 13:20:54 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:20:54 [INFO]: POST /api/auth/login
+2025-11-23 13:20:55 [INFO]: POST /api/auth/login
+2025-11-23 13:20:55 [INFO]: User logged in: test.auth@example.com (ID: 214681d3-fba5-4700-b50f-19531c8ccf81)
+2025-11-23 13:21:09 [INFO]: Starting cron jobs...
+2025-11-23 13:21:09 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:21:11 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:21:39 [INFO]: POST /api/auth/login
+2025-11-23 13:21:40 [INFO]: User logged in: amremirate33@gmail.com (ID: 94e3a025-b103-42d9-8715-8374fdb85eb7)
+2025-11-23 13:21:42 [INFO]: GET /api/invoices
+2025-11-23 13:21:42 [INFO]: GET /api/invoices/stats
+2025-11-23 13:21:42 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 13:21:43 [INFO]: GET /api/invoices/stats/chart
+2025-11-23 13:21:43 [INFO]: GET /api/invoices
+2025-11-23 13:21:43 [INFO]: GET /api/invoices/stats
+2025-11-23 13:21:48 [INFO]: GET /api/invoices
+2025-11-23 13:21:48 [INFO]: GET /api/invoices
+2025-11-23 13:21:51 [INFO]: GET /api/clients
+2025-11-23 13:21:51 [INFO]: GET /api/clients
+2025-11-23 13:24:24 [INFO]: GET /api/clients
+2025-11-23 13:24:46 [INFO]: GET /api/clients
+2025-11-23 13:25:22 [INFO]: GET /api/clients
+2025-11-23 13:25:43 [INFO]: Starting cron jobs...
+2025-11-23 13:25:43 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:25:45 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:27:57 [INFO]: Starting cron jobs...
+2025-11-23 13:27:57 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:27:58 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:28:21 [INFO]: GET /api/clients
+2025-11-23 13:29:08 [INFO]: Starting cron jobs...
+2025-11-23 13:29:08 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:29:09 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:29:43 [INFO]: GET /api/clients
+2025-11-23 13:30:12 [INFO]: GET /api/clients
+2025-11-23 13:30:12 [INFO]: GET /api/products
+2025-11-23 13:30:43 [INFO]: POST /api/invoices
+2025-11-23 13:30:44 [INFO]: New invoice created (ID: 24d00911-14cc-4692-ab8b-120c8f03dc17) by user 94e3a025-b103-42d9-8715-8374fdb85eb7
+2025-11-23 13:30:44 [INFO]: GET /api/invoices
+2025-11-23 13:30:45 [INFO]: GET /api/invoices
+2025-11-23 13:30:58 [INFO]: GET /api/clients
+2025-11-23 13:31:08 [INFO]: GET /api/clients
+2025-11-23 13:32:14 [INFO]: Starting cron jobs...
+2025-11-23 13:32:14 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:32:14 [INFO]: Starting cron jobs...
+2025-11-23 13:32:14 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-23 13:32:16 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:32:16 [INFO]: Nodemailer transport is ready.
+2025-11-23 13:32:38 [INFO]: GET /api/clients
+2025-11-23 13:35:25 [INFO]: GET /api/clients
+2025-11-23 13:35:28 [INFO]: GET /api/clients
