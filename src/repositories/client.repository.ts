@@ -32,11 +32,18 @@ class ClientRepository {
       whereCondition.OR = [
         { name: { contains: filters.search, mode: "insensitive" } },
         { email: { contains: filters.search, mode: "insensitive" } },
+        { phone: { contains: filters.search, mode: "insensitive" } },
+        { address: { contains: filters.search, mode: "insensitive" } },
       ];
     }
 
     const data = await prisma.client.findMany({
       where: whereCondition,
+      include: {
+        _count: {
+          select: { invoices: true },
+        },
+      },
       orderBy: { createdAt: "desc" },
       skip: skip,
       take: limit,

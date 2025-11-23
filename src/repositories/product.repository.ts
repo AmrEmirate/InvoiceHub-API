@@ -34,13 +34,26 @@ class ProductRepository {
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
 
-    const whereCondition: any = { userId, deletedAt: null };
+    const whereCondition: any = { 
+      userId, 
+      deletedAt: null 
+    };
 
     if (filters.search) {
-      whereCondition.name = {
-        contains: filters.search,
-        mode: "insensitive",
-      };
+      whereCondition.OR = [
+        {
+          name: {
+            contains: filters.search,
+            mode: "insensitive",
+          },
+        },
+        {
+          sku: {
+            contains: filters.search,
+            mode: "insensitive",
+          },
+        },
+      ];
     }
 
     if (filters.categoryId) {

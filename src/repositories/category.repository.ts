@@ -29,7 +29,10 @@ class CategoryRepository {
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
 
-    const whereCondition: any = { userId, deletedAt: null };
+    const whereCondition: any = { 
+      userId, 
+      deletedAt: null 
+    };
 
     if (filters.search) {
       whereCondition.name = {
@@ -47,6 +50,16 @@ class CategoryRepository {
 
     const total = await prisma.category.count({
       where: whereCondition,
+    });
+
+    // Debug logging
+    const logger = require("../utils/logger").default;
+    logger.info(`[CategoryRepository] findAllByUser: userId=${userId}, filters=${JSON.stringify(filters)}, whereCondition=${JSON.stringify(whereCondition)}`);
+    logger.info(`[CategoryRepository] Found ${data.length} categories. IDs: ${data.map(c => c.id).join(", ")}`);
+    data.forEach(c => {
+        if (c.deletedAt) {
+            logger.info(`[CategoryRepository] WARNING: Found deleted category! ID=${c.id}, Name=${c.name}, deletedAt=${c.deletedAt}`);
+        }
     });
 
     return {

@@ -78,7 +78,7 @@ class InvoiceRepository {
       include: {
         client: true,
       },
-      orderBy: { invoiceDate: "desc" },
+      orderBy: { createdAt: "desc" },
       skip: skip,
       take: limit,
     });
