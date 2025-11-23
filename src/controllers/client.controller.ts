@@ -41,11 +41,6 @@ class ClientController {
         paginationParams
       );
 
-      // Debug: log first client to check _count
-      if (clientsResponse.data.length > 0) {
-        console.log("DEBUG - First client data:", JSON.stringify(clientsResponse.data[0], null, 2));
-      }
-
       res.status(200).json({
         message: "Clients fetched successfully",
         data: clientsResponse.data,

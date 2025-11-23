@@ -39,7 +39,7 @@ class InvoiceService {
 
     let sequence = 1;
     if (lastInvoice && lastInvoice.invoiceNumber) {
-      // Expected format: INV-YYYYMMDD-XXXX
+
       const parts = lastInvoice.invoiceNumber.split("-");
       if (parts.length === 3 && parts[1] === datePrefix) {
         const lastSequence = parseInt(parts[2], 10);
@@ -98,7 +98,7 @@ class InvoiceService {
     } catch (error: any) {
       logger.error(`Invoice creation failed: ${error.message}`, error);
       if (error.code === "P2002") {
-        // Retry once if collision
+
         try {
              const retryInvoiceNumber = await this.generateInvoiceNumber(userId);
              const newInvoice = await InvoiceRepository.create(

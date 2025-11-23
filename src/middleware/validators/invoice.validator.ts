@@ -22,7 +22,7 @@ export const validateIdParam = [
 
 export const createInvoiceValidatorV2 = [
   body("clientId").isUUID().withMessage("Invalid client ID format"),
-  body("invoiceNumber").optional(), // Optional for auto-generation
+  body("invoiceNumber").optional(),
   body("dueDate").isISO8601().toDate().withMessage("Invalid due date"),
   body("status")
     .optional()

@@ -156,7 +156,7 @@ class AuthService {
   public async googleSignup(
     input: { email: string; name: string; company: string }
   ): Promise<{ user: any; token: string }> {
-    // Check if user already exists
+
     const existingUser = await UserRepository.findUserByEmail(input.email);
     if (existingUser) {
       logger.warn(
@@ -165,14 +165,14 @@ class AuthService {
       throw new AppError(409, "Email already registered");
     }
 
-    // Create new user with Google data
+
     const newUserInput: TCreateUserInput = {
       email: input.email,
       name: input.name,
       company: input.company,
-      password: null, // No password needed for Google users
+      password: null,
       verificationToken: null,
-      isVerified: true, // Auto-verify Google users
+      isVerified: true,
     };
 
     let createdUser;
@@ -186,7 +186,7 @@ class AuthService {
       throw new AppError(500, "Failed to create user", dbError);
     }
 
-    // Generate token
+
     const tokenPayload = { id: createdUser.id, email: createdUser.email };
     const token = createToken(tokenPayload);
 

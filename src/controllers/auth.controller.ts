@@ -118,9 +118,9 @@ class AuthController {
       const userData = req.user as any;
       const feUrl = process.env.FE_URL || "http://localhost:3000";
 
-      // Check if this is a new user (not yet registered)
+
       if (userData.isNewUser) {
-        // Redirect to signup page with Google data pre-filled
+
         const encodedEmail = encodeURIComponent(userData.email);
         const encodedName = encodeURIComponent(userData.name);
         const encodedGoogleId = encodeURIComponent(userData.googleId);
@@ -131,7 +131,7 @@ class AuthController {
         return;
       }
 
-      // Existing user - proceed with normal login
+
       const { user, token } = await AuthService.handleGoogleLogin(
         userData as User
       );

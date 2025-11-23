@@ -52,7 +52,7 @@ class CategoryRepository {
       where: whereCondition,
     });
 
-    // Debug logging
+
     const logger = require("../utils/logger").default;
     logger.info(`[CategoryRepository] findAllByUser: userId=${userId}, filters=${JSON.stringify(filters)}, whereCondition=${JSON.stringify(whereCondition)}`);
     logger.info(`[CategoryRepository] Found ${data.length} categories. IDs: ${data.map(c => c.id).join(", ")}`);

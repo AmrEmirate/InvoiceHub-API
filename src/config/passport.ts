@@ -23,11 +23,9 @@ passport.use(
         const existingUser = await UserRepository.findUserByEmail(email);
 
         if (existingUser) {
-          // User already exists, allow login
           if (existingUser.isVerified) {
             return done(null, existingUser);
           } else {
-            // Verify user if not already verified
             const verifiedUser = await UserRepository.setPasswordAndVerify(
               existingUser.id,
               existingUser.password || ""
@@ -36,8 +34,6 @@ passport.use(
           }
         }
 
-        // User doesn't exist - return profile data with flag
-        // Controller will redirect to signup page
         const newUserData = {
           isNewUser: true,
           email: email,

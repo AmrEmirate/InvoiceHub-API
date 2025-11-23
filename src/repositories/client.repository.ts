@@ -49,7 +49,7 @@ class ClientRepository {
       take: limit,
     });
 
-    // Transform _count to plain object for proper JSON serialization
+
     const data = clients.map((client) => ({
       ...client,
       _count: {
@@ -91,7 +91,7 @@ class ClientRepository {
 
     if (!client) return null;
 
-    // Transform _count to plain object for proper JSON serialization
+
     return {
       ...client,
       _count: {
