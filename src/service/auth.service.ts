@@ -215,7 +215,7 @@ class AuthService {
     try {
       const resetPasswordUrl = `${
         process.env.FE_URL || "http://localhost:3000"
-      }/auth/reset-password?token=${resetToken}`;
+      }/reset-password?token=${resetToken}`;
 
       await transport.sendMail({
         from: `"InvoiceHub" <${process.env.SMTP_USER}>`,
