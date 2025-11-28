@@ -44,60 +44,60 @@
 2025-11-23 22:45:13 [INFO]: Profile updated for user: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
 2025-11-23 22:48:23 [INFO]: Starting cron jobs...
 2025-11-23 22:48:23 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 22:48:23 [INFO]: API Running: http://localhost:2020
+2025-11-23 22:48:23 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 22:48:25 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:07:03 [INFO]: Starting cron jobs...
 2025-11-23 23:07:03 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:07:03 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:07:03 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:07:05 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:09:02 [INFO]: POST /api/auth/register
 2025-11-23 23:09:06 [INFO]: Set password email sent to: testuser_forgotpass@example.com (ID: f81043a8-0244-42fb-8142-e470119f98ea)
 2025-11-23 23:09:37 [INFO]: POST /api/auth/forgot-password
 2025-11-23 23:10:04 [INFO]: Starting cron jobs...
 2025-11-23 23:10:04 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:10:04 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:04 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:10:05 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:10:29 [INFO]: Starting cron jobs...
 2025-11-23 23:10:29 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:10:29 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:29 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:10:30 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:10:53 [INFO]: Starting cron jobs...
 2025-11-23 23:10:53 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:10:53 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:10:53 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:10:55 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:11:32 [INFO]: Starting cron jobs...
 2025-11-23 23:11:32 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:11:32 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:11:32 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:11:34 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:12:05 [INFO]: Starting cron jobs...
 2025-11-23 23:12:05 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:12:05 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:12:05 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:12:07 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:12:20 [INFO]: POST /api/auth/forgot-password
 2025-11-23 23:12:23 [INFO]: Reset password email sent to: testuser_forgotpass@example.com (ID: f81043a8-0244-42fb-8142-e470119f98ea)
 2025-11-23 23:13:26 [INFO]: Starting cron jobs...
 2025-11-23 23:13:26 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:13:26 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:13:26 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:13:28 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:14:16 [INFO]: Starting cron jobs...
 2025-11-23 23:14:16 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:14:16 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:14:16 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:14:18 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:19:16 [INFO]: POST /api/auth/forgot-password
 2025-11-23 23:19:20 [INFO]: Reset password email sent to: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
 2025-11-23 23:22:59 [INFO]: Starting cron jobs...
 2025-11-23 23:22:59 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:22:59 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:22:59 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:23:01 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:33:28 [INFO]: Starting cron jobs...
 2025-11-23 23:33:28 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-23 23:33:28 [INFO]: API Running: http://localhost:2020
+2025-11-23 23:33:28 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-23 23:33:30 [INFO]: Nodemailer transport is ready.
 2025-11-23 23:40:22 [INFO]: POST /api/auth/forgot-password
 2025-11-23 23:40:26 [INFO]: Password reset email sent to: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
 2025-11-24 15:54:51 [INFO]: Starting cron jobs...
 2025-11-24 15:54:51 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-24 15:54:51 [INFO]: API Running: http://localhost:2020
+2025-11-24 15:54:51 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-24 15:54:53 [INFO]: Nodemailer transport is ready.
 2025-11-24 15:55:32 [INFO]: POST /api/auth/forgot-password
 2025-11-24 15:55:36 [INFO]: Password reset email sent to: amremirate03@gmail.com (ID: 7afc0328-faa9-49aa-8f9f-11279faa59d3)
@@ -185,11 +185,11 @@
 2025-11-24 16:26:11 [INFO]: GET /api/invoices
 2025-11-24 16:32:40 [INFO]: Starting cron jobs...
 2025-11-24 16:32:40 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-24 16:32:40 [INFO]: API Running: http://localhost:2020
+2025-11-24 16:32:40 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-24 16:32:42 [INFO]: Nodemailer transport is ready.
 2025-11-24 16:34:40 [INFO]: Starting cron jobs...
 2025-11-24 16:34:40 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-24 16:34:40 [INFO]: API Running: http://localhost:2020
+2025-11-24 16:34:40 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-24 16:34:41 [INFO]: Nodemailer transport is ready.
 2025-11-24 16:39:47 [INFO]: GET /api/auth/me
 2025-11-24 16:39:47 [INFO]: GET /api/auth/me
@@ -213,7 +213,7 @@
 2025-11-24 16:41:22 [INFO]: GET /api/auth/me
 2025-11-24 16:42:10 [INFO]: Starting cron jobs...
 2025-11-24 16:42:10 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-24 16:42:10 [INFO]: API Running: http://localhost:2020
+2025-11-24 16:42:10 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-24 16:42:12 [INFO]: Nodemailer transport is ready.
 2025-11-28 20:38:38 [INFO]: GET /
 2025-11-28 20:38:38 [INFO]: GET /transaction
@@ -231,7 +231,7 @@
 2025-11-28 20:38:40 [INFO]: User logged in: test.auth@example.com (ID: 3d55e72f-eb81-4d73-bb49-e5c78212fd90)
 2025-11-28 20:39:01 [INFO]: Starting cron jobs...
 2025-11-28 20:39:01 [INFO]: Cron job for recurring invoices scheduled.
-2025-11-28 20:39:01 [INFO]: API Running: http://localhost:2020
+2025-11-28 20:39:01 [INFO]: API Running: https://invoice-hub-api.vercel.app
 2025-11-28 20:39:03 [INFO]: Nodemailer transport is ready.
 2025-11-28 20:40:27 [INFO]: GET /
 2025-11-28 20:40:27 [INFO]: GET /transaction

@@ -10,7 +10,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: `${
-        process.env.API_BASE_URL || "http://localhost:2020/api"
+        process.env.API_BASE_URL || "https://invoice-hub-api.vercel.app/api"
       }/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -40,8 +40,10 @@ passport.use(
           name: profile.displayName || "Google User",
           googleId: profile.id,
         };
-        
-        logger.info(`New Google user detected: ${email}, redirecting to signup`);
+
+        logger.info(
+          `New Google user detected: ${email}, redirecting to signup`
+        );
         return done(null, newUserData as any);
       } catch (error: any) {
         logger.error(`[Passport Google Strategy] Error: ${error.message}`);

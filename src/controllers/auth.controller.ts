@@ -116,26 +116,24 @@ class AuthController {
       }
 
       const userData = req.user as any;
-      const feUrl = process.env.FE_URL || "http://localhost:3000";
-
+      const feUrl =
+        process.env.FE_URL || "https://invoice-hub-ashen.vercel.app";
 
       if (userData.isNewUser) {
-
         const encodedEmail = encodeURIComponent(userData.email);
         const encodedName = encodeURIComponent(userData.name);
         const encodedGoogleId = encodeURIComponent(userData.googleId);
-        
+
         res.redirect(
           `${feUrl}/auth/callback?newUser=true&googleEmail=${encodedEmail}&googleName=${encodedName}&googleId=${encodedGoogleId}`
         );
         return;
       }
 
-
       const { user, token } = await AuthService.handleGoogleLogin(
         userData as User
       );
-      
+
       const userDataEncoded = encodeURIComponent(JSON.stringify(user));
       res.redirect(
         `${feUrl}/auth/callback?token=${token}&user=${userDataEncoded}`
