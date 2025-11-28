@@ -48,7 +48,7 @@ class AuthService {
 
     try {
       const setPasswordUrl = `${
-        process.env.FE_URL || "https://invoice-hub-ashen.vercel.app"
+        process.env.FE_URL || "https://invoice-hub-omega.vercel.app"
       }/auth/set-password?token=${verificationToken}`;
 
       await transport.sendMail({
@@ -235,7 +235,7 @@ class AuthService {
 
     try {
       const resetPasswordUrl = `${
-        process.env.FE_URL || "https://invoice-hub-ashen.vercel.app"
+        process.env.FE_URL || "https://invoice-hub-omega.vercel.app"
       }/reset-password?token=${resetToken}`;
 
       await transport.sendMail({

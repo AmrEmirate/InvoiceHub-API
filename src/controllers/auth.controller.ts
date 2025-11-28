@@ -117,7 +117,7 @@ class AuthController {
 
       const userData = req.user as any;
       const feUrl =
-        process.env.FE_URL || "https://invoice-hub-ashen.vercel.app";
+        process.env.FE_URL || "https://invoice-hub-omega.vercel.app";
 
       if (userData.isNewUser) {
         const encodedEmail = encodeURIComponent(userData.email);
