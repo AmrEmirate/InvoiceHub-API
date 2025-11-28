@@ -215,3 +215,77 @@
 2025-11-24 16:42:10 [INFO]: Cron job for recurring invoices scheduled.
 2025-11-24 16:42:10 [INFO]: API Running: http://localhost:2020
 2025-11-24 16:42:12 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:38:38 [INFO]: GET /
+2025-11-28 20:38:38 [INFO]: GET /transaction
+2025-11-28 20:38:38 [INFO]: POST /api/auth/register
+2025-11-28 20:38:39 [INFO]: Set password email sent to: test.auth@example.com (ID: 3d55e72f-eb81-4d73-bb49-e5c78212fd90)
+2025-11-28 20:38:39 [INFO]: POST /api/auth/register
+2025-11-28 20:38:39 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:38:39 [INFO]: POST /api/auth/register
+2025-11-28 20:38:39 [INFO]: POST /api/auth/set-password
+2025-11-28 20:38:39 [INFO]: POST /api/auth/set-password
+2025-11-28 20:38:39 [INFO]: POST /api/auth/set-password
+2025-11-28 20:38:39 [INFO]: Password set and user verified: test.auth@example.com (ID: 3d55e72f-eb81-4d73-bb49-e5c78212fd90)
+2025-11-28 20:38:39 [INFO]: POST /api/auth/login
+2025-11-28 20:38:40 [INFO]: POST /api/auth/login
+2025-11-28 20:38:40 [INFO]: User logged in: test.auth@example.com (ID: 3d55e72f-eb81-4d73-bb49-e5c78212fd90)
+2025-11-28 20:39:01 [INFO]: Starting cron jobs...
+2025-11-28 20:39:01 [INFO]: Cron job for recurring invoices scheduled.
+2025-11-28 20:39:01 [INFO]: API Running: http://localhost:2020
+2025-11-28 20:39:03 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:40:27 [INFO]: GET /
+2025-11-28 20:40:27 [INFO]: GET /transaction
+2025-11-28 20:40:27 [INFO]: POST /api/auth/register
+2025-11-28 20:40:27 [INFO]: Set password email sent to: test.auth@example.com (ID: eef979e9-3504-4e7e-ad22-f729d95dd60e)
+2025-11-28 20:40:28 [INFO]: POST /api/auth/register
+2025-11-28 20:40:28 [INFO]: POST /api/auth/register
+2025-11-28 20:40:28 [INFO]: POST /api/auth/set-password
+2025-11-28 20:40:28 [INFO]: POST /api/auth/set-password
+2025-11-28 20:40:28 [INFO]: POST /api/auth/set-password
+2025-11-28 20:40:28 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:40:28 [INFO]: Password set and user verified: test.auth@example.com (ID: eef979e9-3504-4e7e-ad22-f729d95dd60e)
+2025-11-28 20:40:28 [INFO]: POST /api/auth/login
+2025-11-28 20:40:28 [INFO]: POST /api/auth/login
+2025-11-28 20:40:29 [INFO]: User logged in: test.auth@example.com (ID: eef979e9-3504-4e7e-ad22-f729d95dd60e)
+2025-11-28 20:41:11 [INFO]: GET /
+2025-11-28 20:41:11 [INFO]: GET /transaction
+2025-11-28 20:41:11 [INFO]: POST /api/auth/register
+2025-11-28 20:41:12 [INFO]: Set password email sent to: test.auth@example.com (ID: e84d7ac5-e8d3-4441-9a9e-8377dff14407)
+2025-11-28 20:41:12 [INFO]: POST /api/auth/register
+2025-11-28 20:41:12 [INFO]: POST /api/auth/register
+2025-11-28 20:41:12 [INFO]: POST /api/auth/set-password
+2025-11-28 20:41:12 [INFO]: POST /api/auth/set-password
+2025-11-28 20:41:12 [INFO]: POST /api/auth/set-password
+2025-11-28 20:41:12 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:41:12 [INFO]: Password set and user verified: test.auth@example.com (ID: e84d7ac5-e8d3-4441-9a9e-8377dff14407)
+2025-11-28 20:41:13 [INFO]: POST /api/auth/login
+2025-11-28 20:41:13 [INFO]: POST /api/auth/login
+2025-11-28 20:41:13 [INFO]: User logged in: test.auth@example.com (ID: e84d7ac5-e8d3-4441-9a9e-8377dff14407)
+2025-11-28 20:42:10 [INFO]: GET /
+2025-11-28 20:42:10 [INFO]: GET /transaction
+2025-11-28 20:42:10 [INFO]: POST /api/auth/register
+2025-11-28 20:42:11 [INFO]: Set password email sent to: test.auth@example.com (ID: 98d39b0a-3c4b-413a-93dd-98c95dd4c4e6)
+2025-11-28 20:42:11 [INFO]: POST /api/auth/register
+2025-11-28 20:42:11 [INFO]: POST /api/auth/register
+2025-11-28 20:42:11 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:11 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:11 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:11 [INFO]: Password set and user verified: test.auth@example.com (ID: 98d39b0a-3c4b-413a-93dd-98c95dd4c4e6)
+2025-11-28 20:42:11 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:42:11 [INFO]: POST /api/auth/login
+2025-11-28 20:42:12 [INFO]: POST /api/auth/login
+2025-11-28 20:42:12 [INFO]: User logged in: test.auth@example.com (ID: 98d39b0a-3c4b-413a-93dd-98c95dd4c4e6)
+2025-11-28 20:42:23 [INFO]: GET /
+2025-11-28 20:42:24 [INFO]: GET /transaction
+2025-11-28 20:42:24 [INFO]: POST /api/auth/register
+2025-11-28 20:42:24 [INFO]: Set password email sent to: test.auth@example.com (ID: 5f58311c-9b8d-418c-8e30-4969dc079212)
+2025-11-28 20:42:24 [INFO]: POST /api/auth/register
+2025-11-28 20:42:24 [INFO]: POST /api/auth/register
+2025-11-28 20:42:24 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:24 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:24 [INFO]: POST /api/auth/set-password
+2025-11-28 20:42:24 [INFO]: Password set and user verified: test.auth@example.com (ID: 5f58311c-9b8d-418c-8e30-4969dc079212)
+2025-11-28 20:42:25 [INFO]: Nodemailer transport is ready.
+2025-11-28 20:42:25 [INFO]: POST /api/auth/login
+2025-11-28 20:42:25 [INFO]: POST /api/auth/login
+2025-11-28 20:42:25 [INFO]: User logged in: test.auth@example.com (ID: 5f58311c-9b8d-418c-8e30-4969dc079212)
