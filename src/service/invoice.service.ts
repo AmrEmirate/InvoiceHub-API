@@ -1,9 +1,7 @@
 import InvoiceRepository from "../repositories/invoice.repository";
 import ClientRepository from "../repositories/client.repository";
 import ProductRepository from "../repositories/product.repository";
-import {
-  TCreateInvoiceInput,
-} from "../types/invoice.types";
+import { TCreateInvoiceInput } from "../types/invoice.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
@@ -35,11 +33,13 @@ class InvoiceService {
     const day = String(today.getDate()).padStart(2, "0");
     const datePrefix = `${year}${month}${day}`;
 
-    const lastInvoice = await InvoiceRepository.findLastInvoiceByDate(userId, today);
+    const lastInvoice = await InvoiceRepository.findLastInvoiceByDate(
+      userId,
+      today
+    );
 
     let sequence = 1;
     if (lastInvoice && lastInvoice.invoiceNumber) {
-
       const parts = lastInvoice.invoiceNumber.split("-");
       if (parts.length === 3 && parts[1] === datePrefix) {
         const lastSequence = parseInt(parts[2], 10);
@@ -56,7 +56,10 @@ class InvoiceService {
     input: TCreateInvoiceInput,
     userId: string
   ): Promise<Invoice> {
-    const client = await ClientRepository.findByIdAndUser(input.clientId, userId);
+    const client = await ClientRepository.findByIdAndUser(
+      input.clientId,
+      userId
+    );
     if (!client) {
       throw new AppError(404, "Client not found or does not belong to user");
     }
@@ -98,17 +101,16 @@ class InvoiceService {
     } catch (error: any) {
       logger.error(`Invoice creation failed: ${error.message}`, error);
       if (error.code === "P2002") {
-
         try {
-             const retryInvoiceNumber = await this.generateInvoiceNumber(userId);
-             const newInvoice = await InvoiceRepository.create(
-                { ...input, invoiceNumber: retryInvoiceNumber },
-                userId,
-                totalAmount
-              );
-              return newInvoice;
+          const retryInvoiceNumber = await this.generateInvoiceNumber(userId);
+          const newInvoice = await InvoiceRepository.create(
+            { ...input, invoiceNumber: retryInvoiceNumber },
+            userId,
+            totalAmount
+          );
+          return newInvoice;
         } catch (retryError: any) {
-             throw new AppError(409, "Invoice number already exists.");
+          throw new AppError(409, "Invoice number already exists.");
         }
       }
       throw new AppError(500, "Failed to create invoice", error);
@@ -173,12 +175,12 @@ class InvoiceService {
         <p>Anda menerima invoice baru (${invoice.invoiceNumber}) dari ${
       user.company
     }.</p>
-        <p><strong>Total Tagihan: Rp ${Number(invoice.totalAmount).toLocaleString(
+        <p><strong>Total Tagihan: Rp ${Number(
+          invoice.totalAmount
+        ).toLocaleString("id-ID")}</strong></p>
+        <p><strong>Jatuh Tempo: ${new Date(invoice.dueDate).toLocaleDateString(
           "id-ID"
         )}</strong></p>
-        <p><strong>Jatuh Tempo: ${new Date(
-          invoice.dueDate
-        ).toLocaleDateString("id-ID")}</strong></p>
         <hr>
         <h3>Detail Item:</h3>
         <table style="width: 100%; border-collapse: collapse;">
@@ -200,9 +202,9 @@ class InvoiceService {
              <td style="padding: 8px; border: 1px solid #ddd;">${
                item.quantity
              }</td>
-             <td style="padding: 8px; border: 1px solid #ddd;">Rp ${Number(item.price).toLocaleString(
-               "id-ID"
-             )}</td>
+             <td style="padding: 8px; border: 1px solid #ddd;">Rp ${Number(
+               item.price
+             ).toLocaleString("id-ID")}</td>
            </tr>`
               )
               .join("")}
@@ -241,44 +243,74 @@ class InvoiceService {
     }
   }
 
-  public async getChartData(userId: string): Promise<ChartData[]> {
+  public async getChartData(
+    userId: string,
+    year?: number
+  ): Promise<ChartData[]> {
     try {
-      const result = await prisma.$queryRaw<ChartData[]>`
-        SELECT 
-          TO_CHAR(date_trunc('month', i."invoiceDate"), 'YYYY-MM') as month,
-          SUM(i."totalAmount")::float as revenue
-        FROM "Invoice" i
-        WHERE i."userId" = ${userId}
-          AND i."status" = ${InvoiceStatus.PAID}::"InvoiceStatus"
-          AND i."invoiceDate" >= date_trunc('month', NOW() - interval '11 months')
-        GROUP BY 1
-        ORDER BY 1 ASC;
-      `;
-      
+      let result;
       const monthlyData: Record<string, number> = {};
       const months = [];
-      const today = new Date();
 
-      for (let i = 0; i < 12; i++) {
-        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
-        const monthKey = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`;
-        months.push(monthKey);
-        monthlyData[monthKey] = 0;
+      if (year) {
+        // Fetch data for specific year
+        result = await prisma.$queryRaw<ChartData[]>`
+          SELECT 
+            TO_CHAR(date_trunc('month', i."invoiceDate"), 'YYYY-MM') as month,
+            SUM(i."totalAmount")::float as revenue
+          FROM "Invoice" i
+          WHERE i."userId" = ${userId}
+            AND i."status" = ${InvoiceStatus.PAID}::"InvoiceStatus"
+            AND EXTRACT(YEAR FROM i."invoiceDate") = ${year}
+          GROUP BY 1
+          ORDER BY 1 ASC;
+        `;
+
+        // Generate months for the selected year (Jan - Dec)
+        for (let i = 1; i <= 12; i++) {
+          const monthKey = `${year}-${String(i).padStart(2, "0")}`;
+          months.push(monthKey);
+          monthlyData[monthKey] = 0;
+        }
+      } else {
+        // Fetch data for last 12 months (existing logic)
+        result = await prisma.$queryRaw<ChartData[]>`
+          SELECT 
+            TO_CHAR(date_trunc('month', i."invoiceDate"), 'YYYY-MM') as month,
+            SUM(i."totalAmount")::float as revenue
+          FROM "Invoice" i
+          WHERE i."userId" = ${userId}
+            AND i."status" = ${InvoiceStatus.PAID}::"InvoiceStatus"
+            AND i."invoiceDate" >= date_trunc('month', NOW() - interval '11 months')
+          GROUP BY 1
+          ORDER BY 1 ASC;
+        `;
+
+        const today = new Date();
+        for (let i = 0; i < 12; i++) {
+          const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+          const monthKey = `${d.getFullYear()}-${(d.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}`;
+          months.push(monthKey);
+          monthlyData[monthKey] = 0;
+        }
+        // Reverse needed for last 12 months relative to today
+        months.reverse();
       }
 
-      result.forEach(item => {
+      result.forEach((item) => {
         if (monthlyData.hasOwnProperty(item.month)) {
           monthlyData[item.month] = item.revenue;
         }
       });
 
-      const formattedData = months.map(monthKey => ({
+      const formattedData = months.map((monthKey) => ({
         month: monthKey,
-        revenue: monthlyData[monthKey]
-      })).reverse();
+        revenue: monthlyData[monthKey],
+      }));
 
       return formattedData;
-
     } catch (error: any) {
       logger.error(`Error fetching chart data: ${error.message}`);
       throw new AppError(500, "Failed to get chart data", error);

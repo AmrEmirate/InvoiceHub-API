@@ -8,7 +8,6 @@ interface AuthRequest extends Request {
 }
 
 class InvoiceController {
-  
   public async create(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const userId = req.user!.id;
@@ -68,12 +67,16 @@ class InvoiceController {
     }
   }
 
-  public async updateStatus(req: AuthRequest, res: Response, next: NextFunction) {
+  public async updateStatus(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const userId = req.user!.id;
       const { id } = req.params;
       const { status } = req.body;
-      
+
       const updatedInvoice = await InvoiceService.updateInvoiceStatus(
         id,
         status,
@@ -138,7 +141,11 @@ class InvoiceController {
     next: NextFunction
   ) => {
     try {
-      const data = await InvoiceService.getChartData(req.user!.id);
+      const { year } = req.query;
+      const data = await InvoiceService.getChartData(
+        req.user!.id,
+        year ? Number(year) : undefined
+      );
       res.status(200).json({
         message: "Chart data fetched successfully",
         data,
