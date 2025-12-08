@@ -233,7 +233,8 @@ class InvoiceService {
               <tr>
                 <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: left; color: #374151; font-size: 14px;">Deskripsi</th>
                 <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: center; color: #374151; font-size: 14px;">Qty</th>
-                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #374151; font-size: 14px;">Harga</th>
+                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #374151; font-size: 14px;">Harga Satuan</th>
+                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #374151; font-size: 14px;">Subtotal</th>
               </tr>
             </thead>
             <tbody>
@@ -249,6 +250,9 @@ class InvoiceService {
                }</td>
                <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #4b5563;">Rp ${Number(
                  item.price
+               ).toLocaleString("id-ID")}</td>
+               <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #4b5563; font-weight: 600;">Rp ${Number(
+                 Number(item.price) * item.quantity
                ).toLocaleString("id-ID")}</td>
              </tr>`
                 )
