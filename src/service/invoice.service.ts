@@ -169,51 +169,123 @@ class InvoiceService {
     const user = invoice.user;
     const client = invoice.client;
 
+    const userAvatar = user.avatar
+      ? `<img src="${user.avatar}" alt="${user.company}" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;" />`
+      : `<div style="width: 60px; height: 60px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">${
+          user.company?.charAt(0) || "I"
+        }</div>`;
+
     const emailHtml = `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <h2>Halo ${client.name},</h2>
-        <p>Anda menerima invoice baru (${invoice.invoiceNumber}) dari ${
-      user.company
-    }.</p>
-        <p><strong>Total Tagihan: Rp ${Number(
-          invoice.totalAmount
-        ).toLocaleString("id-ID")}</strong></p>
-        <p><strong>Jatuh Tempo: ${new Date(invoice.dueDate).toLocaleDateString(
-          "id-ID"
-        )}</strong></p>
-        <hr>
-        <h3>Detail Item:</h3>
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead style="background-color: #f4f4f4;">
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+        <!-- Header with Logo -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 24px; border-radius: 8px 8px 0 0;">
+          <table style="width: 100%;">
             <tr>
-              <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Deskripsi</th>
-              <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Qty</th>
-              <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Harga</th>
+              <td style="vertical-align: middle;">
+                ${userAvatar}
+              </td>
+              <td style="vertical-align: middle; padding-left: 16px;">
+                <h1 style="margin: 0; color: white; font-size: 20px;">${
+                  user.company
+                }</h1>
+                <p style="margin: 4px 0 0 0; color: rgba(255,255,255,0.8); font-size: 14px;">${
+                  user.email
+                }</p>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            ${invoice.items
-              .map(
-                (item: InvoiceItem) =>
-                  `<tr>
-             <td style="padding: 8px; border: 1px solid #ddd;">${
-               item.description
-             }</td>
-             <td style="padding: 8px; border: 1px solid #ddd;">${
-               item.quantity
-             }</td>
-             <td style="padding: 8px; border: 1px solid #ddd;">Rp ${Number(
-               item.price
-             ).toLocaleString("id-ID")}</td>
-           </tr>`
-              )
-              .join("")}
-          </tbody>
-        </table>
-        <hr>
-        <p>Catatan:</p>
-        <p><em>${invoice.notes || "Tidak ada catatan."}</em></p>
-        <p>Terima kasih!</p>
+          </table>
+        </div>
+        
+        <!-- Content -->
+        <div style="padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
+          <h2 style="margin-top: 0; color: #1f2937;">Halo ${client.name},</h2>
+          <p style="color: #4b5563;">Anda menerima invoice baru dari <strong>${
+            user.company
+          }</strong>.</p>
+          
+          <!-- Invoice Summary -->
+          <div style="background-color: #f9fafb; border-radius: 8px; padding: 16px; margin: 20px 0;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="color: #6b7280; font-size: 14px;">No. Invoice</td>
+                <td style="text-align: right; font-weight: 600; color: #1f2937;">${
+                  invoice.invoiceNumber
+                }</td>
+              </tr>
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding-top: 8px;">Jatuh Tempo</td>
+                <td style="text-align: right; font-weight: 600; color: #1f2937; padding-top: 8px;">${new Date(
+                  invoice.dueDate
+                ).toLocaleDateString("id-ID")}</td>
+              </tr>
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding-top: 8px;">Total Tagihan</td>
+                <td style="text-align: right; font-weight: 700; color: #7c3aed; font-size: 18px; padding-top: 8px;">Rp ${Number(
+                  invoice.totalAmount
+                ).toLocaleString("id-ID")}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <h3 style="color: #1f2937; margin-bottom: 12px;">Detail Item:</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #f3f4f6;">
+              <tr>
+                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: left; color: #374151; font-size: 14px;">Deskripsi</th>
+                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: center; color: #374151; font-size: 14px;">Qty</th>
+                <th style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #374151; font-size: 14px;">Harga</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${invoice.items
+                .map(
+                  (item: InvoiceItem) =>
+                    `<tr>
+               <td style="padding: 12px; border: 1px solid #e5e7eb; color: #4b5563;">${
+                 item.description
+               }</td>
+               <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: center; color: #4b5563;">${
+                 item.quantity
+               }</td>
+               <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: right; color: #4b5563;">Rp ${Number(
+                 item.price
+               ).toLocaleString("id-ID")}</td>
+             </tr>`
+                )
+                .join("")}
+            </tbody>
+          </table>
+          
+          ${
+            invoice.notes
+              ? `
+          <div style="margin-top: 20px; padding: 12px; background-color: #fef3c7; border-radius: 6px; border-left: 4px solid #f59e0b;">
+            <p style="margin: 0; color: #92400e; font-size: 14px;"><strong>Catatan:</strong></p>
+            <p style="margin: 4px 0 0 0; color: #92400e; font-size: 14px;">${invoice.notes}</p>
+          </div>
+          `
+              : ""
+          }
+          
+          <p style="margin-top: 24px; color: #4b5563;">Terima kasih atas kepercayaan Anda!</p>
+          
+          <!-- Footer -->
+          <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center;">
+            <p style="margin: 0; color: #9ca3af; font-size: 12px;">Email ini dikirim oleh ${
+              user.company
+            }</p>
+            ${
+              user.phone
+                ? `<p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">Telepon: ${user.phone}</p>`
+                : ""
+            }
+            ${
+              user.address
+                ? `<p style="margin: 4px 0 0 0; color: #9ca3af; font-size: 12px;">${user.address}</p>`
+                : ""
+            }
+          </div>
+        </div>
       </div>
     `;
 
