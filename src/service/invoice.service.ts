@@ -97,6 +97,22 @@ class InvoiceService {
       logger.info(
         `New invoice created (ID: ${newInvoice.id}) by user ${userId}`
       );
+
+      // Auto-send email if recurring invoice with autoSendEmail enabled
+      if (input.isRecurring && input.autoSendEmail) {
+        try {
+          await this.sendInvoiceEmail(newInvoice.id, userId);
+          logger.info(
+            `Auto-sent email for new recurring invoice ${newInvoice.invoiceNumber}`
+          );
+        } catch (emailError: any) {
+          logger.error(
+            `Failed to auto-send email for ${newInvoice.invoiceNumber}: ${emailError.message}`
+          );
+          // Don't throw - invoice was created successfully, just email failed
+        }
+      }
+
       return newInvoice;
     } catch (error: any) {
       logger.error(`Invoice creation failed: ${error.message}`, error);
@@ -108,6 +124,21 @@ class InvoiceService {
             userId,
             totalAmount
           );
+
+          // Auto-send email for retry case too
+          if (input.isRecurring && input.autoSendEmail) {
+            try {
+              await this.sendInvoiceEmail(newInvoice.id, userId);
+              logger.info(
+                `Auto-sent email for new recurring invoice ${newInvoice.invoiceNumber}`
+              );
+            } catch (emailError: any) {
+              logger.error(
+                `Failed to auto-send email for ${newInvoice.invoiceNumber}: ${emailError.message}`
+              );
+            }
+          }
+
           return newInvoice;
         } catch (retryError: any) {
           throw new AppError(409, "Invoice number already exists.");
@@ -306,11 +337,16 @@ class InvoiceService {
         `Invoice (ID: ${invoiceId}) sent to ${client.email} by user ${userId}`
       );
 
+      // Update status and emailSentAt
+      const updateData: { status?: InvoiceStatus; emailSentAt: Date } = {
+        emailSentAt: new Date(),
+      };
+
       if (invoice.status === InvoiceStatus.DRAFT) {
-        await InvoiceRepository.updateStatus(invoiceId, {
-          status: InvoiceStatus.SENT,
-        });
+        updateData.status = InvoiceStatus.SENT;
       }
+
+      await InvoiceRepository.updateStatus(invoiceId, updateData);
 
       return true;
     } catch (emailError: any) {

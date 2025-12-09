@@ -101,6 +101,7 @@ model Invoice {
   autoSendEmail      Boolean       @default(false)
   paymentTermDays    Int?
   recurrenceDay      Int?
+  emailSentAt        DateTime?
   client             Client        @relation(fields: [clientId], references: [id])
   user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   items              InvoiceItem[]

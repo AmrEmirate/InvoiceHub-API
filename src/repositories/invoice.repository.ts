@@ -194,7 +194,7 @@ class InvoiceRepository {
 
   public async updateStatus(
     id: string,
-    data: { status?: InvoiceStatus }
+    data: { status?: InvoiceStatus; emailSentAt?: Date }
   ): Promise<Invoice> {
     return await prisma.invoice.update({
       where: { id },
