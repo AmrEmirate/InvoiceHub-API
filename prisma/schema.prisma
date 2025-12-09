@@ -10,94 +10,115 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  password    String?
-  name        String
-  company     String
-  
-  phone       String?
-  address     String?
-  city        String?
-  state       String?
-  zipCode     String?
-  country     String?
-  taxId       String?
-  bankAccount String?
-  avatar      String?
-
-  isVerified         Boolean  @default(false)
-  verificationToken  String?  @unique
-
-  resetToken       String?  @unique
-  resetTokenExpiry DateTime?
-
-  clients     Client[]
-  categories  Category[]
-  products    Product[]
-  invoices    Invoice[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String     @id @default(uuid())
+  email             String     @unique
+  password          String?
+  name              String
+  company           String
+  phone             String?
+  address           String?
+  city              String?
+  state             String?
+  zipCode           String?
+  country           String?
+  taxId             String?
+  bankAccount       String?
+  avatar            String?
+  isVerified        Boolean    @default(false)
+  verificationToken String?    @unique
+  resetToken        String?    @unique
+  resetTokenExpiry  DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  categories        Category[]
+  clients           Client[]
+  invoices          Invoice[]
+  products          Product[]
 }
 
 model Client {
-  id                 String   @id @default(uuid())
+  id                 String    @id @default(uuid())
   name               String
   email              String
   phone              String?
   address            String?
   paymentPreferences String?
-
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  invoices Invoice[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  userId             String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices           Invoice[]
 
   @@unique([userId, email])
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String
-
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  id        String    @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products  Product[]
 
   @@unique([userId, name])
 }
 
 model Product {
-  id          String  @id @default(uuid())
-  name        String
-  description String?
-  price       Decimal @default(0)
-  sku         String
-
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
-
+  id           String        @id @default(uuid())
+  name         String
+  description  String?
+  price        Decimal       @default(0)
+  sku          String
+  userId       String
+  categoryId   String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    DateTime?
   invoiceItems InvoiceItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  deletedAt DateTime?
+  category     Category      @relation(fields: [categoryId], references: [id])
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, sku])
+}
+
+model Invoice {
+  id                 String        @id @default(uuid())
+  invoiceNumber      String
+  status             InvoiceStatus @default(DRAFT)
+  invoiceDate        DateTime      @default(now())
+  dueDate            DateTime
+  currency           String        @default("IDR")
+  notes              String?
+  totalAmount        Decimal       @default(0)
+  isRecurring        Boolean       @default(false)
+  recurrenceInterval String?
+  userId             String
+  clientId           String
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  autoSendEmail      Boolean       @default(false)
+  paymentTermDays    Int?
+  recurrenceDay      Int?
+  client             Client        @relation(fields: [clientId], references: [id])
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items              InvoiceItem[]
+
+  @@unique([userId, invoiceNumber])
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  description String
+  quantity    Int
+  price       Decimal
+  invoiceId   String
+  productId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id])
 }
 
 enum InvoiceStatus {
@@ -107,49 +128,4 @@ enum InvoiceStatus {
   PAID
   OVERDUE
   CANCELLED
-}
-
-model Invoice {
-  id            String        @id @default(uuid())
-  invoiceNumber String
-  status        InvoiceStatus @default(DRAFT)
-  
-  invoiceDate   DateTime      @default(now())
-  dueDate       DateTime
-  
-  currency      String        @default("IDR")
-  notes         String?
-  totalAmount   Decimal       @default(0)
-
-  isRecurring        Boolean  @default(false)
-  recurrenceInterval String?
-
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  clientId String
-  client   Client @relation(fields: [clientId], references: [id])
-
-  items InvoiceItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, invoiceNumber])
-}
-
-model InvoiceItem {
-  id          String  @id @default(uuid())
-  description String
-  quantity    Int
-  price       Decimal
-
-  invoiceId String
-  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-
-  productId String?
-  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

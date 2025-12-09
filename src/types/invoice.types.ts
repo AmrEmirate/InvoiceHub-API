@@ -1,4 +1,3 @@
-
 import { InvoiceStatus } from "../generated/prisma";
 
 export type TInvoiceItemInput = {
@@ -17,6 +16,9 @@ export type TCreateInvoiceInput = {
   currency?: string;
   isRecurring?: boolean;
   recurrenceInterval?: string;
+  recurrenceDay?: number; // Day of month (1-31)
+  paymentTermDays?: number; // Days until due
+  autoSendEmail?: boolean;
   items: TInvoiceItemInput[];
 };
 

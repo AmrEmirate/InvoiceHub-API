@@ -109,14 +109,17 @@ class InvoiceRepository {
         client: true,
         items: {
           include: {
-              product: true,
+            product: true,
           },
         },
       },
     });
   }
 
-  public async findLastInvoiceByDate(userId: string, date: Date): Promise<Invoice | null> {
+  public async findLastInvoiceByDate(
+    userId: string,
+    date: Date
+  ): Promise<Invoice | null> {
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
 
@@ -148,18 +151,18 @@ class InvoiceRepository {
       totalRevenueResult,
     ] = await prisma.$transaction([
       prisma.invoice.count({ where: { userId } }),
-      
+
       prisma.invoice.count({
         where: { userId, status: InvoiceStatus.PAID },
       }),
-      
+
       prisma.invoice.count({
         where: {
           userId,
           status: { in: [InvoiceStatus.SENT, InvoiceStatus.PENDING] },
         },
       }),
-      
+
       prisma.invoice.count({
         where: {
           userId,
@@ -173,7 +176,7 @@ class InvoiceRepository {
           ],
         },
       }),
-      
+
       prisma.invoice.aggregate({
         _sum: { totalAmount: true },
         where: { userId, status: InvoiceStatus.PAID },
@@ -203,6 +206,26 @@ class InvoiceRepository {
     return await prisma.invoice.delete({
       where: { id },
     });
+  }
+
+  public async markOverdueInvoices(): Promise<number> {
+    const now = new Date();
+
+    const result = await prisma.invoice.updateMany({
+      where: {
+        status: {
+          in: [InvoiceStatus.SENT, InvoiceStatus.PENDING],
+        },
+        dueDate: {
+          lt: now,
+        },
+      },
+      data: {
+        status: InvoiceStatus.OVERDUE,
+      },
+    });
+
+    return result.count;
   }
 }
 

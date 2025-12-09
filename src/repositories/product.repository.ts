@@ -1,6 +1,9 @@
 import { PrismaClient, Product } from "../generated/prisma";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
-import { TCreateProductInput, TUpdateProductInput } from "../types/product.types";
+import {
+  TCreateProductInput,
+  TUpdateProductInput,
+} from "../types/product.types";
 import { Decimal } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
@@ -8,7 +11,7 @@ const prisma = new PrismaClient();
 class ProductRepository {
   public async create(data: TCreateProductInput): Promise<Product> {
     const priceAsDecimal = new Decimal(data.price);
-    
+
     return await prisma.product.create({
       data: {
         ...data,
@@ -34,9 +37,9 @@ class ProductRepository {
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
 
-    const whereCondition: any = { 
-      userId, 
-      deletedAt: null 
+    const whereCondition: any = {
+      userId,
+      deletedAt: null,
     };
 
     if (filters.search) {
@@ -97,12 +100,7 @@ class ProductRepository {
     });
   }
 
-  public async update(
-    id: string,
-    data: TUpdateProductInput
-  ): Promise<Product> {
-    
-    
+  public async update(id: string, data: TUpdateProductInput): Promise<Product> {
     const updateData: any = { ...data };
     if (data.price) {
       updateData.price = new Decimal(data.price);
@@ -115,10 +113,15 @@ class ProductRepository {
   }
 
   public async softDelete(id: string): Promise<Product> {
+    // Append unique suffix to SKU to free up the SKU for reuse
+    const deletedSuffix = `_deleted_${Date.now()}`;
+    const product = await prisma.product.findUnique({ where: { id } });
+
     return await prisma.product.update({
       where: { id },
       data: {
         deletedAt: new Date(),
+        sku: product ? `${product.sku}${deletedSuffix}` : `deleted_${id}`,
       },
     });
   }

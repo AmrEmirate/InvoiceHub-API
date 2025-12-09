@@ -392,6 +392,19 @@ class InvoiceService {
       throw new AppError(500, "Failed to get chart data", error);
     }
   }
+
+  public async markOverdueInvoices(): Promise<number> {
+    try {
+      const count = await InvoiceRepository.markOverdueInvoices();
+      if (count > 0) {
+        logger.info(`[Cron] Marked ${count} invoices as OVERDUE`);
+      }
+      return count;
+    } catch (error: any) {
+      logger.error(`Error marking overdue invoices: ${error.message}`);
+      throw new AppError(500, "Failed to mark overdue invoices", error);
+    }
+  }
 }
 
 export default new InvoiceService();

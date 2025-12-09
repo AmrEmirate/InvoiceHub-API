@@ -6,6 +6,7 @@ import {
 } from "../generated/prisma";
 import { Decimal } from "@prisma/client/runtime/library";
 import InvoiceRepository from "../repositories/invoice.repository";
+import InvoiceService from "../service/invoice.service";
 import logger from "../utils/logger";
 import { TCreateInvoiceInput } from "../types/invoice.types";
 
@@ -22,6 +23,8 @@ class RecurringService {
       },
       include: {
         items: true,
+        client: true,
+        user: true,
       },
     });
 
@@ -31,24 +34,28 @@ class RecurringService {
     }
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const currentDay = today.getDate();
 
     for (const template of templateInvoices) {
       try {
-        const nextDueDate = this.calculateNextDueDate(
-          template.dueDate,
-          template.recurrenceInterval!
+        // Check if today is the recurring day
+        const shouldGenerateToday = this.shouldGenerateInvoice(
+          template,
+          currentDay,
+          today
         );
-        nextDueDate.setHours(0, 0, 0, 0);
 
-        if (nextDueDate.getTime() === today.getTime()) {
+        if (shouldGenerateToday) {
           const alreadyExists = await this.checkIfDuplicateExists(
             template,
             today
           );
 
           if (!alreadyExists) {
-            await this.duplicateInvoice(template as Invoice & { items: InvoiceItem[] }, today);
+            await this.duplicateInvoice(
+              template as Invoice & { items: InvoiceItem[] },
+              today
+            );
           }
         }
       } catch (error: any) {
@@ -60,10 +67,35 @@ class RecurringService {
     logger.info("[Cron] Recurring invoice check finished.");
   }
 
-  private calculateNextDueDate(
-    originalDueDate: Date,
-    interval: string
-  ): Date {
+  private shouldGenerateInvoice(
+    template: Invoice,
+    currentDay: number,
+    today: Date
+  ): boolean {
+    // If recurrenceDay is set, check if today is that day
+    if (template.recurrenceDay) {
+      // Handle months with fewer days (e.g., Feb 28/29)
+      const lastDayOfMonth = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0
+      ).getDate();
+      const targetDay = Math.min(template.recurrenceDay, lastDayOfMonth);
+      return currentDay === targetDay;
+    }
+
+    // Fallback to old logic based on dueDate interval
+    const nextDueDate = this.calculateNextDueDate(
+      template.dueDate,
+      template.recurrenceInterval!
+    );
+    nextDueDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return nextDueDate.getTime() === today.getTime();
+  }
+
+  private calculateNextDueDate(originalDueDate: Date, interval: string): Date {
     const nextDate = new Date(originalDueDate.getTime());
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -87,16 +119,52 @@ class RecurringService {
     return nextDate;
   }
 
+  private calculateDueDate(template: Invoice): Date {
+    const today = new Date();
+
+    // If paymentTermDays is set, calculate due date from today
+    if (template.paymentTermDays && template.paymentTermDays > 0) {
+      const dueDate = new Date(today);
+      dueDate.setDate(dueDate.getDate() + template.paymentTermDays);
+      return dueDate;
+    }
+
+    // Fallback: calculate based on interval
+    const dueDate = new Date(today);
+    switch (template.recurrenceInterval) {
+      case "weekly":
+        dueDate.setDate(dueDate.getDate() + 7);
+        break;
+      case "monthly":
+        dueDate.setMonth(dueDate.getMonth() + 1);
+        break;
+      case "yearly":
+        dueDate.setFullYear(dueDate.getFullYear() + 1);
+        break;
+      default:
+        dueDate.setDate(dueDate.getDate() + 30); // Default 30 days
+    }
+    return dueDate;
+  }
+
   private async checkIfDuplicateExists(
     template: Invoice,
-    newDueDate: Date
+    newInvoiceDate: Date
   ): Promise<boolean> {
+    const startOfDay = new Date(newInvoiceDate);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(newInvoiceDate);
+    endOfDay.setHours(23, 59, 59, 999);
+
     const existing = await prisma.invoice.findFirst({
       where: {
         userId: template.userId,
         clientId: template.clientId,
-        status: InvoiceStatus.DRAFT,
-        dueDate: newDueDate,
+        createdAt: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
         notes: { contains: `Recurring from ${template.invoiceNumber}` },
       },
     });
@@ -105,7 +173,7 @@ class RecurringService {
 
   private async duplicateInvoice(
     template: Invoice & { items: InvoiceItem[] },
-    newDueDate: Date
+    invoiceDate: Date
   ) {
     logger.info(
       `[Cron] Generating new invoice from template ${template.id} for user ${template.userId}`
@@ -118,14 +186,21 @@ class RecurringService {
       productId: item.productId || undefined,
     }));
 
+    const newDueDate = this.calculateDueDate(template);
+
     const newInvoiceNumber = `${
       template.invoiceNumber.split("-")[0]
-    }-RE-${newDueDate.getTime()}`;
+    }-RE-${invoiceDate.getTime()}`;
+
+    // Set initial status based on autoSendEmail
+    const initialStatus = template.autoSendEmail
+      ? InvoiceStatus.SENT
+      : InvoiceStatus.DRAFT;
 
     const newInvoiceData = {
       clientId: template.clientId,
       invoiceNumber: newInvoiceNumber,
-      status: InvoiceStatus.DRAFT,
+      status: initialStatus,
       dueDate: newDueDate,
       notes: `Recurring from ${template.invoiceNumber}\n${
         template.notes || ""
@@ -135,15 +210,25 @@ class RecurringService {
       items: newItems,
     };
 
-    await InvoiceRepository.create(
+    const newInvoice = await InvoiceRepository.create(
       newInvoiceData as any,
       template.userId,
       template.totalAmount
     );
 
-    logger.info(
-      `[Cron] Successfully created new invoice ${newInvoiceNumber}`
-    );
+    logger.info(`[Cron] Successfully created new invoice ${newInvoiceNumber}`);
+
+    // Auto-send email if enabled
+    if (template.autoSendEmail) {
+      try {
+        await InvoiceService.sendInvoiceEmail(newInvoice.id, template.userId);
+        logger.info(`[Cron] Auto-sent email for invoice ${newInvoiceNumber}`);
+      } catch (emailError: any) {
+        logger.error(
+          `[Cron] Failed to auto-send email for ${newInvoiceNumber}: ${emailError.message}`
+        );
+      }
+    }
   }
 }
 
