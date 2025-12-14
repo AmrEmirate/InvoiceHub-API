@@ -6,7 +6,7 @@ import { createToken } from "../utils/jwt";
 import logger from "../utils/logger";
 import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
-import { User } from "../generated/prisma";
+import { User } from "@prisma/client";
 import {
   generateSetPasswordEmail,
   generateResetPasswordEmail,

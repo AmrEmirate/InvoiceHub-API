@@ -3,7 +3,7 @@ import {
   Invoice,
   InvoiceStatus,
   InvoiceItem,
-} from "../generated/prisma";
+} from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import InvoiceRepository from "../repositories/invoice.repository";
 import InvoiceService from "../service/invoice.service";

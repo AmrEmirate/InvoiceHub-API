@@ -1,4 +1,4 @@
-import { PrismaClient, Invoice, InvoiceStatus } from "../generated/prisma";
+import { PrismaClient, Invoice, InvoiceStatus } from "@prisma/client";
 import { TCreateInvoiceInput } from "../types/invoice.types";
 import { Decimal } from "@prisma/client/runtime/library";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";

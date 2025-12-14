@@ -1,4 +1,4 @@
-import { PrismaClient, Product } from "../generated/prisma";
+import { PrismaClient, Product } from "@prisma/client";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 import {
   TCreateProductInput,

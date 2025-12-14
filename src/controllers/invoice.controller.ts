@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import InvoiceService from "../service/invoice.service";
 import { SafeUser } from "../types/express";
-import { InvoiceStatus } from "../generated/prisma";
+import { InvoiceStatus } from "@prisma/client";
 
 interface AuthRequest extends Request {
   user?: SafeUser;

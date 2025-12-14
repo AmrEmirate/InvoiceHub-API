@@ -1,7 +1,7 @@
 import { body, param, query, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import AppError from "../../utils/AppError";
-import { InvoiceStatus } from "../../generated/prisma";
+import { InvoiceStatus } from "@prisma/client";
 
 const handleValidationErrors = (
   req: Request,
@@ -14,7 +14,7 @@ const handleValidationErrors = (
   }
   next();
 };
-    
+
 export const validateIdParam = [
   param("id").isUUID().withMessage("Invalid ID format"),
   handleValidationErrors,
@@ -32,16 +32,14 @@ export const createInvoiceValidatorV2 = [
   body("items")
     .isArray({ min: 1 })
     .withMessage("Invoice must have at least one item"),
-  
+
   body("items.*.description")
     .notEmpty()
     .withMessage("Item description is required"),
   body("items.*.quantity")
     .isInt({ min: 1 })
     .withMessage("Item quantity must be a positive integer"),
-  body("items.*.price")
-    .isNumeric()
-    .withMessage("Item price must be a number"),
+  body("items.*.price").isNumeric().withMessage("Item price must be a number"),
   body("items.*.productId")
     .optional()
     .isUUID()
@@ -70,9 +68,6 @@ export const getInvoicesValidator = [
     .optional()
     .isIn(Object.values(InvoiceStatus))
     .withMessage("Invalid status value"),
-  query("clientId")
-    .optional()
-    .isUUID()
-    .withMessage("Invalid Client ID format"),
+  query("clientId").optional().isUUID().withMessage("Invalid Client ID format"),
   handleValidationErrors,
 ];

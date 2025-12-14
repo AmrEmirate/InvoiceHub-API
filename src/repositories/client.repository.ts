@@ -1,4 +1,4 @@
-import { PrismaClient, Client } from "../generated/prisma";
+import { PrismaClient, Client } from "@prisma/client";
 import { TCreateClientInput, TUpdateClientInput } from "../types/client.types";
 import { PaginationParams, PaginatedResponse } from "../types/pagination.types";
 
@@ -49,7 +49,6 @@ class ClientRepository {
       take: limit,
     });
 
-
     const data = clients.map((client) => ({
       ...client,
       _count: {
@@ -90,7 +89,6 @@ class ClientRepository {
     });
 
     if (!client) return null;
-
 
     return {
       ...client,

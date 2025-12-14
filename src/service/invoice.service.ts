@@ -5,7 +5,7 @@ import { TCreateInvoiceInput } from "../types/invoice.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
-import { Invoice, InvoiceStatus, User, InvoiceItem } from "../generated/prisma";
+import { Invoice, InvoiceStatus, User, InvoiceItem } from "@prisma/client";
 import { transport } from "../config/nodemailer";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
 import { prisma } from "../config/prisma";

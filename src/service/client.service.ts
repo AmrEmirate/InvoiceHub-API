@@ -3,7 +3,7 @@ import { TCreateClientInput, TUpdateClientInput } from "../types/client.types";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { PaginationParams, PaginatedResponse } from "../types/pagination.types";
-import { Client } from "../generated/prisma";
+import { Client } from "@prisma/client";
 
 type TCreateInput = {
   name: string;

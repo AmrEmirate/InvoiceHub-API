@@ -5,7 +5,7 @@ import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 import { Decimal } from "@prisma/client/runtime/library";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";
-import { Product } from "../generated/prisma";
+import { Product } from "@prisma/client";
 
 type TCreateInput = {
   name: string;
@@ -33,9 +33,7 @@ class ProductService {
     }
     const productData = { ...input, userId };
     const newProduct = await ProductRepository.create(productData);
-    logger.info(
-      `New product created (ID: ${newProduct.id}) by user ${userId}`
-    );
+    logger.info(`New product created (ID: ${newProduct.id}) by user ${userId}`);
 
     return newProduct;
   }
@@ -68,7 +66,10 @@ class ProductService {
         userId
       );
       if (!category) {
-        throw new AppError(404, "New category not found or does not belong to user");
+        throw new AppError(
+          404,
+          "New category not found or does not belong to user"
+        );
       }
     }
 

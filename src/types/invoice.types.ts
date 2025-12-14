@@ -1,4 +1,4 @@
-import { InvoiceStatus } from "../generated/prisma";
+import { InvoiceStatus } from "@prisma/client";
 
 export type TInvoiceItemInput = {
   description: string;

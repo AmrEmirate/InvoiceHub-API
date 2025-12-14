@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import AuthService from "../service/auth.service";
 import AppError from "../utils/AppError";
 import { SafeUser } from "../types/express";
-import { User } from "../generated/prisma";
+import { User } from "@prisma/client";
 
 interface AuthRequest extends Request {
   user?: SafeUser;

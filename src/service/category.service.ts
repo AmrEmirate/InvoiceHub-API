@@ -1,4 +1,4 @@
-import { Category } from "../generated/prisma";
+import { Category } from "@prisma/client";
 import CategoryRepository from "../repositories/category.repository";
 import { TUpdateCategoryInput } from "../types/category.types";
 import { PaginatedResponse, PaginationParams } from "../types/pagination.types";

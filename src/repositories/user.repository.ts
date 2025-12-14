@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "../generated/prisma";
+import { PrismaClient, User } from "@prisma/client";
 import { TCreateUserInput, TUpdateUserInput } from "../types/user.types";
 
 const prisma = new PrismaClient();
@@ -22,19 +22,14 @@ class UserRepository {
     });
   }
 
-  public async updateUser(
-    id: string,
-    data: TUpdateUserInput
-  ): Promise<User> {
+  public async updateUser(id: string, data: TUpdateUserInput): Promise<User> {
     return await prisma.user.update({
       where: { id },
       data,
     });
   }
 
-  public async findByVerificationToken(
-    token: string
-  ): Promise<User | null> {
+  public async findByVerificationToken(token: string): Promise<User | null> {
     return await prisma.user.findUnique({
       where: { verificationToken: token },
     });

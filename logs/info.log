@@ -1,0 +1,45 @@
+2025-12-09 19:17:54 [INFO]: Starting cron jobs...
+2025-12-09 19:17:54 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-09 19:17:54 [INFO]: API Running: http://localhost:2020
+2025-12-09 19:17:56 [INFO]: Nodemailer transport is ready.
+2025-12-09 19:18:15 [INFO]: POST /api/auth/forgot-password
+2025-12-09 19:19:34 [INFO]: GET /api/auth/google
+2025-12-09 19:19:57 [INFO]: GET /api/auth/google/callback
+2025-12-09 19:19:59 [INFO]: New Google user detected: amremirate03@gmail.com, redirecting to signup
+2025-12-09 19:20:16 [INFO]: POST /api/auth/google-signup
+2025-12-09 19:20:16 [INFO]: New user registered via Google signup: amremirate03@gmail.com (ID: 051a5280-d798-4a09-a157-957d0514350a)
+2025-12-09 19:20:18 [INFO]: GET /api/invoices/stats
+2025-12-09 19:20:18 [INFO]: GET /api/invoices
+2025-12-09 19:20:18 [INFO]: GET /api/invoices/stats/chart
+2025-12-09 19:20:20 [INFO]: GET /api/invoices/stats/chart
+2025-12-09 19:20:21 [INFO]: GET /api/invoices
+2025-12-09 19:20:21 [INFO]: GET /api/invoices/stats
+2025-12-09 19:20:26 [INFO]: GET /api/auth/google
+2025-12-09 19:20:31 [INFO]: GET /api/auth/google/callback
+2025-12-09 19:20:32 [INFO]: User logged in via Google: amremirate03@gmail.com (ID: 051a5280-d798-4a09-a157-957d0514350a)
+2025-12-09 19:20:33 [INFO]: GET /api/invoices/stats
+2025-12-09 19:20:33 [INFO]: GET /api/invoices
+2025-12-09 19:20:33 [INFO]: GET /api/invoices/stats/chart
+2025-12-09 19:20:34 [INFO]: GET /api/invoices/stats/chart
+2025-12-09 19:20:35 [INFO]: GET /api/invoices
+2025-12-09 19:20:36 [INFO]: GET /api/invoices/stats
+2025-12-14 12:03:59 [INFO]: Starting cron jobs...
+2025-12-14 12:03:59 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:03:59 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:04:03 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:06:08 [INFO]: Starting cron jobs...
+2025-12-14 12:06:08 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:06:08 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:06:09 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:06:18 [INFO]: Starting cron jobs...
+2025-12-14 12:06:18 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:06:18 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:06:20 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:06:44 [INFO]: Starting cron jobs...
+2025-12-14 12:06:44 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:06:44 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:06:46 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:08:40 [INFO]: Starting cron jobs...
+2025-12-14 12:08:40 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:08:40 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:08:42 [INFO]: Nodemailer transport is ready.

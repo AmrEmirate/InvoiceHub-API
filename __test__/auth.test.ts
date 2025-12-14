@@ -1,7 +1,6 @@
 import request from "supertest";
 import App from "../src/app";
-import { PrismaClient } from "../src/generated/prisma";
-import { transport } from "../src/config/nodemailer";
+import { PrismaClient } from "@prisma/client";
 
 // Mock Nodemailer agar tidak benar-benar mengirim email saat testing
 jest.mock("../src/config/nodemailer", () => ({
