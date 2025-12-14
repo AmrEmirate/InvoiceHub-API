@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    /* "rootDir": "./src", */ 
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "rootDir": ".",
     "strict": true,
-    "skipLibCheck": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "__test__/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    "prisma/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "__test__"
+  ]
 }

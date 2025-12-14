@@ -43,3 +43,24 @@
 2025-12-14 12:08:40 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
 2025-12-14 12:08:40 [INFO]: API Running: http://localhost:2020
 2025-12-14 12:08:42 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:34:51 [INFO]: Starting cron jobs...
+2025-12-14 12:34:51 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:34:51 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:34:52 [INFO]: Nodemailer transport is ready.
+2025-12-14 12:36:35 [INFO]: GET /
+2025-12-14 12:36:35 [INFO]: GET /transaction
+2025-12-14 12:36:35 [INFO]: POST /api/auth/register
+2025-12-14 12:36:35 [INFO]: Set password email sent to: test.auth@example.com (ID: 9decdd42-432e-4577-aa5d-d349451b439a)
+2025-12-14 12:36:35 [INFO]: POST /api/auth/register
+2025-12-14 12:36:35 [INFO]: POST /api/auth/register
+2025-12-14 12:36:35 [INFO]: POST /api/auth/set-password
+2025-12-14 12:36:35 [INFO]: POST /api/auth/set-password
+2025-12-14 12:36:35 [INFO]: POST /api/auth/set-password
+2025-12-14 12:36:35 [INFO]: Password set and user verified: test.auth@example.com (ID: 9decdd42-432e-4577-aa5d-d349451b439a)
+2025-12-14 12:36:35 [INFO]: POST /api/auth/login
+2025-12-14 12:36:35 [INFO]: POST /api/auth/login
+2025-12-14 12:36:35 [INFO]: User logged in: test.auth@example.com (ID: 9decdd42-432e-4577-aa5d-d349451b439a)
+2025-12-14 12:37:04 [INFO]: Starting cron jobs...
+2025-12-14 12:37:04 [INFO]: Cron jobs scheduled: recurring invoices (1:00 AM), overdue check (00:05 AM)
+2025-12-14 12:37:04 [INFO]: API Running: http://localhost:2020
+2025-12-14 12:37:05 [INFO]: Nodemailer transport is ready.

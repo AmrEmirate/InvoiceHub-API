@@ -10,7 +10,7 @@ import mainRouter from "./routers";
 import passport from "passport";
 import "./config/passport";
 
-const PORT: string = process.env.PORT || "2020";
+const PORT: string = process.env.PORT as string;
 
 class App {
   public app: Application;
@@ -40,7 +40,7 @@ class App {
     // CORS Configuration
     this.app.use(
       cors({
-        origin: process.env.FE_URL || "http://localhost:3000",
+        origin: process.env.FE_URL,
         credentials: true,
       })
     );
