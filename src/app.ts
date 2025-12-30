@@ -23,21 +23,19 @@ class App {
   }
 
   private configure(): void {
-    // Security Headers
+    this.app.set("trust proxy", 1);
     this.app.use(helmet());
 
-    // Rate Limiting
     const limiter = rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-      standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-      legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+      windowMs: 15 * 60 * 1000,
+      max: 100, 
+      standardHeaders: true, 
+      legacyHeaders: false, 
       message:
         "Too many requests from this IP, please try again after 15 minutes",
     });
     this.app.use(limiter);
 
-    // CORS Configuration
     this.app.use(
       cors({
         origin: process.env.FE_URL,
