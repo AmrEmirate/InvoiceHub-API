@@ -172,9 +172,9 @@ class App {
    */
   public start(): void {
     this.app.listen(PORT, () => {
-      logger.info(`🚀 API Running on port: ${PORT}`);
-      logger.info(`📚 API Docs available at: /api-docs`);
-      logger.info(`❤️ Health check available at: /api/health`);
+      logger.info(`🚀 InvoiceHub-API Running: http://localhost:${PORT}`);
+      logger.info(`📚 API Docs: http://localhost:${PORT}/api-docs`);
+      logger.info(`❤️ Health: http://localhost:${PORT}/api/health`);
     });
   }
 }
