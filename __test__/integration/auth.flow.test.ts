@@ -1,9 +1,9 @@
 import request from "supertest";
-import App from "../src/app";
+import App from "../../src/app";
 import { PrismaClient } from "@prisma/client";
 
 // Mock Nodemailer agar tidak benar-benar mengirim email saat testing
-jest.mock("../src/config/nodemailer", () => ({
+jest.mock("../../src/config/nodemailer", () => ({
   transport: {
     sendMail: jest.fn().mockImplementation(() => Promise.resolve(true)),
   },

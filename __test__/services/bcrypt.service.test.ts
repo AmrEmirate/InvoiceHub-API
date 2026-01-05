@@ -1,4 +1,4 @@
-import { hashPassword } from "../src/utils/hash";
+import { hashPassword } from "../../src/utils/hash";
 import { compare } from "bcrypt";
 
 describe("Test hashing", () => {
@@ -8,7 +8,7 @@ describe("Test hashing", () => {
 
     expect(hashedPassword).toBeDefined();
     expect(typeof hashedPassword).toBe("string");
-    
+
     expect(hashedPassword).not.toBe(password);
 
     const isMatch = await compare(password, hashedPassword);
@@ -16,11 +16,11 @@ describe("Test hashing", () => {
   });
 
   it("Should fail to compare wrong password", async () => {
-     const password = "mysecretpassword123";
-     const wrongPassword = "wrongpassword";
-     const hashedPassword = await hashPassword(password);
+    const password = "mysecretpassword123";
+    const wrongPassword = "wrongpassword";
+    const hashedPassword = await hashPassword(password);
 
-     const isMatch = await compare(wrongPassword, hashedPassword);
-     expect(isMatch).toBe(false);
+    const isMatch = await compare(wrongPassword, hashedPassword);
+    expect(isMatch).toBe(false);
   });
 });

@@ -11,14 +11,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src/**/*",
-    "prisma/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "__test__"
-  ]
+  "include": ["src/**/*", "prisma/**/*", "__test__/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

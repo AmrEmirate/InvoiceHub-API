@@ -1,6 +1,6 @@
-import App from "../src/app";
+import App from "../../src/app";
 import request from "supertest";
-import { prisma } from "../src/config/prisma";
+import { prisma } from "../../src/config/prisma";
 
 const appTest = new App().app;
 
