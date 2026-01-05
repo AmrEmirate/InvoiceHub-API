@@ -13,7 +13,7 @@ import passport from "passport";
 import swaggerSpec from "./config/swagger";
 import "./config/passport";
 
-const PORT: string = process.env.PORT || "3000";
+const PORT: string = process.env.PORT as string;
 
 /**
  * Express Application class
@@ -53,8 +53,8 @@ class App {
 
     // Rate limiting
     const limiter = rateLimit({
-      windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || "900000"), // 15 minutes
-      max: parseInt(process.env.RATE_LIMIT_MAX || "100"),
+      windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS as string), // 15 minutes
+      max: parseInt(process.env.RATE_LIMIT_MAX as string),
       standardHeaders: true,
       legacyHeaders: false,
       message: {
@@ -172,9 +172,9 @@ class App {
    */
   public start(): void {
     this.app.listen(PORT, () => {
-      logger.info(`🚀 API Running: http://localhost:${PORT}`);
-      logger.info(`📚 API Docs: http://localhost:${PORT}/api-docs`);
-      logger.info(`❤️ Health: http://localhost:${PORT}/api/health`);
+      logger.info(`🚀 API Running on port: ${PORT}`);
+      logger.info(`📚 API Docs available at: /api-docs`);
+      logger.info(`❤️ Health check available at: /api/health`);
     });
   }
 }

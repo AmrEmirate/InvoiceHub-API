@@ -20,7 +20,7 @@ const swaggerOptions: swaggerJSDoc.Options = {
     },
     servers: [
       {
-        url: process.env.API_URL || "http://localhost:3000/api",
+        url: process.env.API_BASE_URL,
         description: "Development server",
       },
     ],
