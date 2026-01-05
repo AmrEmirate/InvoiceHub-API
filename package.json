@@ -1,18 +1,23 @@
 {
   "name": "invoice-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "InvoiceHub API - Invoice Management System",
   "license": "ISC",
   "author": "Amar",
   "type": "commonjs",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
     "dev": "nodemon src/index.ts",
-    "start": "nodemon src/index.ts",
-    "postinstall": "prisma generate",
+    "start": "node dist/index.js",
     "build": "tsc",
-    "seed": "ts-node prisma/seed.ts"
+    "postinstall": "prisma generate",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "tsc --noEmit",
+    "seed": "ts-node prisma/seed.ts",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^3.0.4",
@@ -26,18 +31,16 @@
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.3.0",
     "helmet": "^8.1.0",
-    "jest": "^30.0.5",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
-    "nodemon": "^3.1.10",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "prisma": "^6.14.0",
     "streamifier": "^0.1.1",
-    "ts-jest": "^29.4.1",
-    "typescript": "^5.9.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "winston": "^3.17.0",
     "zod": "^4.1.12"
   },
@@ -58,7 +61,16 @@
     "@types/passport-google-oauth20": "^2.0.17",
     "@types/streamifier": "^0.1.2",
     "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "jest": "^30.0.5",
+    "nodemon": "^3.1.10",
     "supertest": "^6.3.4",
-    "ts-node": "^10.9.2"
+    "ts-jest": "^29.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

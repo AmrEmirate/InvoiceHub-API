@@ -5,6 +5,7 @@ import {
   loginValidator,
   updateProfileValidator,
   setPasswordValidator,
+  resetPasswordValidator,
 } from "../middleware/validators/auth.validator";
 import { authMiddleware } from "../middleware/auth.middleware";
 import passport from "passport";
@@ -45,6 +46,7 @@ class AuthRouter {
 
     this.router.post(
       "/reset-password",
+      resetPasswordValidator,
       this.controller.resetPassword.bind(this.controller)
     );
 

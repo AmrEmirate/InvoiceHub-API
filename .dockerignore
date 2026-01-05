@@ -1,0 +1,53 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build output
+dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Test files
+__test__
+coverage
+*.test.ts
+*.spec.ts
+jest.config.js
+
+# Environment files (will be mounted at runtime)
+.env
+.env.*
+!.env.example
+
+# Documentation
+*.md
+!README.md
+
+# Logs
+logs
+*.log
+
+# Temp files
+tmp
+temp
+.tmp
+.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Prisma (we generate fresh in Docker)
+# Note: Keep prisma folder for schema
+prisma/migrations
+prisma/dev.db
+*.db
+*.db-journal

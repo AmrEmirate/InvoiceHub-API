@@ -33,14 +33,17 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
   // --- BAGIAN PENTING: CLEANUP SETELAH TEST ---
   // Membersihkan data sampah dan menutup koneksi database
   afterAll(async () => {
-    await prisma.user.deleteMany({
-      where: {
-        email: {
-          in: [testEmail, "test2@example.com"],
+    try {
+      await prisma.user.deleteMany({
+        where: {
+          email: {
+            in: [testEmail, "test2@example.com"],
+          },
         },
-      },
-    });
-    await prisma.$disconnect();
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
   });
 
   describe("1. POST /api/auth/register", () => {
@@ -119,7 +122,7 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
 
       const res = await request(app).post("/api/auth/set-password").send({
         token: verificationToken,
-        password: "newpassword123",
+        password: "NewPassword123!",
       });
 
       expect(res.statusCode).toEqual(200);
@@ -151,7 +154,7 @@ describe("Auth Flow (Register, Set Password, Login)", () => {
     it("should login successfully with correct password", async () => {
       const res = await request(app).post("/api/auth/login").send({
         email: testEmail,
-        password: "newpassword123",
+        password: "NewPassword123!",
       });
 
       expect(res.statusCode).toEqual(200);
