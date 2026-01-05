@@ -9,8 +9,8 @@ datasource db {
 }
 
 model User {
-  id                String     @id @default(uuid())
-  email             String     @unique
+  id                String         @id @default(uuid())
+  email             String         @unique
   password          String?
   name              String
   company           String
@@ -23,16 +23,17 @@ model User {
   taxId             String?
   bankAccount       String?
   avatar            String?
-  isVerified        Boolean    @default(false)
-  verificationToken String?    @unique
-  resetToken        String?    @unique
+  isVerified        Boolean        @default(false)
+  verificationToken String?        @unique
+  resetToken        String?        @unique
   resetTokenExpiry  DateTime?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
   categories        Category[]
   clients           Client[]
   invoices          Invoice[]
   products          Product[]
+  refreshTokens     RefreshToken[]
 }
 
 model Client {
@@ -129,3 +130,24 @@ enum InvoiceStatus {
   OVERDUE
   CANCELLED
 }
+
+/// Refresh token for JWT authentication
+/// Allows token revocation and secure session management
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  isRevoked Boolean  @default(false)
+  
+  // Device/session info for security auditing
+  userAgent String?
+  ipAddress String?
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([expiresAt])
+}
+

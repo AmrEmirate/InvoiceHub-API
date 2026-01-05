@@ -1,8 +1,14 @@
 ﻿import UserRepository from "../repositories/user.repository";
+import RefreshTokenRepository from "../repositories/refresh-token.repository";
 import { TCreateUserInput, TUpdateUserInput } from "../types/user.types";
 import AppError from "../utils/AppError";
 import { hashPassword, comparePassword } from "../utils/hash";
-import { createToken } from "../utils/jwt";
+import {
+  createToken,
+  createRefreshToken,
+  verifyRefreshToken,
+  getTokenExpiryMs,
+} from "../utils/jwt";
 import logger from "../utils/logger";
 import { transport } from "../config/nodemailer";
 import { generateVerificationToken } from "../utils/token";
@@ -11,6 +17,15 @@ import {
   generateSetPasswordEmail,
   generateResetPasswordEmail,
 } from "../utils/email-templates";
+
+/**
+ * Authentication response with tokens
+ */
+interface AuthTokenResponse {
+  user: Omit<User, "password">;
+  accessToken: string;
+  refreshToken: string;
+}
 
 type TRegisterInput = Omit<
   TCreateUserInput,
@@ -98,12 +113,17 @@ class AuthService {
     return { message: "Password set successfully. You can now login." };
   }
 
+  /**
+   * Authenticates user with email and password
+   * Returns access token and refresh token
+   */
   public async login(
     input: Pick<
       TRegisterInput & { password_plain: string },
       "email" | "password_plain"
-    >
-  ): Promise<{ user: any; token: string }> {
+    >,
+    metadata?: { userAgent?: string; ipAddress?: string }
+  ): Promise<AuthTokenResponse> {
     const user = await UserRepository.findUserByEmail(input.email);
     if (!user) {
       logger.warn(`Login attempt failed: Email ${input.email} not found.`);
@@ -132,12 +152,24 @@ class AuthService {
       throw new AppError(401, "Invalid email or password");
     }
 
+    // Generate tokens
     const tokenPayload = { id: user.id, email: user.email };
-    const token = createToken(tokenPayload);
+    const accessToken = createToken(tokenPayload);
+    const refreshToken = createRefreshToken(tokenPayload);
+
+    // Store refresh token in database
+    await RefreshTokenRepository.create({
+      token: refreshToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + getTokenExpiryMs()),
+      userAgent: metadata?.userAgent,
+      ipAddress: metadata?.ipAddress,
+    });
+
     logger.info(`User logged in: ${user.email} (ID: ${user.id})`);
 
     const { password, ...userWithoutPassword } = user;
-    return { user: userWithoutPassword, token };
+    return { user: userWithoutPassword, accessToken, refreshToken };
   }
 
   public async updateProfile(
@@ -288,6 +320,91 @@ class AuthService {
     return {
       message:
         "Password has been reset successfully. You can now login with your new password.",
+    };
+  }
+
+  /**
+   * Refreshes access token using a valid refresh token
+   * @param token - The refresh token
+   * @param metadata - Optional device/session info
+   * @returns New access token and optionally new refresh token
+   */
+  public async refreshAccessToken(
+    token: string,
+    metadata?: { userAgent?: string; ipAddress?: string }
+  ): Promise<{ accessToken: string; refreshToken?: string }> {
+    // Verify the refresh token JWT
+    let decoded;
+    try {
+      decoded = verifyRefreshToken(token);
+    } catch (error: any) {
+      logger.warn(`Refresh token verification failed: ${error.message}`);
+      throw new AppError(401, "Invalid or expired refresh token");
+    }
+
+    // Check if token exists in database and is valid
+    const storedToken = await RefreshTokenRepository.findByToken(token);
+    if (!storedToken) {
+      logger.warn(`Refresh token not found or revoked for user ${decoded.id}`);
+      throw new AppError(401, "Invalid or expired refresh token");
+    }
+
+    // Verify user still exists
+    const user = await UserRepository.findUserById(decoded.id);
+    if (!user) {
+      logger.warn(`User not found for refresh token: ${decoded.id}`);
+      throw new AppError(401, "User not found");
+    }
+
+    // Generate new access token
+    const tokenPayload = { id: user.id, email: user.email };
+    const accessToken = createToken(tokenPayload);
+
+    // Optionally rotate refresh token (recommended for security)
+    // Revoke old token and create new one
+    await RefreshTokenRepository.revokeToken(token);
+    const newRefreshToken = createRefreshToken(tokenPayload);
+    await RefreshTokenRepository.create({
+      token: newRefreshToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + getTokenExpiryMs()),
+      userAgent: metadata?.userAgent,
+      ipAddress: metadata?.ipAddress,
+    });
+
+    logger.info(`Token refreshed for user: ${user.email} (ID: ${user.id})`);
+
+    return { accessToken, refreshToken: newRefreshToken };
+  }
+
+  /**
+   * Logs out user by revoking refresh token
+   * @param refreshToken - The refresh token to revoke
+   */
+  public async logout(refreshToken: string): Promise<{ message: string }> {
+    const revoked = await RefreshTokenRepository.revokeToken(refreshToken);
+    if (revoked) {
+      logger.info(`Refresh token revoked for logout`);
+    }
+    return { message: "Logged out successfully" };
+  }
+
+  /**
+   * Logs out user from all devices by revoking all refresh tokens
+   * @param userId - The user ID
+   */
+  public async logoutAllDevices(
+    userId: string
+  ): Promise<{ message: string; revokedCount: number }> {
+    const revokedCount = await RefreshTokenRepository.revokeAllUserTokens(
+      userId
+    );
+    logger.info(
+      `All sessions revoked for user ${userId}: ${revokedCount} tokens`
+    );
+    return {
+      message: "Logged out from all devices successfully",
+      revokedCount,
     };
   }
 }

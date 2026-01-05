@@ -83,8 +83,23 @@ class AuthRouter {
       }),
       this.controller.googleCallback.bind(this.controller)
     );
-  }
 
+    // Token refresh - no auth required, uses refresh token
+    this.router.post(
+      "/refresh-token",
+      this.controller.refreshToken.bind(this.controller)
+    );
+
+    // Logout - revokes refresh token
+    this.router.post("/logout", this.controller.logout.bind(this.controller));
+
+    // Logout from all devices - requires authentication
+    this.router.post(
+      "/logout-all",
+      authMiddleware,
+      this.controller.logoutAll.bind(this.controller)
+    );
+  }
 }
 
 export default new AuthRouter().router;

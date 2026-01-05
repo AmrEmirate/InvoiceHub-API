@@ -41,18 +41,30 @@ class AuthController {
     }
   }
 
+  /**
+   * Login with email and password
+   * Returns access token and refresh token
+   */
   public async login(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
-      const { user, token } = await AuthService.login({
-        email,
-        password_plain: password,
-      });
+      const metadata = {
+        userAgent: req.headers["user-agent"],
+        ipAddress: req.ip || req.socket.remoteAddress,
+      };
+
+      const { user, accessToken, refreshToken } = await AuthService.login(
+        { email, password_plain: password },
+        metadata
+      );
+
       res.status(200).json({
         message: "User logged in successfully",
         data: {
           user,
-          token,
+          token: accessToken, // Keep 'token' for backward compatibility
+          accessToken,
+          refreshToken,
         },
       });
     } catch (error: any) {
@@ -157,6 +169,76 @@ class AuthController {
       const { token, password } = req.body;
       const { message } = await AuthService.resetPassword(token, password);
       res.status(200).json({ message });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  /**
+   * Refresh access token using refresh token
+   */
+  public async refreshToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { refreshToken } = req.body;
+
+      if (!refreshToken) {
+        throw new AppError(400, "Refresh token is required");
+      }
+
+      const metadata = {
+        userAgent: req.headers["user-agent"],
+        ipAddress: req.ip || req.socket.remoteAddress,
+      };
+
+      const tokens = await AuthService.refreshAccessToken(
+        refreshToken,
+        metadata
+      );
+
+      res.status(200).json({
+        message: "Token refreshed successfully",
+        data: {
+          token: tokens.accessToken, // Backward compatibility
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+        },
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  /**
+   * Logout - revokes refresh token
+   */
+  public async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { refreshToken } = req.body;
+
+      if (refreshToken) {
+        await AuthService.logout(refreshToken);
+      }
+
+      res.status(200).json({
+        message: "Logged out successfully",
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  /**
+   * Logout from all devices
+   */
+  public async logoutAll(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const result = await AuthService.logoutAllDevices(userId);
+
+      res.status(200).json({
+        message: result.message,
+        data: { revokedSessions: result.revokedCount },
+      });
     } catch (error: any) {
       next(error);
     }

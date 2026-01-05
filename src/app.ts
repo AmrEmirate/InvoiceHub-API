@@ -53,7 +53,7 @@ class App {
 
   private route(): void {
     this.app.get("/", (req: Request, res: Response) => {
-      res.status(200).send("<h1>Classbase API</h1>");
+      res.status(200).send("<h1>InvoiceHub API</h1>");
     });
 
     this.app.use("/api", mainRouter);
