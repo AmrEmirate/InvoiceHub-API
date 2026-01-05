@@ -1,0 +1,90 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: invoicehub-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-invoicehub}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-invoicehub_secret}
+      POSTGRES_DB: ${DB_NAME:-invoicehub}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-invoicehub}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - invoicehub-network
+
+  # Backend API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: invoicehub-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${DB_USER:-invoicehub}:${DB_PASSWORD:-invoicehub_secret}@db:5432/${DB_NAME:-invoicehub}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your-refresh-secret-key-min-32-chars}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-15m}
+      JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN:-7d}
+      BCRYPT_SALT_ROUNDS: ${BCRYPT_SALT_ROUNDS:-12}
+      FE_URL: ${FE_URL:-http://localhost:3001}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+    ports:
+      - "${API_PORT:-3000}:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "-q",
+          "http://localhost:3000/api/health/live",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - invoicehub-network
+
+  # Frontend (Next.js)
+  # Assumes frontend repo is checked out in a sibling directory named 'invoicehub'
+  frontend:
+    build:
+      context: ../invoicehub
+      dockerfile: Dockerfile
+    container_name: invoicehub-frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3000/api}
+    ports:
+      - "${FRONTEND_PORT:-3001}:3000"
+    networks:
+      - invoicehub-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  invoicehub-network:
+    driver: bridge
