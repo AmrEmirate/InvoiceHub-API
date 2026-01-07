@@ -1,63 +1,61 @@
-import { body, param, query, validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import AppError from "../../utils/AppError";
+import { z } from "zod";
+import {
+  validate,
+  validateParams,
+  validateQuery,
+} from "../validate.middleware";
 
-const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new AppError(400, "Validation failed", errors.array()));
-  }
-  next();
-};
+// =============================================================================
+// ZOD SCHEMAS
+// =============================================================================
 
-export const validateIdParam = [
-  param("id").isUUID().withMessage("Invalid ID format"),
-  handleValidationErrors,
-];
+/**
+ * UUID parameter schema
+ */
+export const uuidParamSchema = z.object({
+  id: z.string().uuid("Invalid ID format"),
+});
 
-export const getProductsValidator = [
-  query("page")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Page must be a positive integer"),
-  query("limit")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Limit must be a positive integer"),
-  query("categoryId")
-    .optional()
-    .isUUID()
-    .withMessage("Invalid Category ID format"),
-  handleValidationErrors,
-];
+/**
+ * Pagination query with category filter schema
+ */
+export const getProductsQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).optional(),
+  categoryId: z.string().uuid("Invalid Category ID format").optional(),
+});
 
-export const createProductValidator = [
-  body("name").notEmpty().withMessage("Product name is required"),
-  body("sku").notEmpty().withMessage("SKU is required"),
-  body("price")
-    .notEmpty()
-    .withMessage("Price is required")
-    .isNumeric()
-    .withMessage("Price must be a number"),
-  body("categoryId").isUUID().withMessage("Invalid category ID format"),
-  body("description").optional().isString(),
-  handleValidationErrors,
-];
+/**
+ * Create product request body schema
+ */
+export const createProductBodySchema = z.object({
+  name: z.string().min(1, "Product name is required"),
+  sku: z.string().min(1, "SKU is required"),
+  price: z.coerce.number().min(0, "Price must be a positive number"),
+  categoryId: z.string().uuid("Invalid category ID format"),
+  description: z.string().optional(),
+});
 
-export const updateProductValidator = [
-  body("name").optional().notEmpty().withMessage("Product name is required"),
-  body("price")
-    .optional()
-    .isNumeric()
-    .withMessage("Price must be a number"),
-  body("categoryId")
-    .optional()
-    .isUUID()
-    .withMessage("Invalid category ID format"),
-  body("description").optional().isString(),
-  handleValidationErrors,
-];
+/**
+ * Update product request body schema
+ */
+export const updateProductBodySchema = z.object({
+  name: z.string().min(1, "Product name is required").optional(),
+  sku: z.string().min(1, "SKU is required").optional(),
+  price: z.coerce.number().min(0, "Price must be a positive number").optional(),
+  categoryId: z.string().uuid("Invalid category ID format").optional(),
+  description: z.string().optional(),
+});
+
+// =============================================================================
+// VALIDATION MIDDLEWARES
+// =============================================================================
+
+export const validateIdParam = validateParams(uuidParamSchema);
+export const getProductsValidator = validateQuery(getProductsQuerySchema);
+export const createProductValidator = validate({
+  body: createProductBodySchema,
+});
+export const updateProductValidator = validate({
+  body: updateProductBodySchema,
+});

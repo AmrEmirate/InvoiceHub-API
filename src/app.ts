@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
+import compression from "compression";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import logger from "./utils/logger";
 import AppError from "./utils/AppError";
@@ -11,6 +12,8 @@ import { getErrorMessage, HttpStatusCode } from "./types/error.types";
 import mainRouter from "./routers";
 import passport from "passport";
 import swaggerSpec from "./config/swagger";
+import { generalLimiter } from "./middleware/rate-limit.middleware";
+import { FILE_UPLOAD_CONSTANTS } from "./config/constants";
 import "./config/passport";
 
 const PORT: string = process.env.PORT as string;
@@ -36,6 +39,9 @@ class App {
     // Trust proxy for rate limiting behind reverse proxy
     this.app.set("trust proxy", 1);
 
+    // Enable gzip compression for responses
+    this.app.use(compression());
+
     // Security headers
     this.app.use(
       helmet({
@@ -51,18 +57,8 @@ class App {
       })
     );
 
-    // Rate limiting
-    const limiter = rateLimit({
-      windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS as string), // 15 minutes
-      max: parseInt(process.env.RATE_LIMIT_MAX as string),
-      standardHeaders: true,
-      legacyHeaders: false,
-      message: {
-        message: "Too many requests from this IP, please try again later",
-        code: "RATE_LIMIT_EXCEEDED",
-      },
-    });
-    this.app.use(limiter);
+    // General rate limiting (uses centralized config)
+    this.app.use(generalLimiter);
 
     // CORS configuration
     this.app.use(
@@ -74,9 +70,17 @@ class App {
       })
     );
 
-    // Body parsing
-    this.app.use(express.json({ limit: "10mb" }));
-    this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+    // Body parsing (uses centralized constants)
+    this.app.use(express.json({ limit: FILE_UPLOAD_CONSTANTS.MAX_BODY_SIZE }));
+    this.app.use(
+      express.urlencoded({
+        extended: true,
+        limit: FILE_UPLOAD_CONSTANTS.MAX_BODY_SIZE,
+      })
+    );
+
+    // Cookie parser for HttpOnly JWT cookies
+    this.app.use(cookieParser());
 
     // Passport authentication
     this.app.use(passport.initialize());

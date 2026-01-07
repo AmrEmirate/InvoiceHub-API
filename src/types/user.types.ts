@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 export type TCreateUserInput = {
   email: string;
   name: string;
@@ -25,3 +27,9 @@ export type TUpdateUserInput = {
   resetToken?: string | null;
   resetTokenExpiry?: Date | null;
 };
+
+/**
+ * User type without the password field
+ * Used for returning user data in API responses
+ */
+export type SafeUser = Omit<User, "password">;

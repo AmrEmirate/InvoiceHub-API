@@ -58,7 +58,7 @@ class InvoiceRepository {
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
 
-    const whereCondition: any = { userId };
+    const whereCondition: any = { userId, deletedAt: null };
 
     if (filters.search) {
       whereCondition.invoiceNumber = {
@@ -103,7 +103,7 @@ class InvoiceRepository {
     userId: string
   ): Promise<(Invoice & { user: any; client: any; items: any[] }) | null> {
     return await prisma.invoice.findFirst({
-      where: { id, userId },
+      where: { id, userId, deletedAt: null },
       include: {
         user: true,
         client: true,
@@ -129,6 +129,7 @@ class InvoiceRepository {
     return await prisma.invoice.findFirst({
       where: {
         userId,
+        deletedAt: null,
         createdAt: {
           gte: startOfDay,
           lte: endOfDay,
@@ -150,15 +151,16 @@ class InvoiceRepository {
       overdueInvoices,
       totalRevenueResult,
     ] = await prisma.$transaction([
-      prisma.invoice.count({ where: { userId } }),
+      prisma.invoice.count({ where: { userId, deletedAt: null } }),
 
       prisma.invoice.count({
-        where: { userId, status: InvoiceStatus.PAID },
+        where: { userId, status: InvoiceStatus.PAID, deletedAt: null },
       }),
 
       prisma.invoice.count({
         where: {
           userId,
+          deletedAt: null,
           status: { in: [InvoiceStatus.SENT, InvoiceStatus.PENDING] },
         },
       }),
@@ -166,6 +168,7 @@ class InvoiceRepository {
       prisma.invoice.count({
         where: {
           userId,
+          deletedAt: null,
           status: InvoiceStatus.OVERDUE,
           OR: [
             { status: InvoiceStatus.OVERDUE },
@@ -179,7 +182,7 @@ class InvoiceRepository {
 
       prisma.invoice.aggregate({
         _sum: { totalAmount: true },
-        where: { userId, status: InvoiceStatus.PAID },
+        where: { userId, status: InvoiceStatus.PAID, deletedAt: null },
       }),
     ]);
 
@@ -188,7 +191,7 @@ class InvoiceRepository {
       paidInvoices,
       pendingInvoices,
       overdueInvoices,
-      totalRevenue: totalRevenueResult._sum.totalAmount || 0,
+      totalRevenue: totalRevenueResult._sum?.totalAmount || 0,
     };
   }
 
@@ -203,8 +206,9 @@ class InvoiceRepository {
   }
 
   public async delete(id: string): Promise<Invoice> {
-    return await prisma.invoice.delete({
+    return await prisma.invoice.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 
@@ -213,6 +217,7 @@ class InvoiceRepository {
 
     const result = await prisma.invoice.updateMany({
       where: {
+        deletedAt: null,
         status: {
           in: [InvoiceStatus.SENT, InvoiceStatus.PENDING],
         },

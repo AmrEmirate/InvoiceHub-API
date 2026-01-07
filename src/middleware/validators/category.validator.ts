@@ -1,42 +1,52 @@
-import { body, param, query, validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import AppError from "../../utils/AppError";
+import { z } from "zod";
+import {
+  validate,
+  validateParams,
+  validateQuery,
+} from "../validate.middleware";
 
-const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new AppError(400, "Validation failed", errors.array()));
-  }
-  next();
-};
+// =============================================================================
+// ZOD SCHEMAS
+// =============================================================================
 
-export const validateIdParam = [
-  param("id").isUUID().withMessage("Invalid ID format"),
-  handleValidationErrors,
-];
+/**
+ * UUID parameter schema
+ */
+export const uuidParamSchema = z.object({
+  id: z.string().uuid("Invalid ID format"),
+});
 
-export const createCategoryValidator = [
-  body("name").notEmpty().withMessage("Category name is required"),
-  handleValidationErrors,
-];
+/**
+ * Pagination query schema
+ */
+export const paginationQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).optional(),
+});
 
-export const updateCategoryValidator = [
-  body("name").optional().notEmpty().withMessage("Category name is required"),
-  handleValidationErrors,
-];
+/**
+ * Create category request body schema
+ */
+export const createCategoryBodySchema = z.object({
+  name: z.string().min(1, "Category name is required"),
+});
 
-export const getCategoriesValidator = [
-  query("page")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Page must be a positive integer"),
-  query("limit")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Limit must be a positive integer"),
-  handleValidationErrors,
-];
+/**
+ * Update category request body schema
+ */
+export const updateCategoryBodySchema = z.object({
+  name: z.string().min(1, "Category name is required").optional(),
+});
+
+// =============================================================================
+// VALIDATION MIDDLEWARES
+// =============================================================================
+
+export const validateIdParam = validateParams(uuidParamSchema);
+export const getCategoriesValidator = validateQuery(paginationQuerySchema);
+export const createCategoryValidator = validate({
+  body: createCategoryBodySchema,
+});
+export const updateCategoryValidator = validate({
+  body: updateCategoryBodySchema,
+});

@@ -1,0 +1,38 @@
+2026-01-05 22:38:07 [ERROR]: [1767627487531-ytun7c8wf] POST /api/auth/register: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487543-zlouyqh31] POST /api/auth/register: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487546-at252y5f0] POST /api/auth/register: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487550-vb09grg6o] POST /api/auth/login: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487553-xsuy70rzq] POST /api/auth/login: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487556-1tbopoqyj] POST /api/auth/login: Invalid email or password
+2026-01-05 22:38:07 [ERROR]: [1767627487637-om80iqj32] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487641-iqy1gip0f] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487644-d5o0v73hz] POST /api/auth/reset-password: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487647-xr21444ue] POST /api/auth/reset-password: Invalid or expired reset token
+2026-01-05 22:38:07 [ERROR]: [1767627487667-bsnoxlz7t] GET /api/auth/me: Access denied. No token provided.
+2026-01-05 22:38:07 [ERROR]: [1767627487675-22h6kpr4h] GET /api/auth/me: Invalid token.
+2026-01-05 22:38:07 [ERROR]: [1767627487679-7xp9ddb9g] POST /api/auth/refresh-token: Refresh token is required
+2026-01-05 22:38:07 [ERROR]: [1767627487683-u0pxwbkst] POST /api/auth/refresh-token: Invalid or expired refresh token
+2026-01-05 22:38:07 [ERROR]: [1767627487720-uh2ndpmw1] POST /api/auth/register: Email already registered
+2026-01-05 22:38:07 [ERROR]: [1767627487744-jnr3lhmul] POST /api/auth/register: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487749-29ugj1084] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487753-484vcw99u] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:07 [ERROR]: [1767627487814-ezpazcryo] POST /api/auth/login: Invalid email or password
+2026-01-05 22:38:29 [ERROR]: [1767627509408-fzwmsjsbv] POST /api/auth/register: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509419-7r2yj5w45] POST /api/auth/register: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509423-inhvjc4aj] POST /api/auth/register: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509426-aambcahss] POST /api/auth/login: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509429-tblk0rrmo] POST /api/auth/login: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509432-tf94eb2pk] POST /api/auth/login: Invalid email or password
+2026-01-05 22:38:29 [ERROR]: [1767627509511-oshwfen89] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509515-3uaw9wfgz] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509518-upp7q03y8] POST /api/auth/reset-password: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509528-ojhywx9t5] POST /api/auth/register: Email already registered
+2026-01-05 22:38:29 [ERROR]: [1767627509522-c860q1ol3] POST /api/auth/reset-password: Invalid or expired reset token
+2026-01-05 22:38:29 [ERROR]: [1767627509545-l3ykh55ai] GET /api/auth/me: Access denied. No token provided.
+2026-01-05 22:38:29 [ERROR]: [1767627509550-f96p8rx3d] POST /api/auth/register: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509557-5v906ejjj] GET /api/auth/me: Invalid token.
+2026-01-05 22:38:29 [ERROR]: [1767627509557-0nvtmla7k] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509562-tecy2mz4f] POST /api/auth/set-password: Validation failed
+2026-01-05 22:38:29 [ERROR]: [1767627509563-ep0pymh18] POST /api/auth/refresh-token: Refresh token is required
+2026-01-05 22:38:29 [ERROR]: [1767627509568-q8np8ahrr] POST /api/auth/refresh-token: Invalid or expired refresh token
+2026-01-05 22:38:29 [ERROR]: [1767627509628-3zqkqfcc3] POST /api/auth/login: Invalid email or password

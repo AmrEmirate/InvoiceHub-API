@@ -1,19 +1,10 @@
-import { body, validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import AppError from "../../utils/AppError";
 import { z } from "zod";
+import { validate } from "../validate.middleware";
+import { VALIDATION_CONSTANTS } from "../../config/constants";
 
-const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new AppError(400, "Validation failed", errors.array()));
-  }
-  next();
-};
+// =============================================================================
+// ZOD SCHEMAS
+// =============================================================================
 
 /**
  * Password complexity requirements:
@@ -23,93 +14,12 @@ const handleValidationErrors = (
  * - At least 1 number
  * - At least 1 special character
  */
-const passwordValidator = body("password")
-  .isLength({ min: 8 })
-  .withMessage("Password must be at least 8 characters long")
-  .matches(/[A-Z]/)
-  .withMessage("Password must contain at least one uppercase letter")
-  .matches(/[a-z]/)
-  .withMessage("Password must contain at least one lowercase letter")
-  .matches(/[0-9]/)
-  .withMessage("Password must contain at least one number")
-  .matches(/[!@#$%^&*(),.?":{}|<>]/)
-  .withMessage(
-    'Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)'
-  );
-
-export const registerValidator = [
-  body("name")
-    .notEmpty()
-    .withMessage("Name is required")
-    .isLength({ min: 2, max: 100 })
-    .withMessage("Name must be between 2 and 100 characters"),
-  body("company")
-    .notEmpty()
-    .withMessage("Company name is required")
-    .isLength({ min: 2, max: 200 })
-    .withMessage("Company name must be between 2 and 200 characters"),
-  body("email").isEmail().withMessage("Must be a valid email").normalizeEmail(),
-  handleValidationErrors,
-];
-
-export const loginValidator = [
-  body("email").isEmail().withMessage("Must be a valid email").normalizeEmail(),
-  body("password").notEmpty().withMessage("Password is required"),
-  handleValidationErrors,
-];
-
-export const setPasswordValidator = [
-  body("token")
-    .notEmpty()
-    .withMessage("Token is required")
-    .isHexadecimal()
-    .withMessage("Invalid token format"),
-  passwordValidator,
-  handleValidationErrors,
-];
-
-export const resetPasswordValidator = [
-  body("token").notEmpty().withMessage("Token is required"),
-  passwordValidator,
-  handleValidationErrors,
-];
-
-export const updateProfileValidator = [
-  body("name")
-    .optional()
-    .isString()
-    .notEmpty()
-    .withMessage("Name cannot be empty")
-    .isLength({ min: 2, max: 100 })
-    .withMessage("Name must be between 2 and 100 characters"),
-  body("company")
-    .optional()
-    .isString()
-    .notEmpty()
-    .withMessage("Company cannot be empty")
-    .isLength({ min: 2, max: 200 })
-    .withMessage("Company name must be between 2 and 200 characters"),
-  body("phone")
-    .optional()
-    .isString()
-    .isMobilePhone("any")
-    .withMessage("Must be a valid phone number"),
-  body("address").optional().isString().isLength({ max: 500 }),
-  body("city").optional().isString().isLength({ max: 100 }),
-  body("state").optional().isString().isLength({ max: 100 }),
-  body("zipCode").optional().isString().isLength({ max: 20 }),
-  body("country").optional().isString().isLength({ max: 100 }),
-  body("taxId").optional().isString().isLength({ max: 50 }),
-  body("bankAccount").optional().isString().isLength({ max: 100 }),
-  handleValidationErrors,
-];
-
-/**
- * Zod schema for password validation
- */
 export const passwordSchema = z
   .string()
-  .min(8, "Password must be at least 8 characters")
+  .min(
+    VALIDATION_CONSTANTS.PASSWORD.MIN_LENGTH,
+    `Password must be at least ${VALIDATION_CONSTANTS.PASSWORD.MIN_LENGTH} characters`
+  )
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
@@ -118,26 +28,148 @@ export const passwordSchema = z
     "Password must contain at least one special character"
   );
 
-export const updateProfileSchema = z.object({
-  body: z.object({
-    name: z
-      .string()
-      .min(2, "Name must be at least 2 characters")
-      .max(100)
-      .optional(),
-    company: z
-      .string()
-      .min(2, "Company name must be at least 2 characters")
-      .max(200)
-      .optional(),
-    phone: z.string().optional(),
-    address: z.string().max(500).optional(),
-    city: z.string().max(100).optional(),
-    state: z.string().max(100).optional(),
-    zipCode: z.string().max(20).optional(),
-    country: z.string().max(100).optional(),
-    taxId: z.string().max(50).optional(),
-    bankAccount: z.string().max(100).optional(),
-    avatar: z.string().url("Must be a valid URL").optional(),
-  }),
+/**
+ * Email schema with normalization
+ */
+export const emailSchema = z
+  .string()
+  .email("Must be a valid email")
+  .transform((email) => email.toLowerCase().trim());
+
+/**
+ * Name validation schema
+ */
+export const nameSchema = z
+  .string()
+  .min(
+    VALIDATION_CONSTANTS.NAME.MIN_LENGTH,
+    `Name must be at least ${VALIDATION_CONSTANTS.NAME.MIN_LENGTH} characters`
+  )
+  .max(
+    VALIDATION_CONSTANTS.NAME.MAX_LENGTH,
+    `Name must be at most ${VALIDATION_CONSTANTS.NAME.MAX_LENGTH} characters`
+  );
+
+/**
+ * Company validation schema
+ */
+export const companySchema = z
+  .string()
+  .min(
+    VALIDATION_CONSTANTS.COMPANY.MIN_LENGTH,
+    `Company name must be at least ${VALIDATION_CONSTANTS.COMPANY.MIN_LENGTH} characters`
+  )
+  .max(
+    VALIDATION_CONSTANTS.COMPANY.MAX_LENGTH,
+    `Company name must be at most ${VALIDATION_CONSTANTS.COMPANY.MAX_LENGTH} characters`
+  );
+
+// =============================================================================
+// REQUEST BODY SCHEMAS
+// =============================================================================
+
+/**
+ * Registration request body schema
+ */
+export const registerBodySchema = z.object({
+  name: nameSchema,
+  email: emailSchema,
+  company: companySchema,
 });
+
+/**
+ * Login request body schema
+ */
+export const loginBodySchema = z.object({
+  email: emailSchema,
+  password: z.string().min(1, "Password is required"),
+});
+
+/**
+ * Set password request body schema
+ */
+export const setPasswordBodySchema = z.object({
+  token: z
+    .string()
+    .min(1, "Token is required")
+    .regex(/^[a-f0-9]+$/i, "Invalid token format"),
+  password: passwordSchema,
+});
+
+/**
+ * Reset password request body schema
+ */
+export const resetPasswordBodySchema = z.object({
+  token: z.string().min(1, "Token is required"),
+  password: passwordSchema,
+});
+
+/**
+ * Forgot password request body schema
+ */
+export const forgotPasswordBodySchema = z.object({
+  email: emailSchema,
+});
+
+/**
+ * Update profile request body schema
+ */
+export const updateProfileBodySchema = z.object({
+  name: nameSchema.optional(),
+  company: companySchema.optional(),
+  phone: z.string().optional(),
+  address: z.string().max(VALIDATION_CONSTANTS.ADDRESS.MAX_LENGTH).optional(),
+  city: z.string().max(VALIDATION_CONSTANTS.CITY.MAX_LENGTH).optional(),
+  state: z.string().max(VALIDATION_CONSTANTS.STATE.MAX_LENGTH).optional(),
+  zipCode: z.string().max(VALIDATION_CONSTANTS.ZIP_CODE.MAX_LENGTH).optional(),
+  country: z.string().max(VALIDATION_CONSTANTS.COUNTRY.MAX_LENGTH).optional(),
+  taxId: z.string().max(VALIDATION_CONSTANTS.TAX_ID.MAX_LENGTH).optional(),
+  bankAccount: z
+    .string()
+    .max(VALIDATION_CONSTANTS.BANK_ACCOUNT.MAX_LENGTH)
+    .optional(),
+  avatar: z.string().url("Must be a valid URL").optional(),
+});
+
+/**
+ * Google signup request body schema
+ */
+export const googleSignupBodySchema = z.object({
+  email: emailSchema,
+  name: nameSchema,
+  company: companySchema,
+});
+
+/**
+ * Refresh token request body schema
+ */
+export const refreshTokenBodySchema = z.object({
+  refreshToken: z.string().min(1, "Refresh token is required"),
+});
+
+/**
+ * Logout request body schema
+ */
+export const logoutBodySchema = z.object({
+  refreshToken: z.string().min(1, "Refresh token is required"),
+});
+
+// =============================================================================
+// VALIDATION MIDDLEWARES
+// =============================================================================
+
+export const registerValidator = validate({ body: registerBodySchema });
+export const loginValidator = validate({ body: loginBodySchema });
+export const setPasswordValidator = validate({ body: setPasswordBodySchema });
+export const resetPasswordValidator = validate({
+  body: resetPasswordBodySchema,
+});
+export const forgotPasswordValidator = validate({
+  body: forgotPasswordBodySchema,
+});
+export const updateProfileValidator = validate({
+  body: updateProfileBodySchema,
+});
+export const googleSignupValidator = validate({ body: googleSignupBodySchema });
+export const refreshTokenValidator = validate({ body: refreshTokenBodySchema });
+export const logoutValidator = validate({ body: logoutBodySchema });

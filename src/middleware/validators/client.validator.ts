@@ -1,56 +1,56 @@
-import { body, param, query, validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import AppError from "../../utils/AppError";
+import { z } from "zod";
+import {
+  validate,
+  validateParams,
+  validateQuery,
+} from "../validate.middleware";
 
-const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new AppError(400, "Validation failed", errors.array()));
-  }
-  next();
-};
+// =============================================================================
+// ZOD SCHEMAS
+// =============================================================================
 
-export const validateIdParam = [
-  param("id").isUUID().withMessage("Invalid ID format"),
-  handleValidationErrors,
-];
+/**
+ * UUID parameter schema
+ */
+export const uuidParamSchema = z.object({
+  id: z.string().uuid("Invalid ID format"),
+});
 
-export const createClientValidator = [
-  body("name").notEmpty().withMessage("Name is required"),
-  body("email").isEmail().withMessage("Must be a valid email"),
-  body("phone").optional().isString().withMessage("Phone must be a string"),
-  body("address").optional().isString().withMessage("Address must be a string"),
-  body("paymentPreferences")
-    .optional()
-    .isString()
-    .withMessage("Payment preferences must be a string"),
-  handleValidationErrors,
-];
+/**
+ * Pagination query schema
+ */
+export const paginationQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).optional(),
+});
 
-export const updateClientValidator = [
-  body("name").optional().notEmpty().withMessage("Name is required"),
-  body("email").optional().isEmail().withMessage("Must be a valid email"),
-  body("phone").optional().isString().withMessage("Phone must be a string"),
-  body("address").optional().isString().withMessage("Address must be a string"),
-  body("paymentPreferences")
-    .optional()
-    .isString()
-    .withMessage("Payment preferences must be a string"),
-  handleValidationErrors,
-];
+/**
+ * Create client request body schema
+ */
+export const createClientBodySchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Must be a valid email"),
+  phone: z.string().optional(),
+  address: z.string().optional(),
+  paymentPreferences: z.string().optional(),
+});
 
-export const getClientsValidator = [
-  query("page")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Page must be a positive integer"),
-  query("limit")
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage("Limit must be a positive integer"),
-  handleValidationErrors,
-];
+/**
+ * Update client request body schema
+ */
+export const updateClientBodySchema = z.object({
+  name: z.string().min(1, "Name is required").optional(),
+  email: z.string().email("Must be a valid email").optional(),
+  phone: z.string().optional(),
+  address: z.string().optional(),
+  paymentPreferences: z.string().optional(),
+});
+
+// =============================================================================
+// VALIDATION MIDDLEWARES
+// =============================================================================
+
+export const validateIdParam = validateParams(uuidParamSchema);
+export const getClientsValidator = validateQuery(paginationQuerySchema);
+export const createClientValidator = validate({ body: createClientBodySchema });
+export const updateClientValidator = validate({ body: updateClientBodySchema });

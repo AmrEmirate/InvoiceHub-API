@@ -1,0 +1,68 @@
+2026-01-05 22:38:07 [INFO]: [1767627487522-i6zf80lws] GET /api/health
+2026-01-05 22:38:07 [INFO]: [1767627487531-ytun7c8wf] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487543-zlouyqh31] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487546-at252y5f0] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487550-vb09grg6o] POST /api/auth/login
+2026-01-05 22:38:07 [INFO]: [1767627487553-xsuy70rzq] POST /api/auth/login
+2026-01-05 22:38:07 [INFO]: [1767627487556-1tbopoqyj] POST /api/auth/login
+2026-01-05 22:38:07 [INFO]: [1767627487580-coddpm3x7] GET /
+2026-01-05 22:38:07 [INFO]: [1767627487589-fl2qokr9g] GET /transaction
+2026-01-05 22:38:07 [INFO]: [1767627487594-lbty6xqea] GET /api/health
+2026-01-05 22:38:07 [INFO]: [1767627487605-bb3sxl9qt] GET /api/health/live
+2026-01-05 22:38:07 [INFO]: [1767627487608-ql5c6q2sj] GET /api/health/ready
+2026-01-05 22:38:07 [INFO]: [1767627487614-jz004lwn8] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487618-d74x9bje2] GET /
+2026-01-05 22:38:07 [INFO]: [1767627487622-bfnm9nhh4] GET /api/unknown-route
+2026-01-05 22:38:07 [INFO]: [1767627487637-om80iqj32] POST /api/auth/set-password
+2026-01-05 22:38:07 [INFO]: [1767627487641-iqy1gip0f] POST /api/auth/set-password
+2026-01-05 22:38:07 [INFO]: [1767627487644-d5o0v73hz] POST /api/auth/reset-password
+2026-01-05 22:38:07 [INFO]: [1767627487647-xr21444ue] POST /api/auth/reset-password
+2026-01-05 22:38:07 [INFO]: [1767627487667-bsnoxlz7t] GET /api/auth/me
+2026-01-05 22:38:07 [INFO]: [1767627487675-22h6kpr4h] GET /api/auth/me
+2026-01-05 22:38:07 [INFO]: [1767627487679-7xp9ddb9g] POST /api/auth/refresh-token
+2026-01-05 22:38:07 [INFO]: [1767627487683-u0pxwbkst] POST /api/auth/refresh-token
+2026-01-05 22:38:07 [INFO]: [1767627487686-cqckbphsp] POST /api/auth/logout
+2026-01-05 22:38:07 [INFO]: Set password email sent to: test.auth@example.com (ID: 049a91be-dc22-4f7c-9f35-15ffd8fc7882)
+2026-01-05 22:38:07 [INFO]: [1767627487720-uh2ndpmw1] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487744-jnr3lhmul] POST /api/auth/register
+2026-01-05 22:38:07 [INFO]: [1767627487749-29ugj1084] POST /api/auth/set-password
+2026-01-05 22:38:07 [INFO]: [1767627487753-484vcw99u] POST /api/auth/set-password
+2026-01-05 22:38:07 [INFO]: [1767627487756-4b98yfg5v] POST /api/auth/set-password
+2026-01-05 22:38:07 [INFO]: Password set and user verified: test.auth@example.com (ID: 049a91be-dc22-4f7c-9f35-15ffd8fc7882)
+2026-01-05 22:38:07 [INFO]: [1767627487814-ezpazcryo] POST /api/auth/login
+2026-01-05 22:38:07 [INFO]: [1767627487826-1q257i0e9] POST /api/auth/login
+2026-01-05 22:38:07 [INFO]: User logged in: test.auth@example.com (ID: 049a91be-dc22-4f7c-9f35-15ffd8fc7882)
+2026-01-05 22:38:29 [INFO]: [1767627509358-uz7nda9v5] GET /api/health
+2026-01-05 22:38:29 [INFO]: [1767627509384-zxov74vlm] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509408-fzwmsjsbv] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509419-7r2yj5w45] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509423-inhvjc4aj] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509426-aambcahss] POST /api/auth/login
+2026-01-05 22:38:29 [INFO]: [1767627509429-tblk0rrmo] POST /api/auth/login
+2026-01-05 22:38:29 [INFO]: [1767627509432-tf94eb2pk] POST /api/auth/login
+2026-01-05 22:38:29 [INFO]: [1767627509439-9ljzi7lvr] GET /api/health
+2026-01-05 22:38:29 [INFO]: [1767627509451-atd03u6pe] GET /api/health/live
+2026-01-05 22:38:29 [INFO]: [1767627509454-l8uycbehx] GET /api/health/ready
+2026-01-05 22:38:29 [INFO]: [1767627509467-zqbphk3b8] GET /
+2026-01-05 22:38:29 [INFO]: [1767627509470-i6a9kgyf1] GET /api/unknown-route
+2026-01-05 22:38:29 [INFO]: Set password email sent to: test.auth@example.com (ID: c81d9119-f7e3-4ee0-a363-2b5c172a897b)
+2026-01-05 22:38:29 [INFO]: [1767627509511-oshwfen89] POST /api/auth/set-password
+2026-01-05 22:38:29 [INFO]: [1767627509515-3uaw9wfgz] POST /api/auth/set-password
+2026-01-05 22:38:29 [INFO]: [1767627509518-upp7q03y8] POST /api/auth/reset-password
+2026-01-05 22:38:29 [INFO]: [1767627509522-c860q1ol3] POST /api/auth/reset-password
+2026-01-05 22:38:29 [INFO]: [1767627509528-ojhywx9t5] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509545-l3ykh55ai] GET /api/auth/me
+2026-01-05 22:38:29 [INFO]: [1767627509550-f96p8rx3d] POST /api/auth/register
+2026-01-05 22:38:29 [INFO]: [1767627509557-5v906ejjj] GET /api/auth/me
+2026-01-05 22:38:29 [INFO]: [1767627509557-0nvtmla7k] POST /api/auth/set-password
+2026-01-05 22:38:29 [INFO]: [1767627509562-tecy2mz4f] POST /api/auth/set-password
+2026-01-05 22:38:29 [INFO]: [1767627509563-ep0pymh18] POST /api/auth/refresh-token
+2026-01-05 22:38:29 [INFO]: [1767627509566-xlrfznfbk] POST /api/auth/set-password
+2026-01-05 22:38:29 [INFO]: [1767627509568-q8np8ahrr] POST /api/auth/refresh-token
+2026-01-05 22:38:29 [INFO]: [1767627509572-k5ktgz786] POST /api/auth/logout
+2026-01-05 22:38:29 [INFO]: Password set and user verified: test.auth@example.com (ID: c81d9119-f7e3-4ee0-a363-2b5c172a897b)
+2026-01-05 22:38:29 [INFO]: [1767627509628-3zqkqfcc3] POST /api/auth/login
+2026-01-05 22:38:29 [INFO]: [1767627509638-mxjwyw2fh] GET /
+2026-01-05 22:38:29 [INFO]: [1767627509648-507lkzk6t] POST /api/auth/login
+2026-01-05 22:38:29 [INFO]: [1767627509649-mc2qtnuu6] GET /transaction
+2026-01-05 22:38:29 [INFO]: User logged in: test.auth@example.com (ID: c81d9119-f7e3-4ee0-a363-2b5c172a897b)

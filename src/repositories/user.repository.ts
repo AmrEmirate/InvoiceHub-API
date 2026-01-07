@@ -1,7 +1,6 @@
-import { PrismaClient, User } from "@prisma/client";
+import { User } from "@prisma/client";
+import { prisma } from "../config/prisma";
 import { TCreateUserInput, TUpdateUserInput } from "../types/user.types";
-
-const prisma = new PrismaClient();
 
 class UserRepository {
   public async findUserByEmail(email: string): Promise<User | null> {

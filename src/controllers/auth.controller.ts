@@ -3,6 +3,12 @@ import AuthService from "../service/auth.service";
 import AppError from "../utils/AppError";
 import { SafeUser } from "../types/express";
 import { User } from "@prisma/client";
+import {
+  setAuthCookies,
+  clearAuthCookies,
+  ACCESS_TOKEN_COOKIE,
+  REFRESH_TOKEN_COOKIE,
+} from "../config/cookie.config";
 
 interface AuthRequest extends Request {
   user?: SafeUser;
@@ -22,7 +28,7 @@ class AuthController {
       res.status(201).json({
         message: message,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -36,14 +42,14 @@ class AuthController {
       res.status(200).json({
         message: message,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
 
   /**
    * Login with email and password
-   * Returns access token and refresh token
+   * Sets HttpOnly cookies with access and refresh tokens
    */
   public async login(req: Request, res: Response, next: NextFunction) {
     try {
@@ -58,16 +64,21 @@ class AuthController {
         metadata
       );
 
+      // Set HttpOnly cookies
+      setAuthCookies(res, accessToken, refreshToken);
+
       res.status(200).json({
         message: "User logged in successfully",
         data: {
           user,
-          token: accessToken, // Keep 'token' for backward compatibility
+          // Still include tokens in response for backward compatibility
+          // Frontend should migrate to using cookies
+          token: accessToken,
           accessToken,
           refreshToken,
         },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -81,7 +92,7 @@ class AuthController {
         message: "Profile fetched successfully",
         data: req.user,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -94,7 +105,7 @@ class AuthController {
         message: "Profile updated successfully",
         data: updatedUser,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -116,7 +127,7 @@ class AuthController {
           token,
         },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -145,11 +156,14 @@ class AuthController {
         userData as User
       );
 
+      // Set HttpOnly cookie for Google login too
+      res.cookie(ACCESS_TOKEN_COOKIE.name, token, ACCESS_TOKEN_COOKIE.options);
+
       const userDataEncoded = encodeURIComponent(JSON.stringify(user));
       res.redirect(
         `${feUrl}/auth/callback?token=${token}&user=${userDataEncoded}`
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -159,7 +173,7 @@ class AuthController {
       const { email } = req.body;
       const { message } = await AuthService.forgotPassword(email);
       res.status(200).json({ message });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -169,17 +183,20 @@ class AuthController {
       const { token, password } = req.body;
       const { message } = await AuthService.resetPassword(token, password);
       res.status(200).json({ message });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
 
   /**
-   * Refresh access token using refresh token
+   * Refresh access token using refresh token from cookie or body
+   * Sets new HttpOnly cookies with refreshed tokens
    */
   public async refreshToken(req: Request, res: Response, next: NextFunction) {
     try {
-      const { refreshToken } = req.body;
+      // Try to get refresh token from cookie first, then body
+      const refreshToken =
+        req.cookies?.[REFRESH_TOKEN_COOKIE.name] || req.body.refreshToken;
 
       if (!refreshToken) {
         throw new AppError(400, "Refresh token is required");
@@ -195,34 +212,50 @@ class AuthController {
         metadata
       );
 
+      // Set new HttpOnly cookies
+      if (tokens.refreshToken) {
+        setAuthCookies(res, tokens.accessToken, tokens.refreshToken);
+      } else {
+        res.cookie(
+          ACCESS_TOKEN_COOKIE.name,
+          tokens.accessToken,
+          ACCESS_TOKEN_COOKIE.options
+        );
+      }
+
       res.status(200).json({
         message: "Token refreshed successfully",
         data: {
-          token: tokens.accessToken, // Backward compatibility
+          token: tokens.accessToken,
           accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken,
         },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
 
   /**
-   * Logout - revokes refresh token
+   * Logout - revokes refresh token and clears cookies
    */
   public async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      const { refreshToken } = req.body;
+      // Try to get refresh token from cookie first, then body
+      const refreshToken =
+        req.cookies?.[REFRESH_TOKEN_COOKIE.name] || req.body.refreshToken;
 
       if (refreshToken) {
         await AuthService.logout(refreshToken);
       }
 
+      // Clear HttpOnly cookies
+      clearAuthCookies(res);
+
       res.status(200).json({
         message: "Logged out successfully",
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }
@@ -235,11 +268,14 @@ class AuthController {
       const userId = req.user!.id;
       const result = await AuthService.logoutAllDevices(userId);
 
+      // Clear HttpOnly cookies
+      clearAuthCookies(res);
+
       res.status(200).json({
         message: result.message,
         data: { revokedSessions: result.revokedCount },
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       next(error);
     }
   }

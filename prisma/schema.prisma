@@ -105,6 +105,7 @@ model Invoice {
   client             Client        @relation(fields: [clientId], references: [id])
   user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   items              InvoiceItem[]
+  deletedAt          DateTime?
 
   @@unique([userId, invoiceNumber])
 }

@@ -1,6 +1,10 @@
 ﻿import UserRepository from "../repositories/user.repository";
 import RefreshTokenRepository from "../repositories/refresh-token.repository";
-import { TCreateUserInput, TUpdateUserInput } from "../types/user.types";
+import {
+  TCreateUserInput,
+  TUpdateUserInput,
+  SafeUser,
+} from "../types/user.types";
 import AppError from "../utils/AppError";
 import { hashPassword, comparePassword } from "../utils/hash";
 import {
@@ -56,9 +60,11 @@ class AuthService {
     let createdUser;
     try {
       createdUser = await UserRepository.createUser(newUserInput);
-    } catch (dbError: any) {
-      logger.error(`Database error during user creation: ${dbError.message}`);
-      throw new AppError(500, "Failed to create user", dbError);
+    } catch (dbError: unknown) {
+      const errorMessage =
+        dbError instanceof Error ? dbError.message : "Unknown error";
+      logger.error(`Database error during user creation: ${errorMessage}`);
+      throw new AppError(500, "Failed to create user");
     }
 
     try {
@@ -175,7 +181,7 @@ class AuthService {
   public async updateProfile(
     userId: string,
     data: TUpdateUserInput
-  ): Promise<any> {
+  ): Promise<SafeUser> {
     const updatedUser = await UserRepository.updateUser(userId, data);
     logger.info(
       `Profile updated for user: ${updatedUser.email} (ID: ${userId})`
@@ -186,7 +192,7 @@ class AuthService {
 
   public async handleGoogleLogin(
     user: User
-  ): Promise<{ user: any; token: string }> {
+  ): Promise<{ user: SafeUser; token: string }> {
     const tokenPayload = { id: user.id, email: user.email };
     const token = createToken(tokenPayload);
     logger.info(`User logged in via Google: ${user.email} (ID: ${user.id})`);
@@ -199,7 +205,7 @@ class AuthService {
     email: string;
     name: string;
     company: string;
-  }): Promise<{ user: any; token: string }> {
+  }): Promise<{ user: SafeUser; token: string }> {
     const existingUser = await UserRepository.findUserByEmail(input.email);
     if (existingUser) {
       logger.warn(
@@ -223,9 +229,11 @@ class AuthService {
       logger.info(
         `New user registered via Google signup: ${createdUser.email} (ID: ${createdUser.id})`
       );
-    } catch (dbError: any) {
-      logger.error(`Database error during Google signup: ${dbError.message}`);
-      throw new AppError(500, "Failed to create user", dbError);
+    } catch (dbError: unknown) {
+      const errorMessage =
+        dbError instanceof Error ? dbError.message : "Unknown error";
+      logger.error(`Database error during Google signup: ${errorMessage}`);
+      throw new AppError(500, "Failed to create user");
     }
 
     const tokenPayload = { id: createdUser.id, email: createdUser.email };
